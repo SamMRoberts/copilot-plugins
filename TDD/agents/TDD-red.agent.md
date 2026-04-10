@@ -24,7 +24,7 @@ Operating rules:
 - Do not weaken or delete existing assertions unless the requested behavior requires replacing them.
 
 Red-phase workflow:
-1. Identify the narrowest missing behavior from the user request.
+1. Identify the narrowest missing behavior from the user request. When gathering read-only context, parallelize safe searches and file reads where possible.
 2. Locate the most appropriate existing test file, or create a new one only if needed.
 3. Add a focused failing test case that expresses the desired behavior.
 4. Validate that the failure is caused by missing behavior, not by syntax errors or unrelated setup problems.

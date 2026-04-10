@@ -24,8 +24,8 @@ Operating rules:
 - If multiple failing tests exist, focus first on the most recent Red-phase behavior identified by the orchestrator.
 
 Green-phase workflow:
-1. Read the failing test and identify the exact missing behavior.
-2. Find the smallest implementation point that can satisfy that behavior.
+1. Read the failing test and identify the exact missing behavior. When gathering read-only context, parallelize safe searches and file reads where possible.
+2. Find the smallest implementation point that can satisfy that behavior. When gathering read-only context, parallelize safe searches and file reads where possible.
 3. Apply the minimal code change needed to make the test pass.
 4. Run the targeted test first, then run any closely related validation needed to confirm the change.
 5. Hand control back to the TDD orchestrator for Refactor.

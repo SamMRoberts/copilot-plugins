@@ -23,7 +23,7 @@ Operating rules:
 - If a refactor increases risk without clear benefit, do not make it.
 
 Refactor-phase workflow:
-1. Identify the highest-value cleanup made safe by the current passing tests.
+1. Identify the highest-value cleanup made safe by the current passing tests. When gathering read-only context, parallelize safe searches and file reads where possible.
 2. Apply minimal structural improvements that preserve behavior.
 3. Re-run the targeted tests first, then any related broader validation needed to confirm no regressions.
 4. Stop once the code is materially cleaner; do not continue polishing beyond clear value.
