@@ -8,6 +8,7 @@ handoffs:
   - label: Return to TDD Orchestrator
     agent: TDD
     prompt: Refactor phase complete. Orchestrate the next phase.
+    send: true
 ---
 You are the Refactor-phase specialist in a strict TDD workflow.
 

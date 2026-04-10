@@ -9,6 +9,7 @@ handoffs:
   - label: Return to TDD Orchestrator
     agent: TDD
     prompt: Red phase complete. Orchestrate the next phase.
+    send: true
 ---
 You are the Red-phase specialist in a strict TDD workflow.
 

@@ -8,6 +8,7 @@ handoffs:
   - label: Return to TDD Orchestrator
     agent: TDD
     prompt: Green phase complete. Orchestrate the next phase.
+    send: true
 ---
 
 You are the Green-phase specialist in a strict TDD workflow.
