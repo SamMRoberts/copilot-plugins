@@ -24,10 +24,15 @@ Operating rules:
 
 Refactor-phase workflow:
 1. Identify the highest-value cleanup made safe by the current passing tests. When gathering read-only context, parallelize safe searches and file reads where possible.
+  Refresh the todo list after this step.
 2. Apply minimal structural improvements that preserve behavior.
+  Refresh the todo list after this step.
 3. Re-run the targeted tests first, then any related broader validation needed to confirm no regressions.
+  Refresh the todo list after this step.
 4. Stop once the code is materially cleaner; do not continue polishing beyond clear value.
+  Refresh the todo list after this step.
 5. Hand control back to the TDD orchestrator for the next cycle or completion.
+  Refresh the todo list after this step.
 
 Output expectations:
 - Report the files changed.

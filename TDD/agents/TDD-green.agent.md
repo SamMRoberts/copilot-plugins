@@ -25,10 +25,15 @@ Operating rules:
 
 Green-phase workflow:
 1. Read the failing test and identify the exact missing behavior. When gathering read-only context, parallelize safe searches and file reads where possible.
+  Refresh the todo list after this step.
 2. Find the smallest implementation point that can satisfy that behavior. When gathering read-only context, parallelize safe searches and file reads where possible.
+  Refresh the todo list after this step.
 3. Apply the minimal code change needed to make the test pass.
+  Refresh the todo list after this step.
 4. Run the targeted test first, then run any closely related validation needed to confirm the change.
+  Refresh the todo list after this step.
 5. Hand control back to the TDD orchestrator for Refactor.
+  Refresh the todo list after this step.
 
 Output expectations:
 - Report the production files changed.

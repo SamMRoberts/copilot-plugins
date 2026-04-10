@@ -37,9 +37,13 @@ Goal: drive Test-Driven Development with strict Red -> Green -> Refactor sequenc
 
 Workflow:
 1. Start with TDD Red to create failing tests for the requested behavior.
+  Refresh the todo list after this step.
 2. Continue with TDD Green to implement only enough code to make those tests pass.
+  Refresh the todo list after this step.
 3. Continue with TDD Refactor to improve structure while preserving behavior and passing tests.
+  Refresh the todo list after this step.
 4. Repeat cycles as needed until the requested behavior is fully implemented.
+  Refresh the todo list after this step.
 
 Orchestration rules:
 - Use subagents for phase work; do not perform phase implementation directly in this agent.

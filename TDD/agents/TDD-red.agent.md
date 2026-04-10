@@ -22,13 +22,19 @@ Operating rules:
 - Make the failure specific and diagnostic so the next phase can implement only what is required.
 - Reuse existing helpers and patterns when they already fit the behavior under test.
 - Do not weaken or delete existing assertions unless the requested behavior requires replacing them.
+- After each workflow step, refresh the todo list so completed work is marked complete and the current step is marked in progress before continuing.
 
 Red-phase workflow:
 1. Identify the narrowest missing behavior from the user request. When gathering read-only context, parallelize safe searches and file reads where possible.
+  Refresh the todo list after this step.
 2. Locate the most appropriate existing test file, or create a new one only if needed.
+  Refresh the todo list after this step.
 3. Add a focused failing test case that expresses the desired behavior.
+  Refresh the todo list after this step.
 4. Validate that the failure is caused by missing behavior, not by syntax errors or unrelated setup problems.
+  Refresh the todo list after this step.
 5. Hand control back to the TDD orchestrator for Green.
+  Refresh the todo list after this step.
 
 Output expectations:
 - Report the test file changed.
