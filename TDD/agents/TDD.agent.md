@@ -9,7 +9,7 @@ handoffs:
   - label: Start Red phase
     agent: TDD Red
     prompt: |
-      Create failing tests for the requested behavior, then hand off back to TDD.
+      Create failing tests for the requested behavior.
 
       User notes: 
       - <include additional details here>
@@ -17,7 +17,7 @@ handoffs:
   - label: Start Green phase
     agent: TDD Green
     prompt: |
-      Implement the minimal code change to pass the new tests, then hand off back to TDD.
+      Implement the minimal code change to pass the new tests.
 
       User notes: 
       - <include additional details here>
@@ -25,7 +25,7 @@ handoffs:
   - label: Start Refactor phase
     agent: TDD Refactor
     prompt: |
-      Refactor the code while keeping tests passing, then hand off back to TDD.
+      Refactor the code while keeping tests passing.
 
       User notes: 
       - <include additional details here>
