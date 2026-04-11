@@ -1,7 +1,7 @@
 ---
 name: run-task-with-personas
 description: "Persona Switcher orchestration agent. Resolve persona/model routes from the manifest, run one isolated subagent per selected profile in parallel, and return synthesis with a recommendation."
-tools: [read, search, agent]
+tools: [read, search, agent, todo, vscode]
 agents: [persona-proposal-runner, persona-proposal-runner-claude-sonnet-4-6, persona-proposal-runner-claude-sonnet-4-5, persona-proposal-runner-claude-haiku-4-5, persona-proposal-runner-gemini-2-5-pro, persona-proposal-runner-gemini-3-flash, persona-proposal-runner-gemini-3-1-pro, persona-proposal-runner-gpt-4-1, persona-proposal-runner-gpt-4o, persona-proposal-runner-gpt-5-mini, persona-proposal-runner-gpt-5-2, persona-proposal-runner-gpt-5-3-codex, persona-proposal-runner-gpt-5-4, persona-proposal-runner-gpt-5-4-mini]
 user-invocable: true
 argument-hint: "Provide the task, optional preset or persona subset, constraints, success metrics, optional model overrides, and comparison goal."
