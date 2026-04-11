@@ -11,7 +11,7 @@
             "defaultModel": "GPT-5 mini (copilot)",
             "runnerAgent": "persona-proposal-runner-gpt-5-mini",
             "routeReason": "Good fit for concrete, stepwise implementation guidance.",
-            "personaSource": "../../../Persona Switcher/skills/team-shared-task-perspectives/references/personas/software-engineer-junior.md"
+            "personaSource": "./software-engineer-junior.md"
         },
         {
             "id": "software-engineer-mid-level",
@@ -22,7 +22,7 @@
             "defaultModel": "GPT-5.2 (copilot)",
             "runnerAgent": "persona-proposal-runner-gpt-5-2",
             "routeReason": "Balances implementation speed with practical constraints.",
-            "personaSource": "../../../Persona Switcher/skills/team-shared-task-perspectives/references/personas/software-engineer-mid-level.md"
+            "personaSource": "./software-engineer-mid-level.md"
         },
         {
             "id": "software-engineer-senior",
@@ -33,7 +33,7 @@
             "defaultModel": "GPT-5.4 (copilot)",
             "runnerAgent": "persona-proposal-runner-gpt-5-4",
             "routeReason": "Best default for architecture, tradeoff analysis, and maintainability.",
-            "personaSource": "../../../Persona Switcher/skills/team-shared-task-perspectives/references/personas/software-engineer-senior.md"
+            "personaSource": "./software-engineer-senior.md"
         },
         {
             "id": "site-reliability-engineer-junior",
@@ -44,7 +44,7 @@
             "defaultModel": "Claude Haiku 4.5 (copilot)",
             "runnerAgent": "persona-proposal-runner-claude-haiku-4-5",
             "routeReason": "Strong fit for verification-oriented operational review.",
-            "personaSource": "../../../Persona Switcher/skills/team-shared-task-perspectives/references/personas/site-reliability-engineer-junior.md"
+            "personaSource": "./site-reliability-engineer-junior.md"
         },
         {
             "id": "site-reliability-engineer-mid-level",
@@ -55,7 +55,7 @@
             "defaultModel": "GPT-4.1 (copilot)",
             "runnerAgent": "persona-proposal-runner-gpt-4-1",
             "routeReason": "Good default for balancing incident history with delivery pragmatism.",
-            "personaSource": "../../../Persona Switcher/skills/team-shared-task-perspectives/references/personas/site-reliability-engineer-mid-level.md"
+            "personaSource": "./site-reliability-engineer-mid-level.md"
         },
         {
             "id": "site-reliability-engineer-senior",
@@ -66,7 +66,7 @@
             "defaultModel": "Gemini 3.1 Pro (copilot)",
             "runnerAgent": "persona-proposal-runner-gemini-3-1-pro",
             "routeReason": "Useful for failure-mode analysis and resilience planning.",
-            "personaSource": "../../../Persona Switcher/skills/team-shared-task-perspectives/references/personas/site-reliability-engineer-senior.md"
+            "personaSource": "./site-reliability-engineer-senior.md"
         },
         {
             "id": "engineering-manager",
@@ -77,7 +77,7 @@
             "defaultModel": "Gemini 2.5 Pro (copilot)",
             "runnerAgent": "persona-proposal-runner-gemini-2-5-pro",
             "routeReason": "Good fit for sequencing, staffing, and delivery tradeoff framing.",
-            "personaSource": "../../../Persona Switcher/skills/team-shared-task-perspectives/references/personas/engineering-manager.md"
+            "personaSource": "./engineering-manager.md"
         },
         {
             "id": "program-manager",
@@ -88,7 +88,7 @@
             "defaultModel": "Claude Sonnet 4.5 (copilot)",
             "runnerAgent": "persona-proposal-runner-claude-sonnet-4-5",
             "routeReason": "Useful for dependency management and coordination risks.",
-            "personaSource": "../../../Persona Switcher/skills/team-shared-task-perspectives/references/personas/program-manager.md"
+            "personaSource": "./program-manager.md"
         },
         {
             "id": "product-manager",
@@ -99,7 +99,7 @@
             "defaultModel": "Claude Sonnet 4.6 (copilot)",
             "runnerAgent": "persona-proposal-runner-claude-sonnet-4-6",
             "routeReason": "Strong default for outcome framing and value tradeoffs.",
-            "personaSource": "../../../Persona Switcher/skills/team-shared-task-perspectives/references/personas/product-manager.md"
+            "personaSource": "./product-manager.md"
         }
     ],
     "supportedModelRoutes": [
