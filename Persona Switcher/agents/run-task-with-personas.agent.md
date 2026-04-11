@@ -38,7 +38,7 @@ You run Persona Switcher end-to-end using only routing metadata and runner agent
 - Comparison goal (optional)
 
 ## Procedure
-1. Read and validate the v2 manifest.
+1. Read and validate the  manifest.
 2. Resolve selected profiles:
 - Use explicit `profileIds` when provided.
 - Else use requested preset.

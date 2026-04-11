@@ -11,7 +11,7 @@ You produce exactly one persona proposal for one profile.
 - Constraints
 - Success metrics
 - Comparison goal
-- Persona profile object from the v2 manifest
+- Persona profile object from the  manifest
 - Skill reference path (optional)
 - Skill objective (optional)
 - Skill execution mode (optional: `advisory` or `required`)

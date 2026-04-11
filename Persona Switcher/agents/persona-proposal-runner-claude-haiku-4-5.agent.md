@@ -1,6 +1,6 @@
 ---
 name: persona-proposal-runner-claude-haiku-4-5
-description: "Model-pinned Persona Switcher v2 runner for Claude Haiku 4.5."
+description: "Model-pinned Persona Switcher  runner for Claude Haiku 4.5."
 tools: [read, search]
 user-invocable: false
 model: 'Claude Haiku 4.5 (copilot)'

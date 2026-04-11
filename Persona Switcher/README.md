@@ -1,13 +1,13 @@
-# Persona Switcher v2
+# Persona Switcher 
 
-Persona Switcher v2 is a task-centric skill bundle for running the same prompt through predefined persona and model routes, then comparing the outputs.
+Persona Switcher  is a task-centric skill bundle for running the same prompt through predefined persona and model routes, then comparing the outputs.
 
 ## Included
 
 - [run-task-with-personas-and-models](./skills/run-task-with-personas-and-models/SKILL.md)
 - [run-task-with-personas](./agents/run-task-with-personas.agent.md)
-- [run-persona-switcher-v2](./prompts/run-persona-switcher-v2.prompt.md)
-- [run-persona-switcher-v2-quick](./prompts/run-persona-switcher-v2-quick.prompt.md)
+- [run-persona-switcher-](./prompts/run-persona-switcher-.prompt.md)
+- [run-persona-switcher--quick](./prompts/run-persona-switcher--quick.prompt.md)
 
 ## How It Works
 

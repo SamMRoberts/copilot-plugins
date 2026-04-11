@@ -1,6 +1,6 @@
 ---
 name: persona-proposal-runner-gemini-3-flash
-description: "Model-pinned Persona Switcher v2 runner for Gemini 3 Flash (Preview)."
+description: "Model-pinned Persona Switcher  runner for Gemini 3 Flash (Preview)."
 tools: [read, search]
 user-invocable: false
 model: 'Gemini 3 Flash (Preview) (copilot)'
