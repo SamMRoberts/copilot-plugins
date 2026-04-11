@@ -35,6 +35,8 @@ Run Persona Switcher end-to-end using the `run-task-with-personas` orchestrator.
 5. If skill names or a skill reference are provided, normalize shared skill context once and pass it to each persona route with the same objective and mode.
 6. Run one isolated persona proposal per selected profile in parallel.
 7. Return a decision snapshot, execution matrix, per-route outputs, and synthesis.
+8. Include explicit result-processing notes that explain how returned persona outputs were grouped, weighted, conflict-resolved, and selected into the final recommendation.
 
 ## Output Requirements
 Use the exact output structure produced by `run-task-with-personas`.
+The output must include a `Result Processing Notes` section that explains, in plain language, what the system did with multiple persona results.

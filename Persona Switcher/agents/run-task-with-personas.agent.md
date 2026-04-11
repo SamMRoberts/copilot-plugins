@@ -19,6 +19,7 @@ You run Persona Switcher end-to-end using routing metadata, shared skill context
 - Invoke one subagent per profile in parallel.
 - Continue execution when individual subagent calls fail.
 - Return a decision snapshot, execution matrix, per-route outputs, and synthesis.
+- Explicitly explain how returned persona outputs were processed into the final recommendation.
 
 ## Inputs
 - Task statement
@@ -70,12 +71,15 @@ If the caller does not provide `profileIds` or a concrete preset, classify the t
 9. Dispatch all selected runs in parallel to resolved runner agents.
 10. Collect successful outputs and list failed routes.
 11. Synthesize the results into a recommendation that explains why it wins, what tradeoff it accepts, and when an alternate route is better.
+12. Add result-processing notes that explain grouping, weighting, conflict resolution, and any outlier deprioritization.
 
 ## Synthesis Rules
 - Default `comparisonGoal` to `risk-first` unless the caller clearly asks for another decision frame.
 - Use the personas' confidence, success signals, and stated risks to weight the synthesis.
 - Highlight consensus when multiple personas converge on the same direction.
 - When routes disagree, explain the disagreement in terms of role incentives and hidden costs.
+- Explain how results were grouped and weighted for the selected comparison goal.
+- If any route is deprioritized as an outlier, explicitly state why.
 - If more than half of the selected routes fail, do not force a strong recommendation.
 - Keep the strongest recommendation crisp: one primary path, one strongest alternative, and one reason to switch.
 - Keep output proportional to `responseDepth`.
@@ -128,6 +132,13 @@ If the caller does not provide `profileIds` or a concrete preset, classify the t
 - Strongest maintainability-first option:
 - Rationale:
 - Missing routes or failures:
+
+### Result Processing Notes
+- How results were grouped:
+- What was weighted most and why:
+- How conflicts were resolved:
+- Why any route was deprioritized or treated as an outlier:
+- How the final recommendation was selected from returned persona outputs:
 
 ### Assumptions
 - Assumption 1

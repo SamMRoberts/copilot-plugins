@@ -121,6 +121,7 @@ Each routed invocation should include:
 7. Let `run-task-with-personas` invoke selected persona routes in parallel and return normalized outputs.
 8. Compare proposals across risk, speed, maintainability, delivery confidence, and product impact when relevant.
 9. Recommend one path and clearly state what would change the recommendation.
+10. Explicitly explain how route outputs were processed into the final recommendation, including weighting, tie-breaks, and excluded outliers.
 
 ## Decision Rules
 
@@ -183,6 +184,13 @@ Use this structure:
 - Rationale:
 - Missing routes or failures:
 
+### Result Processing Notes
+- How results were grouped:
+- What was weighted most and why:
+- How conflicts were resolved:
+- Why any route was deprioritized or treated as an outlier:
+- How the final recommendation was selected from the returned persona outputs:
+
 ### Assumptions
 - Assumption 1
 
@@ -196,5 +204,6 @@ Use this structure:
 - Do not fabricate model support or runner agent names.
 - Prefer focused persona selection unless broad coverage is explicitly valuable.
 - Make the synthesis decision-ready: name the winner, the main risk, and the reason to switch to the best alternative.
+- Always include a plain-language explanation of how multi-persona outputs were processed into the recommendation so the user can trace the decision logic.
 - Do not bypass `run-task-with-personas`; all runtime execution must be handed off to that agent.
 - Prefer resolving shared skill context once in the orchestrator instead of repeating the same skill work in every route.
