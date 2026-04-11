@@ -77,6 +77,7 @@ Notes:
 ## Persona Source Of Truth
 - Persona index: `./.github/skills/team-shared-task-perspectives/references/personas/index.json`
 - Persona files are referenced in that index.
+- **Path convention:** At runtime, the `Persona Switcher/` directory is deployed under `.github/`. All paths beginning with `./.github/skills/` resolve to `Persona Switcher/skills/` in the source repository.
 - Each persona in the index may include `preferredModel` and `runnerAgent`; use these as the default route.
 - If routed model metadata is present, it may override the index default by using the Model-to-Agent Routing Map above.
 - If neither index routing nor routed metadata is available, fall back to `persona-proposal-runner`.

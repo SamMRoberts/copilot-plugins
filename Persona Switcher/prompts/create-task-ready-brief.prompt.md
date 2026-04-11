@@ -2,7 +2,6 @@
 name: create-task-ready-brief
 description: "Generate a task-ready brief with constraints, risks, and success metrics before running team-shared-task-perspectives."
 argument-hint: "Describe the task, context, constraints, and what success should look like."
-agent: "agent"
 ---
 Create a task-ready brief that will be used as input to the `team-shared-task-perspectives` skill.
 
