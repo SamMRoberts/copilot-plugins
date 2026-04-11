@@ -21,7 +21,7 @@ You produce exactly one persona proposal for one profile.
 
 ## Required Behavior
 - Reuse provided shared skill context before doing route-specific reasoning.
-- If `skillNames` are provided and the shared skill context is insufficient, invoke the requested skills directly before finalizing the proposal.
+- If `skillNames` are provided and the shared skill context does not answer the route's persona-specific implementation, validation, or risk questions, invoke the requested skills directly before finalizing the proposal.
 - Read the `personaSource` path from the provided profile before proposing a path.
 - If `skillReferencePath` is provided, read and apply that skill guidance before generating the proposal.
 - If `skillExecutionMode` is `required` and a requested skill cannot be invoked or the skill reference cannot be read, return a blocked route response and state the failure reason.

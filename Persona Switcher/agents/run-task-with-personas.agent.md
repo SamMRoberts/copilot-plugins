@@ -63,7 +63,7 @@ If the caller does not provide `profileIds` or a concrete preset, classify the t
    - Else use the requested preset.
    - Else apply the auto-selection rules.
 4. Validate model overrides against `supportedModelRoutes`.
-5. If `skillNames` are provided, invoke each requested skill once when possible and capture concise reusable guidance for every route.
+5. If `skillNames` are provided, invoke each requested skill once when that skill is available to the agent runtime and capture concise reusable guidance for every route.
 6. If `skillReferencePath` is provided, read the referenced skill file once and include the path plus a short extracted objective summary in every route payload.
 7. If `skillExecutionMode` is `required` and a requested skill cannot be invoked or the skill reference cannot be read, stop and report an incomplete run.
 8. Build one payload per selected profile with identical task, decision, constraints, success metrics, comparison goal, response depth, and shared skill context.
