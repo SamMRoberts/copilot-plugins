@@ -18,7 +18,7 @@ This skill runs the same task against a curated set of predefined persona and mo
 
 ## Source Of Truth
 
-Predefined persona and model routes are stored in [Predefined Persona-Model Profiles](./references/predefined-persona-models.json).
+Predefined persona and model routes are stored in [Predefined Persona-Model Profiles](./references/personas/predefined-persona-models.json).
 
 That manifest defines:
 
@@ -75,12 +75,13 @@ Resolve each selected persona route in this order:
 2. The persona's `defaultModel` and `runnerAgent` from the manifest.
 3. Generic fallback route:
    - Model: unspecified
-   - Runner agent: `persona-proposal-runner`
+  - Runner agent: `psv2-persona-proposal-runner`
 
 Do not change the canonical task text across routes.
 
 ## Execution Contract
 
+- Primary runtime agent: `psv2-run-task-with-personas`.
 - Run one isolated subagent call per selected persona.
 - Keep each invocation stateless and independent.
 - Pass the same task, constraints, and success metrics to every route.
