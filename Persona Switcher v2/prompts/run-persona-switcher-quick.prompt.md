@@ -1,10 +1,10 @@
 ---
-name: run-persona-switcher-v2-quick
-description: "Run Persona Switcher v2 in quick mode with engineering-core profiles and speed-first comparison defaults."
+name: run-persona-switcher-quick
+description: "Run Persona Switcher in quick mode with engineering-core profiles and speed-first comparison defaults."
 argument-hint: "Provide task and optional constraints; quick mode defaults to engineering-core and speed-first unless you override them."
 agent: "run-task-with-personas"
 ---
-Run Persona Switcher v2 in quick mode for faster iteration.
+Run Persona Switcher in quick mode for faster iteration.
 
 ## Default Quick Settings
 - Preset id: `engineering-core`

@@ -1,10 +1,10 @@
 ---
-name: run-persona-switcher-v2
-description: "Run Persona Switcher v2 end-to-end for a single task using predefined personas and model routes."
+name: run-persona-switcher
+description: "Run Persona Switcher end-to-end for a single task using predefined personas and model routes."
 argument-hint: "Provide task, optional constraints, success metrics, optional preset/profile ids, optional model overrides, and comparison goal."
 agent: "run-task-with-personas"
 ---
-Run Persona Switcher v2 end-to-end using the `run-task-with-personas` orchestrator.
+Run Persona Switcher end-to-end using the `run-task-with-personas` orchestrator.
 
 ## Inputs
 - Task statement
