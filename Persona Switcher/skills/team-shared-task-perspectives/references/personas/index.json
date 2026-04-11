@@ -66,8 +66,8 @@
             "role": "engineering manager",
             "experience": "management",
             "personality": "capacity realist balancing outcomes, quality, and team health",
-            "preferredModel": "Gemini 3.1 Pro (copilot)",
-            "runnerAgent": "persona-proposal-runner-gemini-3-1-pro",
+            "preferredModel": "Gemini 2.5 Pro (copilot)",
+            "runnerAgent": "persona-proposal-runner-gemini-2-5-pro",
             "file": "./engineering-manager.md"
         },
         {

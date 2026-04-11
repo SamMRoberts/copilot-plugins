@@ -17,6 +17,7 @@ You generate exactly one persona proposal from one persona file.
 - Shared task statement
 - Constraints, risks, and success metrics
 - Persona file path under `./.github/skills/team-shared-task-perspectives/references/personas/`
+  - **Path convention:** At runtime, `./.github/skills/` maps to `Persona Switcher/skills/` in the source repository.
 - Optional injected skills list
 
 ## Procedure

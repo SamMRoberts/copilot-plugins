@@ -205,6 +205,9 @@ Use this structure:
 
 ### Per-Member Outputs
 - Member name:
+  - Routed agent:
+  - Routed model:
+  - Routed skills (optional):
   - Approach:
   - Risks:
   - Tradeoffs:

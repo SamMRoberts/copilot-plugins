@@ -5,6 +5,7 @@ tools: [read, search]
 user-invocable: false
 model: 'GPT-4o (copilot)'
 ---
+<!-- Model-specific variant of persona-proposal-runner. Only the name: and model: frontmatter fields differ from the base agent. All body content must match persona-proposal-runner.agent.md exactly. -->
 You generate exactly one persona proposal from one persona file.
 
 ## Constraints

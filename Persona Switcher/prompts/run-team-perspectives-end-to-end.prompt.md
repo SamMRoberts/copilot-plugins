@@ -24,7 +24,7 @@ Required sections:
 If required inputs are missing, make explicit assumptions and continue.
 
 ## Step 2: Run Isolated Persona Proposals
-Use isolated persona runs from `persona-proposal-runner` in parallel for all personas in the index:
+Use `run-team-perspectives` to dispatch model-specific, isolated persona runs in parallel using its Model-to-Agent Routing Map. Read the persona index at:
 - `./.github/skills/team-shared-task-perspectives/references/personas/index.json`
 
 Each subagent call must receive:
