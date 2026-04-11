@@ -89,11 +89,11 @@ Do not change the canonical task text across routes.
 
 - Runtime handoff is mandatory: always execute through `run-task-with-personas.agent.md` (agent name: `run-task-with-personas`).
 - This skill is guidance and output-shape policy; it is not the runtime controller.
-- When skill names or a skill reference are provided, `run-task-with-personas` should resolve shared skill context once and pass that context to every selected route.
+- When skill names or a skill reference are provided, `run-task-with-personas` should normalize that shared skill context once and pass it to every selected route.
 - Run one isolated subagent call per selected persona.
 - Keep each invocation stateless and independent.
 - Pass the same task, decision, constraints, success metrics, comparison goal, and response depth to every route.
-- Allow routes to reuse shared skill context and directly invoke the requested skills only when extra route-specific guidance is still needed.
+- Allow routes to reuse shared skill context and explain any route-specific interactions with the requested skills.
 - Apply persona-specific framing only through the selected profile.
 - Continue if one route fails; synthesize successful outputs and list missing routes.
 

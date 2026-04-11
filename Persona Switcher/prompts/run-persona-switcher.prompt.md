@@ -32,7 +32,7 @@ Run Persona Switcher end-to-end using the `run-task-with-personas` orchestrator.
 2. Infer the decision that needs to be made.
 3. Resolve selected persona profiles from profile ids, a preset, or focused auto-selection.
 4. Resolve model routes using defaults plus valid overrides.
-5. If skill names or a skill reference are provided, resolve shared skill context once and pass it to each persona route with the same objective and mode.
+5. If skill names or a skill reference are provided, normalize shared skill context once and pass it to each persona route with the same objective and mode.
 6. Run one isolated persona proposal per selected profile in parallel.
 7. Return a decision snapshot, execution matrix, per-route outputs, and synthesis.
 

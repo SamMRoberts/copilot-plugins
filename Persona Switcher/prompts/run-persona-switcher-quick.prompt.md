@@ -31,7 +31,7 @@ Run Persona Switcher in quick mode for faster iteration.
 1. Normalize one canonical task statement.
 2. Use the default quick settings unless the caller overrides them.
 3. Resolve the smallest credible persona set for the task.
-4. Resolve shared skill context once when skill names or a skill reference are provided.
+4. Normalize shared skill context once when skill names or a skill reference are provided.
 5. Run one isolated persona proposal per selected profile in parallel.
 6. Return a concise decision snapshot, execution matrix, per-route outputs, and synthesis.
 
