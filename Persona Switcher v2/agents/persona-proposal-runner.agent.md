@@ -1,5 +1,5 @@
 ---
-name: psv2-persona-proposal-runner
+name: persona-proposal-runner
 description: "Generate one persona-specific proposal for Persona Switcher v2 from a provided profile and personaSource file."
 tools: [read, search]
 user-invocable: false

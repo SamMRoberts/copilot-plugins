@@ -1,8 +1,8 @@
 ---
-name: psv2-run-task-with-personas
+name: run-task-with-personas
 description: "Persona Switcher v2 orchestration agent. Resolve persona/model routes from the v2 manifest, run one isolated subagent per selected profile in parallel, and return synthesis with a recommendation."
 tools: [read, search, agent]
-agents: [psv2-persona-proposal-runner, psv2-persona-proposal-runner-claude-sonnet-4-6, psv2-persona-proposal-runner-claude-sonnet-4-5, psv2-persona-proposal-runner-claude-haiku-4-5, psv2-persona-proposal-runner-gemini-2-5-pro, psv2-persona-proposal-runner-gemini-3-flash, psv2-persona-proposal-runner-gemini-3-1-pro, psv2-persona-proposal-runner-gpt-4-1, psv2-persona-proposal-runner-gpt-4o, psv2-persona-proposal-runner-gpt-5-mini, psv2-persona-proposal-runner-gpt-5-2, psv2-persona-proposal-runner-gpt-5-3-codex, psv2-persona-proposal-runner-gpt-5-4, psv2-persona-proposal-runner-gpt-5-4-mini]
+agents: [persona-proposal-runner, persona-proposal-runner-claude-sonnet-4-6, persona-proposal-runner-claude-sonnet-4-5, persona-proposal-runner-claude-haiku-4-5, persona-proposal-runner-gemini-2-5-pro, persona-proposal-runner-gemini-3-flash, persona-proposal-runner-gemini-3-1-pro, persona-proposal-runner-gpt-4-1, persona-proposal-runner-gpt-4o, persona-proposal-runner-gpt-5-mini, persona-proposal-runner-gpt-5-2, persona-proposal-runner-gpt-5-3-codex, persona-proposal-runner-gpt-5-4, persona-proposal-runner-gpt-5-4-mini]
 user-invocable: true
 argument-hint: "Provide the task, optional preset or persona subset, constraints, success metrics, optional model overrides, and comparison goal."
 ---
@@ -22,7 +22,7 @@ You run Persona Switcher v2 end-to-end using only v2 routing metadata and v2 run
 ## Route Resolution Order
 1. Valid explicit model override for a profile.
 2. Profile default route from `profiles[].defaultModel` + `profiles[].runnerAgent`.
-3. Fallback: `psv2-persona-proposal-runner`.
+3. Fallback: `persona-proposal-runner`.
 
 ## Inputs
 - Task statement

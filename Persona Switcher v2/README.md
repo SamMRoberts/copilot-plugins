@@ -5,7 +5,7 @@ Persona Switcher v2 is a task-centric skill bundle for running the same prompt t
 ## Included
 
 - [run-task-with-personas-and-models](./skills/run-task-with-personas-and-models/SKILL.md)
-- [psv2-run-task-with-personas](./agents/psv2-run-task-with-personas.agent.md)
+- [run-task-with-personas](./agents/run-task-with-personas.agent.md)
 - [run-persona-switcher-v2](./prompts/run-persona-switcher-v2.prompt.md)
 - [run-persona-switcher-v2-quick](./prompts/run-persona-switcher-v2-quick.prompt.md)
 
@@ -24,6 +24,6 @@ The predefined persona and model routes live in [predefined-persona-models.json]
 
 ## Agent Topology
 
-- Orchestrator: [psv2-run-task-with-personas](./agents/psv2-run-task-with-personas.agent.md)
-- Generic worker fallback: [psv2-persona-proposal-runner](./agents/psv2-persona-proposal-runner.agent.md)
+- Orchestrator: [run-task-with-personas](./agents/run-task-with-personas.agent.md)
+- Generic worker fallback: [persona-proposal-runner](./agents/persona-proposal-runner.agent.md)
 - Model-pinned workers: [agents](./agents)

@@ -2,9 +2,9 @@
 name: run-persona-switcher-v2
 description: "Run Persona Switcher v2 end-to-end for a single task using predefined personas and model routes."
 argument-hint: "Provide task, optional constraints, success metrics, optional preset/profile ids, optional model overrides, and comparison goal."
-agent: "psv2-run-task-with-personas"
+agent: "run-task-with-personas"
 ---
-Run Persona Switcher v2 end-to-end using the `psv2-run-task-with-personas` orchestrator.
+Run Persona Switcher v2 end-to-end using the `run-task-with-personas` orchestrator.
 
 ## Inputs
 - Task statement
@@ -23,4 +23,4 @@ Run Persona Switcher v2 end-to-end using the `psv2-run-task-with-personas` orche
 5. Return execution matrix, per-route outputs, and synthesis.
 
 ## Output Requirements
-Use the exact output structure produced by `psv2-run-task-with-personas`.
+Use the exact output structure produced by `run-task-with-personas`.
