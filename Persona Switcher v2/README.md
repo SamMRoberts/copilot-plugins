@@ -18,5 +18,3 @@ Persona Switcher v2 is a task-centric skill bundle for running the same prompt t
 ## Reference Data
 
 The predefined persona and model routes live in [predefined-persona-models.json](./skills/run-task-with-personas-and-models/references/predefined-persona-models.json).
-
-The v2 skill reuses the existing model-specific runner agents already defined in the main [Persona Switcher](../Persona%20Switcher) folder.
