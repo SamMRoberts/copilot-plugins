@@ -1,7 +1,7 @@
 ---
 name: run-persona-switcher-quick
 description: "Run Persona Switcher in quick mode with focused auto-selection, speed-first comparison, and concise output."
-argument-hint: "Provide task and optional constraints; quick mode defaults to preset `auto`, comparison goal `speed-first`, and response depth `brief` unless you override them."
+argument-hint: "Provide task and optional constraints; quick mode defaults to preset `auto`, comparison goal `speed-first`, and response depth `brief` unless you override them, and it also accepts optional skill names and/or a skill reference/objective/mode."
 agent: "run-task-with-personas"
 ---
 Run Persona Switcher in quick mode for faster iteration.
@@ -20,6 +20,10 @@ Run Persona Switcher in quick mode for faster iteration.
   - Preset id
   - Profile ids
   - Model overrides by profile id
+  - Skill names
+  - Skill reference path
+  - Skill objective
+  - Skill execution mode
   - Comparison goal
   - Response depth
 
@@ -27,8 +31,9 @@ Run Persona Switcher in quick mode for faster iteration.
 1. Normalize one canonical task statement.
 2. Use the default quick settings unless the caller overrides them.
 3. Resolve the smallest credible persona set for the task.
-4. Run one isolated persona proposal per selected profile in parallel.
-5. Return a concise decision snapshot, execution matrix, per-route outputs, and synthesis.
+4. Normalize shared skill context once when skill names or a skill reference are provided.
+5. Run one isolated persona proposal per selected profile in parallel.
+6. Return a concise decision snapshot, execution matrix, per-route outputs, and synthesis.
 
 ## Output Requirements
 Use the exact output structure produced by `run-task-with-personas`.

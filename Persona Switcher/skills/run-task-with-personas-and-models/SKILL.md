@@ -1,7 +1,7 @@
 ---
 name: run-task-with-personas-and-models
-description: "Run one specified task through predefined persona and model routes, then synthesize the results. Use for multi-persona comparison, model-aware task review, or selecting a recommended path from parallel proposals."
-argument-hint: "Provide the task, optional decision to make, optional preset or persona subset, optional model overrides, constraints, success metrics, and the decision you want from the comparison."
+description: "Run one specified task through predefined persona and model routes, then synthesize the results. Use for multi-persona comparison, model-aware task review, skill-aware evaluation, or selecting a recommended path from parallel proposals."
+argument-hint: "Provide the task, optional decision to make, optional preset or persona subset, optional model overrides, constraints, success metrics, optional skill names and/or a skill reference/objective/mode, and the decision you want from the comparison."
 user-invocable: true
 ---
 
@@ -15,6 +15,7 @@ This skill runs the same task against a curated set of predefined persona and mo
 2. A focused execution matrix showing persona, final model, and runner agent.
 3. One isolated output per selected persona and model route.
 4. A synthesis that names the best path, the strongest alternative, and the tradeoff that separates them.
+5. Shared skill context that can be reused across persona routes when other skills are involved.
 
 ## Source Of Truth
 
@@ -58,7 +59,7 @@ If the user does not specify `profileIds` or a preset, resolve a focused preset 
 - Optional success metrics.
 - Optional preset id or explicit persona subset.
 - Optional model overrides by persona.
-- Optional skill reference path/objective/mode.
+- Optional skill names and/or a skill reference path/objective/mode.
 - Optional comparison goal.
 - Optional response depth (`brief`, `standard`, or `deep`).
 
@@ -88,9 +89,11 @@ Do not change the canonical task text across routes.
 
 - Runtime handoff is mandatory: always execute through `run-task-with-personas.agent.md` (agent name: `run-task-with-personas`).
 - This skill is guidance and output-shape policy; it is not the runtime controller.
+- When skill names or a skill reference are provided, `run-task-with-personas` should normalize that shared skill context once and pass it to every selected route.
 - Run one isolated subagent call per selected persona.
 - Keep each invocation stateless and independent.
 - Pass the same task, decision, constraints, success metrics, comparison goal, and response depth to every route.
+- Allow routes to reuse shared skill context and explain any route-specific interactions with the requested skills.
 - Apply persona-specific framing only through the selected profile.
 - Continue if one route fails; synthesize successful outputs and list missing routes.
 
@@ -104,13 +107,15 @@ Each routed invocation should include:
 - Resolved model and runner agent.
 - Comparison goal.
 - Response depth.
+- Skill names.
+- Shared skill context summary.
 
 ## Procedure
 
 1. Normalize the task into one canonical statement.
 2. Determine the decision the user is trying to make, even if it must be inferred.
 3. Read the predefined manifest and resolve the selected profiles.
-4. Build one invocation payload for the orchestrator containing task, decision, constraints, success metrics, preset/subset, overrides, comparison goal, and response depth.
+4. Build one invocation payload for the orchestrator containing task, decision, constraints, success metrics, preset/subset, overrides, optional skill inputs, comparison goal, and response depth.
 5. Delegate execution to `run-task-with-personas`.
 6. Let `run-task-with-personas` resolve model overrides and final runner agents.
 7. Let `run-task-with-personas` invoke selected persona routes in parallel and return normalized outputs.
@@ -146,6 +151,8 @@ Use this structure:
 - Comparison goal:
 - Response depth:
 - Personas selected:
+- Skills requested:
+- Shared skill context:
 
 ### Execution Matrix
 - Persona name | Role | Default model | Final model | Runner agent | Route reason
@@ -154,8 +161,8 @@ Use this structure:
 - Persona name:
   - Model:
   - Runner agent:
-  - Skill reference used:
-  - Skill applied:
+  - Skill context used:
+  - Skill interactions:
   - Recommendation:
   - Best fit when:
   - Main risks:
@@ -190,3 +197,4 @@ Use this structure:
 - Prefer focused persona selection unless broad coverage is explicitly valuable.
 - Make the synthesis decision-ready: name the winner, the main risk, and the reason to switch to the best alternative.
 - Do not bypass `run-task-with-personas`; all runtime execution must be handed off to that agent.
+- Prefer resolving shared skill context once in the orchestrator instead of repeating the same skill work in every route.
