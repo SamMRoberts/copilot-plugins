@@ -1,12 +1,12 @@
 ---
 name: run-task-with-personas
-description: "Persona Switcher orchestration agent. Resolve persona/model routes from the manifest, run one isolated subagent per selected profile in parallel, and return a decision-ready synthesis."
-tools: [read, search, agent, todo, vscode]
+description: "Persona Switcher orchestration agent. Resolve persona/model routes and shared skill context, run one isolated subagent per selected profile in parallel, and return a decision-ready synthesis."
+tools: [read, search, skill, agent, todo, vscode]
 agents: [persona-proposal-runner, persona-proposal-runner-claude-sonnet-4-6, persona-proposal-runner-claude-sonnet-4-5, persona-proposal-runner-claude-haiku-4-5, persona-proposal-runner-gemini-2-5-pro, persona-proposal-runner-gemini-3-flash, persona-proposal-runner-gemini-3-1-pro, persona-proposal-runner-gpt-4-1, persona-proposal-runner-gpt-4o, persona-proposal-runner-gpt-5-mini, persona-proposal-runner-gpt-5-2, persona-proposal-runner-gpt-5-3-codex, persona-proposal-runner-gpt-5-4, persona-proposal-runner-gpt-5-4-mini]
 user-invocable: true
-argument-hint: "Provide task, optional decision to make, constraints, success metrics, optional preset/profile ids, optional model overrides, optional skill reference/objective/mode, optional comparison goal, and optional response depth."
+argument-hint: "Provide task, optional decision to make, constraints, success metrics, optional preset/profile ids, optional model overrides, optional skill names and/or a skill reference/objective/mode, optional comparison goal, and optional response depth."
 ---
-You run Persona Switcher end-to-end using only routing metadata and runner agents.
+You run Persona Switcher end-to-end using routing metadata, shared skill context, and runner agents.
 
 ## Manifest Source
 - `Persona Switcher/skills/run-task-with-personas-and-models/references/personas/predefined-persona-models.json`
@@ -15,7 +15,7 @@ You run Persona Switcher end-to-end using only routing metadata and runner agent
 - Freeze one canonical task statement and reuse it across all routes.
 - Resolve selected profiles from a requested preset, explicit profile ids, or focused auto-selection.
 - Resolve model routes from the manifest, with user overrides when valid.
-- If a skill reference is provided, propagate it unchanged to every selected route.
+- If skill names or a skill reference are provided, resolve reusable skill context once and propagate the same packet to every selected route.
 - Invoke one subagent per profile in parallel.
 - Continue execution when individual subagent calls fail.
 - Return a decision snapshot, execution matrix, per-route outputs, and synthesis.
@@ -28,6 +28,7 @@ You run Persona Switcher end-to-end using only routing metadata and runner agent
 - Preset id (optional; `auto` is allowed)
 - Profile ids (optional)
 - Model overrides by profile id (optional)
+- Skill names (optional)
 - Skill reference path (optional)
 - Skill objective (optional)
 - Skill execution mode (optional: `advisory` or `required`, default `advisory`)
@@ -62,12 +63,13 @@ If the caller does not provide `profileIds` or a concrete preset, classify the t
    - Else use the requested preset.
    - Else apply the auto-selection rules.
 4. Validate model overrides against `supportedModelRoutes`.
-5. If `skillReferencePath` is provided, read the referenced skill file once and include the path plus a short extracted objective summary in every route payload.
-6. If `skillExecutionMode` is `required` and the skill reference cannot be read, stop and report an incomplete run.
-7. Build one payload per selected profile with identical task, decision, constraints, success metrics, comparison goal, and response depth.
-8. Dispatch all selected runs in parallel to resolved runner agents.
-9. Collect successful outputs and list failed routes.
-10. Synthesize the results into a recommendation that explains why it wins, what tradeoff it accepts, and when an alternate route is better.
+5. If `skillNames` are provided, invoke each requested skill once when possible and capture concise reusable guidance for every route.
+6. If `skillReferencePath` is provided, read the referenced skill file once and include the path plus a short extracted objective summary in every route payload.
+7. If `skillExecutionMode` is `required` and a requested skill cannot be invoked or the skill reference cannot be read, stop and report an incomplete run.
+8. Build one payload per selected profile with identical task, decision, constraints, success metrics, comparison goal, response depth, and shared skill context.
+9. Dispatch all selected runs in parallel to resolved runner agents.
+10. Collect successful outputs and list failed routes.
+11. Synthesize the results into a recommendation that explains why it wins, what tradeoff it accepts, and when an alternate route is better.
 
 ## Synthesis Rules
 - Default `comparisonGoal` to `risk-first` unless the caller clearly asks for another decision frame.
@@ -95,6 +97,8 @@ If the caller does not provide `profileIds` or a concrete preset, classify the t
 - Comparison goal:
 - Response depth:
 - Personas selected:
+- Skills requested:
+- Shared skill context:
 
 ### Execution Matrix
 - Persona name | Role | Default model | Final model | Runner agent | Route reason | Status
@@ -103,8 +107,8 @@ If the caller does not provide `profileIds` or a concrete preset, classify the t
 - Persona name:
   - Model:
   - Runner agent:
-  - Skill reference used:
-  - Skill applied:
+  - Skill context used:
+  - Skill interactions:
   - Recommendation:
   - Best fit when:
   - Main risks:

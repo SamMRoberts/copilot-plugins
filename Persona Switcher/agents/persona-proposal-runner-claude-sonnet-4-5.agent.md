@@ -1,7 +1,7 @@
 ---
 name: persona-proposal-runner-claude-sonnet-4-5
 description: "Model-pinned Persona Switcher  runner for Claude Sonnet 4.5."
-tools: [read, search]
+tools: [read, search, skill]
 user-invocable: false
 model: 'Claude Sonnet 4.5 (copilot)'
 ---

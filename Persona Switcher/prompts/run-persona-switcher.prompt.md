@@ -1,7 +1,7 @@
 ---
 name: run-persona-switcher
-description: "Run Persona Switcher end-to-end for a single task using focused persona selection and predefined model routes."
-argument-hint: "Provide task, optional decision to make, constraints, success metrics, optional preset/profile ids, optional model overrides, optional skill reference/objective/mode, optional comparison goal, and optional response depth."
+description: "Run Persona Switcher end-to-end for a single task using focused persona selection, predefined model routes, and optional skill context."
+argument-hint: "Provide task, optional decision to make, constraints, success metrics, optional preset/profile ids, optional model overrides, optional skill names and/or a skill reference/objective/mode, optional comparison goal, and optional response depth."
 agent: "run-task-with-personas"
 ---
 Run Persona Switcher end-to-end using the `run-task-with-personas` orchestrator.
@@ -14,6 +14,7 @@ Run Persona Switcher end-to-end using the `run-task-with-personas` orchestrator.
 - Preset id (optional; `auto` allowed)
 - Profile ids (optional)
 - Model overrides by profile id (optional)
+- Skill names (optional)
 - Skill reference path (optional)
 - Skill objective (optional)
 - Skill execution mode (optional: `advisory` or `required`)
@@ -31,7 +32,7 @@ Run Persona Switcher end-to-end using the `run-task-with-personas` orchestrator.
 2. Infer the decision that needs to be made.
 3. Resolve selected persona profiles from profile ids, a preset, or focused auto-selection.
 4. Resolve model routes using defaults plus valid overrides.
-5. If a skill reference is provided, pass it to each persona route with the same objective and mode.
+5. If skill names or a skill reference are provided, resolve shared skill context once and pass it to each persona route with the same objective and mode.
 6. Run one isolated persona proposal per selected profile in parallel.
 7. Return a decision snapshot, execution matrix, per-route outputs, and synthesis.
 

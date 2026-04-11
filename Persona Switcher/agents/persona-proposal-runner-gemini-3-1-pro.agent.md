@@ -1,7 +1,7 @@
 ---
 name: persona-proposal-runner-gemini-3-1-pro
 description: "Model-pinned Persona Switcher  runner for Gemini 3.1 Pro (Preview)."
-tools: [read, search]
+tools: [read, search, skill]
 user-invocable: false
 model: 'Gemini 3.1 Pro (Preview) (copilot)'
 ---

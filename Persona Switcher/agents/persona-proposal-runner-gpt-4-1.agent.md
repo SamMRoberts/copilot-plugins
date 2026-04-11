@@ -1,7 +1,7 @@
 ---
 name: persona-proposal-runner-gpt-4-1
 description: "Model-pinned Persona Switcher  runner for GPT-4.1."
-tools: [read, search]
+tools: [read, search, skill]
 user-invocable: false
 model: 'GPT-4.1 (copilot)'
 ---
