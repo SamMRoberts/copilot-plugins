@@ -5,6 +5,6 @@ tools: [read, search]
 user-invocable: false
 model: 'Gemini 3.1 Pro (Preview) (copilot)'
 ---
-Generate one persona proposal for one v2 profile.
+Generate one persona proposal for one profile.
 
 Inputs, constraints, and output shape must match `persona-proposal-runner`.
