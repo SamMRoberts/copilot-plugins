@@ -81,7 +81,8 @@ Do not change the canonical task text across routes.
 
 ## Execution Contract
 
-- Primary runtime agent: `run-task-with-personas`.
+- Runtime handoff is mandatory: always execute through `run-task-with-personas.agent.md` (agent name: `run-task-with-personas`).
+- This skill is guidance and output-shape policy; it is not the runtime controller.
 - Run one isolated subagent call per selected persona.
 - Keep each invocation stateless and independent.
 - Pass the same task, constraints, and success metrics to every route.
@@ -101,10 +102,10 @@ Each routed invocation should include:
 
 1. Normalize the task into one canonical statement.
 2. Read the predefined manifest and select profiles.
-3. Resolve model overrides and final runner agents.
-4. Build one identical base payload per selected profile.
-5. Invoke all selected persona routes in parallel.
-6. Capture outputs in a consistent schema.
+3. Build one invocation payload for the orchestrator containing task, constraints, success metrics, preset/subset, overrides, and comparison goal.
+4. Delegate execution to `run-task-with-personas`.
+5. Let `run-task-with-personas` resolve model overrides and final runner agents.
+6. Let `run-task-with-personas` invoke selected persona routes in parallel and return normalized outputs.
 7. Compare proposals across risk, speed, maintainability, and delivery confidence.
 8. Recommend a path that fits the user's stated comparison goal.
 
@@ -161,3 +162,4 @@ Use this structure:
 - Do not fabricate model support or runner agent names.
 - Prefer explicit execution matrices over prose-only summaries.
 - Keep synthesis grounded in route differences that matter to the user's decision.
+- Do not bypass `run-task-with-personas`; all runtime execution must be handed off to that agent.
