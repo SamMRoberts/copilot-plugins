@@ -1,5 +1,5 @@
 {
-    "version": "1.1",
+    "version": "1.2",
     "subject": "Predefined persona and model routes for Persona Switcher",
     "profiles": [
         {
@@ -100,6 +100,138 @@
             "runnerAgent": "persona-proposal-runner-claude-sonnet-4-6",
             "routeReason": "Strong default for outcome framing and value tradeoffs.",
             "personaSource": "./product-manager.md"
+        },
+        {
+            "id": "quality-engineer",
+            "name": "Quality Engineer",
+            "role": "quality engineer",
+            "experience": "test strategy",
+            "personality": "edge-case hunter who turns ambiguity into repeatable checks",
+            "defaultModel": "GPT-5.2 (copilot)",
+            "runnerAgent": "persona-proposal-runner-gpt-5-2",
+            "routeReason": "Good fit for test design, regression risk review, and validation strategy.",
+            "personaSource": "./quality-engineer.md"
+        },
+        {
+            "id": "security-engineer",
+            "name": "Security Engineer",
+            "role": "security engineer",
+            "experience": "security review",
+            "personality": "adversarial thinker focused on abuse paths and blast radius",
+            "defaultModel": "Claude Sonnet 4.6 (copilot)",
+            "runnerAgent": "persona-proposal-runner-claude-sonnet-4-6",
+            "routeReason": "Strong default for threat review, control design, and vulnerability mitigation.",
+            "personaSource": "./security-engineer.md"
+        },
+        {
+            "id": "data-engineer",
+            "name": "Data Engineer",
+            "role": "data engineer",
+            "experience": "data platform",
+            "personality": "schema-minded pipeline optimizer with lineage and quality instincts",
+            "defaultModel": "Gemini 2.5 Pro (copilot)",
+            "runnerAgent": "persona-proposal-runner-gemini-2-5-pro",
+            "routeReason": "Useful for data flow design, pipeline reliability, and schema tradeoffs.",
+            "personaSource": "./data-engineer.md"
+        },
+        {
+            "id": "administrative-assistant",
+            "name": "Administrative Assistant",
+            "role": "administrative assistant",
+            "experience": "office operations",
+            "personality": "detail-oriented organizer who keeps actions, logistics, and follow-ups tidy",
+            "defaultModel": "GPT-5 mini (copilot)",
+            "runnerAgent": "persona-proposal-runner-gpt-5-mini",
+            "routeReason": "Good fit for drafting polished office communication and organizing action lists.",
+            "personaSource": "./administrative-assistant.md"
+        },
+        {
+            "id": "operations-coordinator",
+            "name": "Operations Coordinator",
+            "role": "operations coordinator",
+            "experience": "process coordination",
+            "personality": "process stabilizer focused on handoffs, timelines, and clarity",
+            "defaultModel": "Claude Haiku 4.5 (copilot)",
+            "runnerAgent": "persona-proposal-runner-claude-haiku-4-5",
+            "routeReason": "Good default for SOPs, coordination checklists, and operational follow-through.",
+            "personaSource": "./operations-coordinator.md"
+        },
+        {
+            "id": "technical-writer",
+            "name": "Technical Writer",
+            "role": "technical writer",
+            "experience": "documentation",
+            "personality": "clarity-first explainer who reduces ambiguity for mixed audiences",
+            "defaultModel": "Claude Sonnet 4.5 (copilot)",
+            "runnerAgent": "persona-proposal-runner-claude-sonnet-4-5",
+            "routeReason": "Strong fit for documentation structure, rewriting, and audience-aware clarity.",
+            "personaSource": "./technical-writer.md"
+        },
+        {
+            "id": "personal-productivity-coach",
+            "name": "Personal Productivity Coach",
+            "role": "personal productivity coach",
+            "experience": "personal planning",
+            "personality": "habit-focused prioritizer who turns overwhelm into manageable routines",
+            "defaultModel": "GPT-4o (copilot)",
+            "runnerAgent": "persona-proposal-runner-gpt-4o",
+            "routeReason": "Useful for personal planning, prioritization, and routine design.",
+            "personaSource": "./personal-productivity-coach.md"
+        },
+        {
+            "id": "household-planner",
+            "name": "Household Planner",
+            "role": "household planner",
+            "experience": "home management",
+            "personality": "practical organizer balancing chores, schedules, and budget constraints",
+            "defaultModel": "GPT-5 mini (copilot)",
+            "runnerAgent": "persona-proposal-runner-gpt-5-mini",
+            "routeReason": "Good fit for home logistics, checklists, and practical day-to-day planning.",
+            "personaSource": "./household-planner.md"
+        },
+        {
+            "id": "financial-analyst",
+            "name": "Financial Analyst",
+            "role": "financial analyst",
+            "experience": "financial planning",
+            "personality": "numbers-first evaluator focused on tradeoffs, downside protection, and scenario comparison",
+            "defaultModel": "GPT-5.4 (copilot)",
+            "runnerAgent": "persona-proposal-runner-gpt-5-4",
+            "routeReason": "Strong default for financial comparison, scenario analysis, and decision support.",
+            "personaSource": "./financial-analyst.md"
+        },
+        {
+            "id": "budget-planner",
+            "name": "Budget Planner",
+            "role": "budget planner",
+            "experience": "budgeting",
+            "personality": "frugal optimizer who protects essentials and tracks recurring spend",
+            "defaultModel": "Gemini 3 Flash (Preview) (copilot)",
+            "runnerAgent": "persona-proposal-runner-gemini-3-flash",
+            "routeReason": "Useful for budget breakdowns, cost controls, and spending plans.",
+            "personaSource": "./budget-planner.md"
+        },
+        {
+            "id": "research-analyst",
+            "name": "Research Analyst",
+            "role": "research analyst",
+            "experience": "synthesis",
+            "personality": "evidence-seeking synthesizer who organizes findings into actionable conclusions",
+            "defaultModel": "Claude Sonnet 4.6 (copilot)",
+            "runnerAgent": "persona-proposal-runner-claude-sonnet-4-6",
+            "routeReason": "Strong fit for literature scans, option comparison, and source-backed summaries.",
+            "personaSource": "./research-analyst.md"
+        },
+        {
+            "id": "creative-strategist",
+            "name": "Creative Strategist",
+            "role": "creative strategist",
+            "experience": "ideation",
+            "personality": "expansive brainstormer who generates options before narrowing to a theme",
+            "defaultModel": "Gemini 3.1 Pro (Preview) (copilot)",
+            "runnerAgent": "persona-proposal-runner-gemini-3-1-pro",
+            "routeReason": "Useful for naming, concept generation, and divergent ideation.",
+            "personaSource": "./creative-strategist.md"
         }
     ],
     "supportedModelRoutes": [
@@ -164,6 +296,9 @@
                 "software-engineer-junior",
                 "software-engineer-mid-level",
                 "software-engineer-senior",
+                "quality-engineer",
+                "security-engineer",
+                "data-engineer",
                 "site-reliability-engineer-junior",
                 "site-reliability-engineer-mid-level",
                 "site-reliability-engineer-senior",
@@ -173,12 +308,50 @@
             ]
         },
         {
+            "id": "full-catalog",
+            "name": "Full Catalog",
+            "profileIds": [
+                "software-engineer-junior",
+                "software-engineer-mid-level",
+                "software-engineer-senior",
+                "site-reliability-engineer-junior",
+                "site-reliability-engineer-mid-level",
+                "site-reliability-engineer-senior",
+                "engineering-manager",
+                "program-manager",
+                "product-manager",
+                "quality-engineer",
+                "security-engineer",
+                "data-engineer",
+                "administrative-assistant",
+                "operations-coordinator",
+                "technical-writer",
+                "personal-productivity-coach",
+                "household-planner",
+                "financial-analyst",
+                "budget-planner",
+                "research-analyst",
+                "creative-strategist"
+            ]
+        },
+        {
             "id": "engineering-core",
             "name": "Engineering Core",
             "profileIds": [
                 "software-engineer-junior",
                 "software-engineer-mid-level",
                 "software-engineer-senior"
+            ]
+        },
+        {
+            "id": "engineering-specialists",
+            "name": "Engineering Specialists",
+            "profileIds": [
+                "software-engineer-senior",
+                "quality-engineer",
+                "security-engineer",
+                "data-engineer",
+                "site-reliability-engineer-senior"
             ]
         },
         {
@@ -236,6 +409,40 @@
                 "product-manager",
                 "software-engineer-senior",
                 "engineering-manager"
+            ]
+        },
+        {
+            "id": "office-operations",
+            "name": "Office Operations",
+            "profileIds": [
+                "administrative-assistant",
+                "operations-coordinator",
+                "technical-writer"
+            ]
+        },
+        {
+            "id": "personal-planning",
+            "name": "Personal Planning",
+            "profileIds": [
+                "personal-productivity-coach",
+                "household-planner"
+            ]
+        },
+        {
+            "id": "financial-review",
+            "name": "Financial Review",
+            "profileIds": [
+                "financial-analyst",
+                "budget-planner"
+            ]
+        },
+        {
+            "id": "creative-and-research",
+            "name": "Creative And Research",
+            "profileIds": [
+                "research-analyst",
+                "creative-strategist",
+                "technical-writer"
             ]
         }
     ]

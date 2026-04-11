@@ -37,18 +37,35 @@ If you do not specify personas or a preset, Persona Switcher should choose a foc
 - `product-discovery` for prioritization and value tradeoffs
 - `full-team` only when broad coverage is clearly useful
 
+## Available Persona Profiles
+
+The manifest now includes profiles across these groups:
+
+- Software engineering: `software-engineer-junior`, `software-engineer-mid-level`, `software-engineer-senior`, `quality-engineer`, `security-engineer`, `data-engineer`, `site-reliability-engineer-junior`, `site-reliability-engineer-mid-level`, `site-reliability-engineer-senior`
+- Delivery and product: `engineering-manager`, `program-manager`, `product-manager`
+- General office work: `administrative-assistant`, `operations-coordinator`, `technical-writer`
+- General personal use: `personal-productivity-coach`, `household-planner`
+- Financial: `financial-analyst`, `budget-planner`
+- Misc: `research-analyst`, `creative-strategist`
+
 ## Available Presets
 
 The manifest currently includes:
 
 - `full-team`
+- `full-catalog`
 - `engineering-core`
+- `engineering-specialists`
 - `reliability-focus`
 - `delivery-triad`
 - `technical-design`
 - `incident-response`
 - `launch-readiness`
 - `product-discovery`
+- `office-operations`
+- `personal-planning`
+- `financial-review`
+- `creative-and-research`
 
 ## Prompts
 

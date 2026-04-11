@@ -22,7 +22,7 @@ Predefined persona and model routes are stored in [Predefined Persona-Model Prof
 
 That manifest defines:
 
-- Available persona profiles.
+- Available persona profiles for software engineering, office, personal, financial, and misc use cases.
 - Default model per persona.
 - Runner agent per model.
 - Supported model override routes.
