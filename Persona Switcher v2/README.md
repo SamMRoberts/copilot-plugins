@@ -6,6 +6,7 @@ Persona Switcher v2 is a task-centric skill bundle for running the same prompt t
 
 - [run-task-with-personas-and-models](./skills/run-task-with-personas-and-models/SKILL.md)
 - [psv2-run-task-with-personas](./agents/psv2-run-task-with-personas.agent.md)
+- [run-persona-switcher-v2](./prompts/run-persona-switcher-v2.prompt.md)
 
 ## How It Works
 
