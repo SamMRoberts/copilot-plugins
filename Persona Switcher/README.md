@@ -1,6 +1,6 @@
 # Persona Switcher 
 
-Persona Switcher  is a task-centric skill bundle for running the same prompt through predefined persona and model routes, then comparing the outputs.
+Persona Switcher is a task-centric skill bundle for running the same prompt through predefined persona and model routes, then comparing the outputs.
 
 ## Included
 
