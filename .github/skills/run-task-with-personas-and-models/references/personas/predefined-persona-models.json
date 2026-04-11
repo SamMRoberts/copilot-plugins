@@ -1,0 +1,204 @@
+{
+    "version": "1.0",
+    "subject": "Predefined persona and model routes for Persona Switcher v2",
+    "profiles": [
+        {
+            "id": "software-engineer-junior",
+            "name": "Software Engineer (Junior)",
+            "role": "software engineer",
+            "experience": "junior",
+            "personality": "checklist-driven learner who prefers explicit guardrails",
+            "defaultModel": "GPT-5 mini (copilot)",
+            "runnerAgent": "persona-proposal-runner-gpt-5-mini",
+            "routeReason": "Good fit for concrete, stepwise implementation guidance.",
+            "personaSource": "./software-engineer-junior.md"
+        },
+        {
+            "id": "software-engineer-mid-level",
+            "name": "Software Engineer (Mid-level)",
+            "role": "software engineer",
+            "experience": "mid-level",
+            "personality": "pragmatic shipper who optimizes for fastest safe path",
+            "defaultModel": "GPT-5.2 (copilot)",
+            "runnerAgent": "persona-proposal-runner-gpt-5-2",
+            "routeReason": "Balances implementation speed with practical constraints.",
+            "personaSource": "./software-engineer-mid-level.md"
+        },
+        {
+            "id": "software-engineer-senior",
+            "name": "Software Engineer (Senior)",
+            "role": "software engineer",
+            "experience": "senior",
+            "personality": "architecture steward focused on leverage and maintainability",
+            "defaultModel": "GPT-5.4 (copilot)",
+            "runnerAgent": "persona-proposal-runner-gpt-5-4",
+            "routeReason": "Best default for architecture, tradeoff analysis, and maintainability.",
+            "personaSource": "./software-engineer-senior.md"
+        },
+        {
+            "id": "site-reliability-engineer-junior",
+            "name": "Site Reliability Engineer (Junior)",
+            "role": "site reliability engineer",
+            "experience": "junior",
+            "personality": "runbook-first operator with strict verification habits",
+            "defaultModel": "Claude Haiku 4.5 (copilot)",
+            "runnerAgent": "persona-proposal-runner-claude-haiku-4-5",
+            "routeReason": "Strong fit for verification-oriented operational review.",
+            "personaSource": "./site-reliability-engineer-junior.md"
+        },
+        {
+            "id": "site-reliability-engineer-mid-level",
+            "name": "Site Reliability Engineer (Mid-level)",
+            "role": "site reliability engineer",
+            "experience": "mid-level",
+            "personality": "incident-conditioned reliability optimizer",
+            "defaultModel": "GPT-4.1 (copilot)",
+            "runnerAgent": "persona-proposal-runner-gpt-4-1",
+            "routeReason": "Good default for balancing incident history with delivery pragmatism.",
+            "personaSource": "./site-reliability-engineer-mid-level.md"
+        },
+        {
+            "id": "site-reliability-engineer-senior",
+            "name": "Site Reliability Engineer (Senior)",
+            "role": "site reliability engineer",
+            "experience": "senior",
+            "personality": "resilience architect focused on failure containment and automation",
+            "defaultModel": "Gemini 3.1 Pro (Preview) (copilot)",
+            "runnerAgent": "persona-proposal-runner-gemini-3-1-pro",
+            "routeReason": "Useful for failure-mode analysis and resilience planning.",
+            "personaSource": "./site-reliability-engineer-senior.md"
+        },
+        {
+            "id": "engineering-manager",
+            "name": "Engineering Manager",
+            "role": "engineering manager",
+            "experience": "management",
+            "personality": "capacity realist balancing outcomes, quality, and team health",
+            "defaultModel": "Gemini 2.5 Pro (copilot)",
+            "runnerAgent": "persona-proposal-runner-gemini-2-5-pro",
+            "routeReason": "Good fit for sequencing, staffing, and delivery tradeoff framing.",
+            "personaSource": "./engineering-manager.md"
+        },
+        {
+            "id": "program-manager",
+            "name": "Program Manager",
+            "role": "program manager",
+            "experience": "program delivery",
+            "personality": "critical-path orchestrator and dependency negotiator",
+            "defaultModel": "Claude Sonnet 4.5 (copilot)",
+            "runnerAgent": "persona-proposal-runner-claude-sonnet-4-5",
+            "routeReason": "Useful for dependency management and coordination risks.",
+            "personaSource": "./program-manager.md"
+        },
+        {
+            "id": "product-manager",
+            "name": "Product Manager",
+            "role": "product manager",
+            "experience": "product strategy",
+            "personality": "hypothesis-driven value maximizer",
+            "defaultModel": "Claude Sonnet 4.6 (copilot)",
+            "runnerAgent": "persona-proposal-runner-claude-sonnet-4-6",
+            "routeReason": "Strong default for outcome framing and value tradeoffs.",
+            "personaSource": "./product-manager.md"
+        }
+    ],
+    "supportedModelRoutes": [
+        {
+            "model": "Claude Sonnet 4.6 (copilot)",
+            "runnerAgent": "persona-proposal-runner-claude-sonnet-4-6"
+        },
+        {
+            "model": "Claude Sonnet 4.5 (copilot)",
+            "runnerAgent": "persona-proposal-runner-claude-sonnet-4-5"
+        },
+        {
+            "model": "Claude Haiku 4.5 (copilot)",
+            "runnerAgent": "persona-proposal-runner-claude-haiku-4-5"
+        },
+        {
+            "model": "Gemini 2.5 Pro (copilot)",
+            "runnerAgent": "persona-proposal-runner-gemini-2-5-pro"
+        },
+        {
+            "model": "Gemini 3 Flash (Preview) (copilot)",
+            "runnerAgent": "persona-proposal-runner-gemini-3-flash"
+        },
+        {
+            "model": "Gemini 3.1 Pro (Preview) (copilot)",
+            "runnerAgent": "persona-proposal-runner-gemini-3-1-pro"
+        },
+        {
+            "model": "GPT-4.1 (copilot)",
+            "runnerAgent": "persona-proposal-runner-gpt-4-1"
+        },
+        {
+            "model": "GPT-4o (copilot)",
+            "runnerAgent": "persona-proposal-runner-gpt-4o"
+        },
+        {
+            "model": "GPT-5 mini (copilot)",
+            "runnerAgent": "persona-proposal-runner-gpt-5-mini"
+        },
+        {
+            "model": "GPT-5.2 (copilot)",
+            "runnerAgent": "persona-proposal-runner-gpt-5-2"
+        },
+        {
+            "model": "GPT-5.3-Codex (copilot)",
+            "runnerAgent": "persona-proposal-runner-gpt-5-3-codex"
+        },
+        {
+            "model": "GPT-5.4 (copilot)",
+            "runnerAgent": "persona-proposal-runner-gpt-5-4"
+        },
+        {
+            "model": "GPT-5.4 mini (copilot)",
+            "runnerAgent": "persona-proposal-runner-gpt-5-4-mini"
+        }
+    ],
+    "selectionPresets": [
+        {
+            "id": "full-team",
+            "name": "Full Team",
+            "profileIds": [
+                "software-engineer-junior",
+                "software-engineer-mid-level",
+                "software-engineer-senior",
+                "site-reliability-engineer-junior",
+                "site-reliability-engineer-mid-level",
+                "site-reliability-engineer-senior",
+                "engineering-manager",
+                "program-manager",
+                "product-manager"
+            ]
+        },
+        {
+            "id": "engineering-core",
+            "name": "Engineering Core",
+            "profileIds": [
+                "software-engineer-junior",
+                "software-engineer-mid-level",
+                "software-engineer-senior"
+            ]
+        },
+        {
+            "id": "reliability-focus",
+            "name": "Reliability Focus",
+            "profileIds": [
+                "site-reliability-engineer-junior",
+                "site-reliability-engineer-mid-level",
+                "site-reliability-engineer-senior",
+                "software-engineer-senior"
+            ]
+        },
+        {
+            "id": "delivery-triad",
+            "name": "Delivery Triad",
+            "profileIds": [
+                "software-engineer-senior",
+                "program-manager",
+                "product-manager"
+            ]
+        }
+    ]
+}
