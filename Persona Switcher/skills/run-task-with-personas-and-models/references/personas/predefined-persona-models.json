@@ -1,6 +1,6 @@
 {
-    "version": "1.0",
-    "subject": "Predefined persona and model routes for Persona Switcher ",
+    "version": "1.1",
+    "subject": "Predefined persona and model routes for Persona Switcher",
     "profiles": [
         {
             "id": "software-engineer-junior",
@@ -198,6 +198,44 @@
                 "software-engineer-senior",
                 "program-manager",
                 "product-manager"
+            ]
+        },
+        {
+            "id": "technical-design",
+            "name": "Technical Design",
+            "profileIds": [
+                "software-engineer-senior",
+                "site-reliability-engineer-senior",
+                "engineering-manager"
+            ]
+        },
+        {
+            "id": "incident-response",
+            "name": "Incident Response",
+            "profileIds": [
+                "site-reliability-engineer-junior",
+                "site-reliability-engineer-mid-level",
+                "site-reliability-engineer-senior",
+                "software-engineer-mid-level"
+            ]
+        },
+        {
+            "id": "launch-readiness",
+            "name": "Launch Readiness",
+            "profileIds": [
+                "product-manager",
+                "program-manager",
+                "site-reliability-engineer-senior",
+                "engineering-manager"
+            ]
+        },
+        {
+            "id": "product-discovery",
+            "name": "Product Discovery",
+            "profileIds": [
+                "product-manager",
+                "software-engineer-senior",
+                "engineering-manager"
             ]
         }
     ]
