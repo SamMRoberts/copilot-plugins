@@ -63,7 +63,7 @@
             "role": "site reliability engineer",
             "experience": "senior",
             "personality": "resilience architect focused on failure containment and automation",
-            "defaultModel": "Gemini 3.1 Pro (copilot)",
+            "defaultModel": "Gemini 3.1 Pro (Preview) (copilot)",
             "runnerAgent": "persona-proposal-runner-gemini-3-1-pro",
             "routeReason": "Useful for failure-mode analysis and resilience planning.",
             "personaSource": "./site-reliability-engineer-senior.md"
