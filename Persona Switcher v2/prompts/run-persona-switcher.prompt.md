@@ -1,7 +1,7 @@
 ---
 name: run-persona-switcher
 description: "Run Persona Switcher end-to-end for a single task using predefined personas and model routes."
-argument-hint: "Provide task, optional constraints, success metrics, optional preset/profile ids, optional model overrides, and comparison goal."
+argument-hint: "Provide task, optional constraints, success metrics, optional preset/profile ids, optional model overrides, optional skill reference/objective/mode, and comparison goal."
 agent: "run-task-with-personas"
 ---
 Run Persona Switcher end-to-end using the `run-task-with-personas` orchestrator.
@@ -13,14 +13,18 @@ Run Persona Switcher end-to-end using the `run-task-with-personas` orchestrator.
 - Preset id (optional)
 - Profile ids (optional)
 - Model overrides by profile id (optional)
+- Skill reference path (optional)
+- Skill objective (optional)
+- Skill execution mode (optional: `advisory` or `required`)
 - Comparison goal (optional)
 
 ## Behavior
 1. Normalize and freeze one canonical task statement.
 2. Resolve selected persona profiles from preset or explicit profile ids.
 3. Resolve model routes using defaults plus valid overrides.
-4. Run one isolated persona proposal per selected profile in parallel.
-5. Return execution matrix, per-route outputs, and synthesis.
+4. If a skill reference is provided, pass it to each persona route with the same objective and mode.
+5. Run one isolated persona proposal per selected profile in parallel.
+6. Return execution matrix, per-route outputs, and synthesis.
 
 ## Output Requirements
 Use the exact output structure produced by `run-task-with-personas`.
