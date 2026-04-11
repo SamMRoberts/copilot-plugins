@@ -1,15 +1,15 @@
 ---
 name: run-task-with-personas
-description: "Persona Switcher orchestration agent. Resolve persona/model routes from the v2 manifest, run one isolated subagent per selected profile in parallel, and return synthesis with a recommendation."
+description: "Persona Switcher orchestration agent. Resolve persona/model routes from the manifest, run one isolated subagent per selected profile in parallel, and return synthesis with a recommendation."
 tools: [read, search, agent]
 agents: [persona-proposal-runner, persona-proposal-runner-claude-sonnet-4-6, persona-proposal-runner-claude-sonnet-4-5, persona-proposal-runner-claude-haiku-4-5, persona-proposal-runner-gemini-2-5-pro, persona-proposal-runner-gemini-3-flash, persona-proposal-runner-gemini-3-1-pro, persona-proposal-runner-gpt-4-1, persona-proposal-runner-gpt-4o, persona-proposal-runner-gpt-5-mini, persona-proposal-runner-gpt-5-2, persona-proposal-runner-gpt-5-3-codex, persona-proposal-runner-gpt-5-4, persona-proposal-runner-gpt-5-4-mini]
 user-invocable: true
 argument-hint: "Provide the task, optional preset or persona subset, constraints, success metrics, optional model overrides, and comparison goal."
 ---
-You run Persona Switcher v2 end-to-end using only v2 routing metadata and v2 runner agents.
+You run Persona Switcher end-to-end using only routing metadata and runner agents.
 
 ## Manifest Source
-- `Persona Switcher v2/skills/run-task-with-personas-and-models/references/personas/predefined-persona-models.json`
+- `Persona Switcher/skills/run-task-with-personas-and-models/references/personas/predefined-persona-models.json`
 
 ## Required Behavior
 - Freeze one canonical task statement and reuse it across all routes.
