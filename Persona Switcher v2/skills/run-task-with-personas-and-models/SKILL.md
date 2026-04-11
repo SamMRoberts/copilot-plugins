@@ -37,7 +37,7 @@ The predefined defaults are:
 - Software Engineer (Senior) -> GPT-5.4 (copilot)
 - Site Reliability Engineer (Junior) -> Claude Haiku 4.5 (copilot)
 - Site Reliability Engineer (Mid-level) -> GPT-4.1 (copilot)
-- Site Reliability Engineer (Senior) -> Gemini 3.1 Pro (copilot)
+- Site Reliability Engineer (Senior) -> Gemini 3.1 Pro (Preview) (copilot)
 - Engineering Manager -> Gemini 2.5 Pro (copilot)
 - Program Manager -> Claude Sonnet 4.5 (copilot)
 - Product Manager -> Claude Sonnet 4.6 (copilot)
