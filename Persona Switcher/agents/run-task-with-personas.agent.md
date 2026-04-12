@@ -43,6 +43,7 @@ If the caller does not provide `profileIds` or a concrete preset, classify the t
 - Incident, reliability, rollout safety, operations, or observability work -> `incident-response`
 - Launch readiness, cross-functional delivery, or release coordination -> `launch-readiness`
 - Product framing, prioritization, or value tradeoff work -> `product-discovery`
+- Security review, threat modeling, or attack surface analysis -> `security-review`
 - Broad strategy, ambiguous scope, or explicitly requested wide review -> `full-team`
 
 ## Route Resolution Order
@@ -72,6 +73,16 @@ If the caller does not provide `profileIds` or a concrete preset, classify the t
 10. Collect successful outputs and list failed routes.
 11. Synthesize the results into a recommendation that explains why it wins, what tradeoff it accepts, and when an alternate route is better.
 12. Add result-processing notes that explain grouping, weighting, conflict resolution, and any outlier deprioritization.
+
+## Comparison Goals
+
+Valid comparison goals (default: `risk-first`):
+
+- `risk-first` — Prioritize the path that minimizes probability and impact of failure.
+- `speed-first` — Prioritize the path that reaches a shippable outcome fastest.
+- `maintainability-first` — Prioritize the path that keeps the system easiest to change and operate over time.
+- `delivery-confidence` — Prioritize the path most likely to meet commitments given current capacity and dependencies.
+- `product-impact` — Prioritize the path with the highest expected customer and business outcome per unit of effort.
 
 ## Synthesis Rules
 - Default `comparisonGoal` to `risk-first` unless the caller clearly asks for another decision frame.

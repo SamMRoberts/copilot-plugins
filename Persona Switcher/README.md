@@ -11,6 +11,17 @@ Persona Switcher is a task-centric bundle for running the same request through c
 
 ## What Changed In This Version
 
+- Added `staff-engineer` persona: cross-cutting systems thinker for cross-team architecture decisions and platform coherence.
+- Added `security-engineer` persona: threat-first defender for threat modeling, attack surface analysis, and security control evaluation.
+- Added `security-review` preset: `security-engineer`, `software-engineer-senior`, `site-reliability-engineer-senior`.
+- Added `security review` as an auto-selection rule: tasks involving threat modeling or attack surface analysis now resolve to `security-review` automatically.
+- Added `full-team` preset now includes `staff-engineer` and `security-engineer`.
+- Added comparison goals enumeration: `risk-first`, `speed-first`, `maintainability-first`, `delivery-confidence`, `product-impact`.
+- Fixed SKILL.md Execution Matrix to include the `Status` column (was missing vs. the orchestrator agent's output format).
+- Fixed quick mode prompt to require `Result Processing Notes` (was missing vs. the standard prompt).
+
+### Previous Changes
+
 - Focused routing is now the default experience.
 - The orchestrator is encouraged to choose the smallest credible preset instead of always blasting the full team.
 - Outputs are shaped around a decision snapshot, per-route recommendations, and a clearer synthesis.
@@ -37,6 +48,7 @@ If you do not specify personas or a preset, Persona Switcher should choose a foc
 - `incident-response` for reliability and operational work
 - `launch-readiness` for rollout and delivery coordination
 - `product-discovery` for prioritization and value tradeoffs
+- `security-review` for threat modeling and attack surface analysis
 - `full-team` only when broad coverage is clearly useful
 
 ## Available Presets
@@ -51,6 +63,7 @@ The manifest currently includes:
 - `incident-response`
 - `launch-readiness`
 - `product-discovery`
+- `security-review`
 
 ## Prompts
 
@@ -84,11 +97,11 @@ Task statement: Propose a migration plan from ad-hoc REST polling to webhooks fo
 Decision to make: Pick the best rollout approach for engineering effort versus operational risk.
 Profile ids:
 - staff-engineer
-- sre
+- site-reliability-engineer-senior
 - product-manager
 Model overrides by profile id:
-- staff-engineer: gpt-5-4
-- sre: claude-sonnet-4-6
+- staff-engineer: GPT-5.4 (copilot)
+- site-reliability-engineer-senior: Claude Sonnet 4.6 (copilot)
 Constraints:
 - Preserve backwards compatibility for existing plugin consumers during rollout.
 - Include observability checkpoints.
@@ -140,6 +153,16 @@ Use this when you want a faster pass. Quick mode defaults to:
 
 Quick mode also accepts optional skill names and/or a skill reference when you want faster skill-aware comparisons.
 
+## Comparison Goals
+
+When specifying a comparison goal, use one of these values:
+
+- `risk-first` (default) — favor the path that minimizes failure probability and impact
+- `speed-first` — favor the path that reaches a shippable outcome fastest
+- `maintainability-first` — favor the path that keeps the system easiest to change and operate
+- `delivery-confidence` — favor the path most likely to meet commitments given current capacity
+- `product-impact` — favor the path with the highest expected customer and business outcome per unit of effort
+
 ## Output Shape
 
 Persona Switcher now aims to return:
@@ -147,9 +170,10 @@ Persona Switcher now aims to return:
 1. A **Decision Snapshot** with the best route, main risk, fallback option, and next move.
 2. A **Task** section showing the frozen task, decision, and chosen personas.
 3. The shared skill context that was reused across routes when skills were supplied.
-4. An **Execution Matrix** showing which persona used which model and runner.
+4. An **Execution Matrix** showing which persona used which model, runner, and status.
 5. **Per-Route Outputs** with recommendations, risks, tradeoffs, first steps, and skill interactions.
 6. A **Synthesis** that explains the winner, alternatives, and missing coverage.
+7. **Result Processing Notes** that explain how persona outputs were grouped, weighted, and resolved into the final recommendation.
 
 ## Reference Data
 

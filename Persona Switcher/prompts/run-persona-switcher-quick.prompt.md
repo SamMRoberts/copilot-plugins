@@ -37,3 +37,4 @@ Run Persona Switcher in quick mode for faster iteration.
 
 ## Output Requirements
 Use the exact output structure produced by `run-task-with-personas`.
+Even in quick mode, include a `Result Processing Notes` section that briefly explains how persona outputs were grouped and converted to the final recommendation.

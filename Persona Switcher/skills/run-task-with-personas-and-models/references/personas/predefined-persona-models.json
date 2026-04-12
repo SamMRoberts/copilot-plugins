@@ -1,5 +1,5 @@
 {
-    "version": "1.1",
+    "version": "1.2",
     "subject": "Predefined persona and model routes for Persona Switcher",
     "profiles": [
         {
@@ -100,6 +100,28 @@
             "runnerAgent": "persona-proposal-runner-claude-sonnet-4-6",
             "routeReason": "Strong default for outcome framing and value tradeoffs.",
             "personaSource": "./product-manager.md"
+        },
+        {
+            "id": "staff-engineer",
+            "name": "Staff Engineer",
+            "role": "staff engineer",
+            "experience": "staff",
+            "personality": "cross-cutting systems thinker who sets technical direction across teams",
+            "defaultModel": "GPT-5.4 mini (copilot)",
+            "runnerAgent": "persona-proposal-runner-gpt-5-4-mini",
+            "routeReason": "Strong fit for cross-team architecture decisions, platform coherence, and setting shared technical standards.",
+            "personaSource": "./staff-engineer.md"
+        },
+        {
+            "id": "security-engineer",
+            "name": "Security Engineer",
+            "role": "security engineer",
+            "experience": "senior",
+            "personality": "threat-first defender who treats every interface as a potential attack surface",
+            "defaultModel": "GPT-4o (copilot)",
+            "runnerAgent": "persona-proposal-runner-gpt-4o",
+            "routeReason": "Good fit for threat modeling, attack surface analysis, and security control evaluation.",
+            "personaSource": "./security-engineer.md"
         }
     ],
     "supportedModelRoutes": [
@@ -164,9 +186,11 @@
                 "software-engineer-junior",
                 "software-engineer-mid-level",
                 "software-engineer-senior",
+                "staff-engineer",
                 "site-reliability-engineer-junior",
                 "site-reliability-engineer-mid-level",
                 "site-reliability-engineer-senior",
+                "security-engineer",
                 "engineering-manager",
                 "program-manager",
                 "product-manager"
@@ -236,6 +260,15 @@
                 "product-manager",
                 "software-engineer-senior",
                 "engineering-manager"
+            ]
+        },
+        {
+            "id": "security-review",
+            "name": "Security Review",
+            "profileIds": [
+                "security-engineer",
+                "software-engineer-senior",
+                "site-reliability-engineer-senior"
             ]
         }
     ]

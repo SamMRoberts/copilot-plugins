@@ -49,6 +49,7 @@ If the user does not specify `profileIds` or a preset, resolve a focused preset 
 - Incident response, resilience, rollout safety, or observability -> `incident-response`
 - Launch readiness, cross-functional execution, or release coordination -> `launch-readiness`
 - Product framing, prioritization, or value tradeoffs -> `product-discovery`
+- Security review, threat modeling, or attack surface analysis -> `security-review`
 - Broad review, ambiguous scope, or explicitly requested comprehensive feedback -> `full-team`
 
 ## Required Inputs
@@ -123,6 +124,16 @@ Each routed invocation should include:
 9. Recommend one path and clearly state what would change the recommendation.
 10. Explicitly explain how route outputs were processed into the final recommendation, including weighting, tie-breaks, and excluded outliers.
 
+## Comparison Goals
+
+Valid comparison goals (default: `risk-first`):
+
+- `risk-first` — Prioritize the path that minimizes probability and impact of failure.
+- `speed-first` — Prioritize the path that reaches a shippable outcome fastest.
+- `maintainability-first` — Prioritize the path that keeps the system easiest to change and operate over time.
+- `delivery-confidence` — Prioritize the path most likely to meet commitments given current capacity and dependencies.
+- `product-impact` — Prioritize the path with the highest expected customer and business outcome per unit of effort.
+
 ## Decision Rules
 
 - If the user does not specify a comparison goal, default to `risk-first`.
@@ -156,7 +167,7 @@ Use this structure:
 - Shared skill context:
 
 ### Execution Matrix
-- Persona name | Role | Default model | Final model | Runner agent | Route reason
+- Persona name | Role | Default model | Final model | Runner agent | Route reason | Status
 
 ### Per-Route Outputs
 - Persona name:
