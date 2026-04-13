@@ -1,6 +1,6 @@
 ---
 name: pbi-definition
-description: 'Draft one product backlog item from a high-level request or refined scope. Use for single-item backlog creation, scope definition, acceptance criteria, dependencies, and child-task candidate extraction. Intended for delegation by orchestration skills.'
+description: 'Draft one product backlog item from a high-level request or refined scope. Use for single-item backlog creation, scope definition, acceptance criteria, and dependency capture. Intended for delegation by orchestration skills. Do not use when child task breakdown is also needed — use backlog-item-decomposition for that.'
 argument-hint: 'Provide the high-level request, constraints, and scope boundary.'
 user-invocable: false
 ---
@@ -36,7 +36,7 @@ Identify the primary user or system value and the delivery boundary.
 Classify as feature, bug, chore, spike, or technical improvement.
 
 3. Define the smallest valuable slice.
-If the request is broad, keep only the first coherent increment of value.
+If the request is broad, keep only the first coherent increment of value. Target a scope completable in one sprint and deployable independently.
 
 4. Write the backlog item.
 Create title, summary, in-scope statement, and out-of-scope statement.

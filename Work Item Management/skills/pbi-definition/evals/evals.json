@@ -1,0 +1,31 @@
+[
+    {
+        "prompt": "Define a backlog item for: our CI pipeline is flaky, tests fail intermittently",
+        "expected_output": "One backlog item classified as spike or chore, scoped to investigating and resolving flaky test failures, with testable acceptance criteria and labeled assumptions.",
+        "assertions": [
+            "Exactly one backlog item is produced",
+            "Type is classified (spike or chore, not feature)",
+            "Acceptance criteria are observable outcomes, not implementation steps",
+            "Scope is limited to one iteration worth of work"
+        ]
+    },
+    {
+        "prompt": "Create a PBI for adding SSO support to the admin portal",
+        "expected_output": "One backlog item scoped to the smallest deliverable SSO increment (e.g. one provider, one user flow), not a full SSO platform buildout.",
+        "assertions": [
+            "Exactly one backlog item is produced",
+            "Scope is explicitly bounded to a single increment",
+            "Out-of-scope section lists broader SSO work excluded from this item",
+            "Child-task candidates are listed but not fully drafted"
+        ]
+    },
+    {
+        "prompt": "Break this feature into tickets: redesign the checkout flow",
+        "expected_output": "Should NOT trigger this skill. Should trigger backlog-item-decomposition instead. If triggered, output is limited to one PBI and a candidate list — not fully drafted child tasks.",
+        "assertions": [
+            "Preferred: skill does not trigger; backlog-item-decomposition handles the request",
+            "If triggered: output contains only one PBI and candidate task list, not drafted child tasks"
+        ],
+        "type": "negative"
+    }
+]
