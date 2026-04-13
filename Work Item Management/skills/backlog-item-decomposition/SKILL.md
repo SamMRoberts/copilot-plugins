@@ -62,43 +62,6 @@ If the `Work Item Orchestrator` agent cannot be invoked, invoke `pbi-definition`
 
 ## Output Format
 
-Use this structure in responses:
-
-### Product Backlog Item
-
-- Title:
-- Type:
-- Summary:
-- In scope:
-- Out of scope:
-
-### Acceptance Criteria
-
-- Criterion 1
-- Criterion 2
-- Criterion 3
-
-### Child Tasks
-
-- Task 1
-- Task 2
-- Task 3
-
-### Overlap Check
-
-- Confirmed non-overlap notes
-- Merged or adjusted task boundaries
-
-### Dependencies
-
-- Dependency 1
-
-### Assumptions
-
-- Assumption 1
-
-### Open Questions
-
-- Question 1
+Use the structure defined in [output-template.md](./references/output-template.md).
 
 
