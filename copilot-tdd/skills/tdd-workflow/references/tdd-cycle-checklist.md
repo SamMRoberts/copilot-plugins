@@ -17,12 +17,21 @@ Use this checklist to validate discipline at each phase boundary.
 - [ ] Blocking questions are resolved or assumptions are stated.
 - [ ] Increments are ordered by dependency.
 
+## Outcomes Discovery Gate
+
+- [ ] All applicable outcome categories have been evaluated against the request.
+- [ ] Categories not applicable are explicitly marked N/A with a one-line rationale.
+- [ ] Every `must` outcome has a unique ID and is mapped to at least one increment via `coversOutcomes`.
+- [ ] If the request involves a user-facing artifact, at least one **Interface / Delivery Surface** outcome exists.
+- [ ] Test infrastructure needs are identified (e.g., supertest, test database, mock server).
+
 ## Red Phase Gate
 
 - [ ] Only test files were modified.
 - [ ] Each new test targets exactly one behavior from the increment.
 - [ ] The test fails for the right reason (missing behavior, not syntax error).
 - [ ] No production code was changed.
+- [ ] Tests are written at the correct layer for their outcome category (interface outcomes tested at interface layer, not collapsed to unit tests).
 
 ## Green Phase Gate
 

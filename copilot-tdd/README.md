@@ -7,10 +7,11 @@ A GitHub Copilot plugin that enforces strict test-driven development methodology
 This plugin implements the full TDD cycle with an emphasis on **planning before coding**:
 
 1. **Plan** — Analyze requirements, ask clarifying questions, define desired outcomes as testable acceptance criteria.
-2. **Red** — Write failing tests that define the next behavior.
-3. **Green** — Write the minimum production code to make tests pass.
-4. **Refactor** — Improve structure while keeping tests green.
-5. **Repeat** — Cycle through behavior increments until done.
+2. **Discover Outcomes** — Systematically evaluate outcome categories (Core Logic, Interface, Integration, Error Handling, etc.) and build a traceable outcome matrix.
+3. **Red** — Write failing tests that define the next behavior, at the correct test layer for the outcome category.
+4. **Green** — Write the minimum production code to make tests pass.
+5. **Refactor** — Improve structure while keeping tests green.
+6. **Repeat** — Cycle through behavior increments until done.
 
 ## Components
 
@@ -71,8 +72,16 @@ User Request
 ┌─────────────────────┐
 │  TDD Planner        │◄── Clarifying questions
 │  (Requirements +    │     flow back through
-│   Increments)       │     the Orchestrator
+│   Outcomes Discovery│     the Orchestrator
+│   + Increments)     │
 └────────┬────────────┘
+         │
+         ▼
+┌─────────────────────┐
+│  Orchestrator       │
+│  (Outcomes Review   │◄── Verifies category coverage,
+│   Gate)             │     outcome-to-increment mapping,
+└────────┬────────────┘     test infrastructure needs
          │
          ▼
     ┌────────────┐
@@ -83,9 +92,9 @@ User Request
          ▼
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
 │  TDD Red        │───►│  TDD Green      │───►│  TDD Refactor   │
-│  (Failing tests)│    │  (Minimal code) │    │  (Clean up)     │
-└─────────────────┘    └─────────────────┘    └────────┬────────┘
-                                                       │
+│  (Failing tests │    │  (Minimal code) │    │  (Clean up)     │
+│   @ right layer)│    └─────────────────┘    └────────┬────────┘
+└─────────────────┘                                    │
                                                        ▼
                                               ┌─────────────────┐
                                               │ Acceptance Gate  │

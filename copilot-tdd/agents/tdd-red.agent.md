@@ -34,8 +34,27 @@ Write or update tests that define the next behavior to implement. The tests must
 Read the increment handoff payload. Understand:
 - The behavior being defined.
 - The acceptance criteria that need test coverage.
+- The **outcome categories** (`primaryOutcomeCategory` and `secondaryOutcomeCategories`) — these determine the test layer.
+- The **covered outcomes** (`coversOutcomes`) — each outcome ID must be addressed by at least one test.
 - The target test files and production files.
 - The scope boundary (what NOT to test in this increment).
+
+### Step 2 — Determine the Correct Test Layer
+
+Match the outcome category to the appropriate test approach:
+
+| Outcome Category | Test Layer | Approach |
+|---|---|---|
+| **Core Logic** | Unit tests | Test pure functions/classes directly |
+| **Interface / Delivery Surface** | Interface tests | HTTP: use supertest or equivalent. CLI: test command output. UI: test rendering contracts. |
+| **Integration** | Integration tests | Test components composed together (e.g., server + static files, module A calling module B) |
+| **Input Validation** | Unit or interface tests | Test at the boundary where input enters the system |
+| **Error Handling** | Same layer as the error origin | If error is in business logic, unit test. If error is an HTTP response, interface test. |
+| **State Management** | Unit or integration tests | Test state transitions through the public API |
+| **Access Control / Policy** | Interface tests | Test at the policy enforcement point (e.g., HTTP middleware) |
+| **Configuration** | Integration tests | Test that config values affect runtime behavior |
+
+**Critical rule**: Do not collapse an interface-layer outcome into a unit test. If the outcome says "GET / returns 200 with HTML", write an HTTP test that makes a real request, not a unit test on an internal function.
 
 ### Step 2 — Explore Context
 

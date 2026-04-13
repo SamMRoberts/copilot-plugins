@@ -7,6 +7,9 @@ Every increment passed between agents must include these fields.
 - **incrementId**: Short kebab-case identifier (e.g., `parse-empty-input`).
 - **title**: One-line description of the behavior being added.
 - **acceptanceCriteria**: List of observable outcomes that define success.
+- **coversOutcomes**: List of outcome IDs from the outcome matrix that this increment tests. Every `must` outcome should appear in at least one increment.
+- **primaryOutcomeCategory**: The main outcome category this increment addresses (e.g., `core-logic`, `interface`, `integration`, `error-handling`).
+- **secondaryOutcomeCategories**: Additional outcome categories this increment touches (may be empty).
 - **blockingQuestions**: Unanswered questions that must be resolved before starting.
 - **assumptions**: Decisions made in the absence of user input, clearly labeled.
 - **targetTestCommand**: The command to run the relevant tests (e.g., `npm test`, `pytest tests/`).
@@ -24,6 +27,13 @@ acceptanceCriteria:
   - Registration with "not-an-email" returns 400
   - Registration with "user@example.com" succeeds
   - Error response includes field name and reason
+coversOutcomes:
+  - reject-invalid-email
+  - accept-valid-email
+  - validation-error-format
+primaryOutcomeCategory: input-validation
+secondaryOutcomeCategories:
+  - interface
 blockingQuestions: []
 assumptions:
   - Email validation uses RFC 5322 simplified rules

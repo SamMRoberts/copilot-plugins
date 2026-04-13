@@ -50,8 +50,10 @@ If critical information is missing, the workflow will ask clarifying questions b
 2. **The orchestrator runs these phases:**
    - **Harness Discovery** — identifies the test framework, run command, and conventions.
    - **Planning** — delegates to the TDD Planner to analyze requirements, surface questions, define outcomes, and decompose into increments.
+   - **Outcomes Discovery** — the planner systematically evaluates outcome categories (Core Logic, Interface/Delivery Surface, Integration, Input Validation, Error Handling, State Management, Access Control, Configuration) and builds an outcome matrix with IDs, priorities, and traceability to increments.
+   - **Outcomes Review** — the orchestrator independently verifies category coverage, outcome-to-increment mapping, and test infrastructure needs.
    - **Clarification** — the orchestrator asks the user any blocking questions from the planner.
-   - **Red** — delegates to TDD Red to write failing tests for one increment.
+   - **Red** — delegates to TDD Red to write failing tests for one increment, at the correct test layer for the outcome category.
    - **Green** — delegates to TDD Green to write minimal passing code.
    - **Refactor** — delegates to TDD Refactor to improve structure.
    - **Acceptance Gate** — validates criteria are met, decides next action.
@@ -63,7 +65,8 @@ If critical information is missing, the workflow will ask clarifying questions b
 ## Validation
 
 Each phase is validated against the [TDD Cycle Checklist](./references/tdd-cycle-checklist.md):
-- Red: only test code changed, tests fail for the right reason.
+- Outcomes Discovery: all applicable categories evaluated, must-outcomes mapped to increments, test infrastructure identified.
+- Red: only test code changed, tests fail for the right reason, tests written at the correct layer.
 - Green: only production code changed, tests pass, implementation is minimal.
 - Refactor: no behavior changed, all tests still pass.
 - Acceptance: criteria met, increment is independently complete.

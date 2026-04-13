@@ -14,6 +14,13 @@ Use this structure when reporting the result of each TDD cycle.
 - Blocking questions asked: {count}
 - Assumptions made: {list}
 
+## Outcomes Discovery
+
+- Outcome categories evaluated: {count} ({count} applicable, {count} N/A)
+- Total outcomes discovered: {count} ({count} must, {count} should, {count} could)
+- Outcomes covered by increments: {count}/{total must}
+- Test infrastructure needed: {list or "none"}
+
 ## Red Phase
 
 - Test file(s) changed: {paths}

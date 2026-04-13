@@ -52,22 +52,33 @@ Before any TDD work, determine how tests run in this repository:
 
 1. Delegate to **TDD Planner** with the user request and codebase context.
 2. The planner returns:
-   - Ordered behavior increments (each following [handoff-schema.md](./references/handoff-schema.md)).
+   - An **outcome matrix** with categorized, prioritized, ID'd outcomes.
+   - Ordered behavior increments with `coversOutcomes` mappings.
    - Blocking questions it could not resolve.
    - Assumptions it made.
-3. Review the planner output. If there are blocking questions:
+3. **Outcomes Review** — Before proceeding, independently verify the outcome matrix:
+   - Are all applicable outcome categories populated (not just Core Logic)?
+   - If the request involves a user-facing artifact (web app, API, CLI), is there at least one **Interface / Delivery Surface** outcome?
+   - Does every `must` outcome ID appear in at least one increment's `coversOutcomes`?
+   - Are test infrastructure needs identified (e.g., `supertest` for HTTP, test database)?
+   - If coverage gaps exist, send the planner back with specific categories to address.
+4. Review blocking questions. If there are blocking questions:
    - Ask the user directly.
    - Once answered, update the plan or re-delegate to the planner.
-4. If the plan looks sound and questions are resolved, proceed to Phase 2.
+5. If the plan looks sound, outcomes are comprehensive, and questions are resolved, proceed to Phase 2.
 
 ### Phase 2 — Red (per increment)
 
-1. Pass the current increment to **TDD Red**.
+1. Pass the current increment to **TDD Red**, including the `coversOutcomes` and `primaryOutcomeCategory`.
 2. TDD Red writes failing test(s) and returns:
    - Test files changed, test names, why the test should fail.
    - Test execution output confirming the failure.
 3. Validate the Red Phase Gate from [tdd-cycle-checklist.md](./references/tdd-cycle-checklist.md).
-4. If the test fails for the wrong reason (syntax error, missing import), send corrections back to TDD Red before proceeding.
+4. **Layer correctness check**: verify tests match the increment's outcome categories.
+   - Interface outcomes must have tests at the interface layer (e.g., HTTP tests with supertest, not just unit tests on internal functions).
+   - Integration outcomes must test components working together, not in isolation.
+   - If tests are written at the wrong layer, send TDD Red back with explicit instructions to test at the correct layer.
+5. If the test fails for the wrong reason (syntax error, missing import), send corrections back to TDD Red before proceeding.
 
 ### Phase 3 — Green (per increment)
 
