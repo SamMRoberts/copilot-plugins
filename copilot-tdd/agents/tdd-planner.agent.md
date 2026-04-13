@@ -1,7 +1,7 @@
 ---
 name: TDD Planner
 description: "Analyze requirements, ask clarifying questions, and produce ordered behavior increments for TDD cycles."
-tools: [read, search, todo]
+tools: [read, agent, search, todo]
 user-invocable: false
 disable-model-invocation: false
 handoffs:
