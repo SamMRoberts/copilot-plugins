@@ -1,6 +1,6 @@
 {
     "version": "1.0",
-    "subject": "Persona Switcher bundle with skills, agents, and prompts for multi-persona model-routed decision synthesis",
+    "subject": "Persona Switcher plugin",
     "skills": [
         {
             "name": "run-task-with-personas-and-models",
