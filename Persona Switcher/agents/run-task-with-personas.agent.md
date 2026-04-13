@@ -3,7 +3,7 @@ name: run-task-with-personas
 description: "Persona Switcher orchestration agent. Resolve persona/model routes and shared skill context, run one isolated subagent per selected profile in parallel, and return a decision-ready synthesis."
 tools: [read, search, agent, todo, vscode]
 agents: [persona-proposal-runner, persona-proposal-runner-claude-sonnet-4-6, persona-proposal-runner-claude-sonnet-4-5, persona-proposal-runner-claude-haiku-4-5, persona-proposal-runner-gemini-2-5-pro, persona-proposal-runner-gemini-3-flash, persona-proposal-runner-gemini-3-1-pro, persona-proposal-runner-gpt-4-1, persona-proposal-runner-gpt-4o, persona-proposal-runner-gpt-5-mini, persona-proposal-runner-gpt-5-2, persona-proposal-runner-gpt-5-3-codex, persona-proposal-runner-gpt-5-4, persona-proposal-runner-gpt-5-4-mini]
-user-invocable: true
+user-invocable: false
 argument-hint: "Provide task, optional decision to make, constraints, success metrics, optional preset/profile ids, optional model overrides, optional skill names and/or a skill reference/objective/mode, optional comparison goal, and optional response depth."
 ---
 You run Persona Switcher end-to-end using routing metadata, shared skill context, and runner agents.
