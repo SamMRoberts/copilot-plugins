@@ -1,0 +1,7 @@
+{
+    "agents": "agents",
+    "skills": "skills",
+    "hooks": "hooks.json",
+    "mcpServers": ".mcp.json",
+    "instructions": "instructions"
+}
