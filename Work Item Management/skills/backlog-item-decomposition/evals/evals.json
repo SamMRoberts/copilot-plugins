@@ -1,0 +1,30 @@
+[
+    {
+        "prompt": "Break this feature request down into a backlog item and tasks: add email notifications when an order ships",
+        "expected_output": "One product backlog item for the email notification feature with multiple non-overlapping child tasks covering distinct areas such as email template, trigger logic, and delivery tracking.",
+        "assertions": [
+            "Exactly one product backlog item is produced",
+            "At least two child tasks are produced",
+            "Child tasks do not duplicate each other's scope",
+            "Output includes acceptance criteria"
+        ]
+    },
+    {
+        "prompt": "Refine this: our login flow is too slow — users are complaining",
+        "expected_output": "One scoped backlog item (spike or chore to investigate and fix login latency) with child tasks and clearly labeled assumptions about root cause.",
+        "assertions": [
+            "Assumptions are explicitly labeled",
+            "At least one open question is included given the vague input",
+            "Child tasks are scoped to the identified slice, not a full auth system rewrite"
+        ]
+    },
+    {
+        "prompt": "Write a product backlog item for adding dark mode support",
+        "expected_output": "Should NOT trigger this skill. Should trigger pbi-definition instead. If triggered, only a single PBI with a candidate list should be produced — not a full child task drafting workflow.",
+        "assertions": [
+            "Preferred: skill does not trigger; pbi-definition handles the request",
+            "If triggered: output is limited to one PBI and candidate list with no fully drafted child tasks"
+        ],
+        "type": "negative"
+    }
+]

@@ -1,6 +1,6 @@
 ---
 name: backlog-item-decomposition
-description: 'Dispatch high-level work-item decomposition to the Work Item Orchestrator agent, producing one product backlog item and non-overlapping child tasks. Use for backlog refinement, sprint planning, story slicing, acceptance criteria, dependency analysis, and parallel persona-driven drafting.'
+description: 'Use when breaking down a high-level work item into a bounded product backlog item with non-overlapping child tasks. Use for backlog refinement, sprint planning, story slicing, acceptance criteria, and dependency analysis. Do not use when only a single PBI without task breakdown is needed — use pbi-definition for that.'
 argument-hint: 'Paste the high-level work item, constraints, and any known scope boundaries.'
 user-invocable: true
 ---
