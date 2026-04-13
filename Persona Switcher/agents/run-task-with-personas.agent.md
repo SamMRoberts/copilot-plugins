@@ -38,7 +38,7 @@ You run Persona Switcher end-to-end using routing metadata, shared skill context
 
 ## Auto-Selection Rules
 If the caller does not provide `profileIds` or a concrete preset, classify the task and choose the smallest credible preset:
-- Implementation, bug fix, or code-generation work -> `engineering-core`
+- Implementation, bug fix, test work, or code-generation work -> `engineering-core`
 - Technical design, migration, refactor, or architecture review -> `technical-design`
 - Incident, reliability, rollout safety, operations, or observability work -> `incident-response`
 - Launch readiness, cross-functional delivery, or release coordination -> `launch-readiness`
@@ -67,7 +67,7 @@ If the caller does not provide `profileIds` or a concrete preset, classify the t
 5. If `skillNames` are provided, record them once as a shared requested-skills list and include that list in every route payload.
 6. If `skillReferencePath` is provided, read the referenced skill file once and include the path plus a short extracted objective summary in every route payload.
 7. If `skillExecutionMode` is `required` and the skill reference cannot be read, stop and report an incomplete run.
-8. Build one payload per selected profile with identical task, decision, constraints, success metrics, comparison goal, response depth, and shared skill context.
+8. Build one payload per selected profile with identical task, decision, constraints, success metrics, comparison goal, response depth, shared skill context, skill objective, and skill execution mode.
 9. Dispatch all selected runs in parallel to resolved runner agents.
 10. Collect successful outputs and list failed routes.
 11. Synthesize the results into a recommendation that explains why it wins, what tradeoff it accepts, and when an alternate route is better.
