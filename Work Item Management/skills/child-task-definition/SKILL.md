@@ -1,6 +1,6 @@
 ---
 name: child-task-definition
-description: 'Draft one child task from a product backlog item and a specific task candidate. Use for implementation-oriented task creation, task boundary definition, dependency capture, and done criteria. Intended for delegation in parallel by orchestration skills.'
+description: 'Draft one child task from a product backlog item and a specific task candidate. Use for implementation-oriented task creation, task boundary definition, dependency capture, and done criteria. Intended for parallel delegation by orchestration skills. Do not use for drafting the parent product backlog item — use pbi-definition for that.'
 argument-hint: 'Provide the parent backlog item context and one child-task candidate.'
 user-invocable: false
 ---
@@ -17,6 +17,7 @@ It should optimize for:
 - Clear boundaries.
 - Minimal overlap with sibling tasks.
 - Explicit done criteria.
+- Self-contained — implementable without sibling-task context.
 
 ## When to Use
 
@@ -48,13 +49,6 @@ Identify prerequisite work and downstream impact.
 
 5. Check for probable overlap.
 Avoid broad wording that would absorb work from sibling tasks, especially testing, documentation, shared API changes, or rollout activity unless that is the task's main purpose.
-
-## Quality Criteria
-
-- The task has one clear deliverable.
-- The task can be handed to an implementer without requiring sibling-task context.
-- Done criteria are specific enough to verify completion.
-- Scope is narrow enough to reduce overlap risk.
 
 ## Output Format
 

@@ -1,0 +1,30 @@
+[
+    {
+        "prompt": "Draft a child task for: implement the POST /orders endpoint. Parent PBI: Order submission flow",
+        "expected_output": "One child task with a title, clear in-scope and out-of-scope boundary, verifiable done criteria, and dependency and overlap notes.",
+        "assertions": [
+            "Exactly one child task is produced",
+            "In-scope section is specific to the endpoint implementation",
+            "Out-of-scope section explicitly excludes adjacent work (e.g. authentication, frontend form)",
+            "Done criteria are verifiable"
+        ]
+    },
+    {
+        "prompt": "Create a task for testing from this PBI: add dark mode toggle",
+        "expected_output": "One child task scoped to testing the dark mode toggle, with out-of-scope noting it does not own implementation, and overlap risk flagging the implementation sibling task.",
+        "assertions": [
+            "Task scope is limited to testing, not implementation",
+            "Overlap risk section notes the implementation sibling task",
+            "Done criteria reference test coverage or verification steps"
+        ]
+    },
+    {
+        "prompt": "Write a backlog item for adding rate limiting to the API",
+        "expected_output": "Should NOT trigger this skill. Should trigger pbi-definition instead. If triggered, skill must request a parent PBI before proceeding.",
+        "assertions": [
+            "Preferred: skill does not trigger; pbi-definition handles the request",
+            "If triggered: skill requests parent PBI context before drafting a task"
+        ],
+        "type": "negative"
+    }
+]
