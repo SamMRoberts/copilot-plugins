@@ -1,6 +1,6 @@
 ---
 name: run-task-with-personas-and-models
-description: "Run one specified task through predefined persona and model routes, then synthesize the results. Use for multi-persona comparison, model-aware task review, skill-aware evaluation, or selecting a recommended path from parallel proposals."
+description: "Use when you want the same task reviewed or answered by multiple predefined personas — each with a distinct role, experience level, and assigned model. Good for: comparing engineering vs product vs SRE perspectives on a decision; getting side-by-side proposals before choosing an implementation path; evaluating a tradeoff from junior, mid, and senior viewpoints; or any task where a single perspective isn't sufficient. Do not use to run a single-persona task or invoke one model directly — use the runner agents for that."
 argument-hint: "Provide the task, optional decision to make, optional preset or persona subset, optional model overrides, constraints, success metrics, optional skill names and/or a skill reference/objective/mode, and the decision you want from the comparison."
 user-invocable: true
 ---
@@ -29,15 +29,6 @@ That manifest defines:
 - Supported model override routes.
 - Ready-made profile selection presets.
 
-## When To Use
-
-Use this skill when:
-
-- You want the same task evaluated by multiple predefined personas.
-- You want model diversity without redefining persona instructions each time.
-- You need a side-by-side comparison before choosing an implementation path.
-- You want the output to end with a clear recommendation instead of only listing opinions.
-
 ## Default Experience
 
 Prefer focused reviews over a full-team blast unless the user explicitly asks for broad coverage.
@@ -50,20 +41,6 @@ If the user does not specify `profileIds` or a preset, resolve a focused preset 
 - Launch readiness, cross-functional execution, or release coordination -> `launch-readiness`
 - Product framing, prioritization, or value tradeoffs -> `product-discovery`
 - Broad review, ambiguous scope, or explicitly requested comprehensive feedback -> `full-team`
-
-## Required Inputs
-
-- Task statement.
-- Optional decision to make.
-- Optional constraints.
-- Optional success metrics.
-- Optional preset id or explicit persona subset.
-- Optional model overrides by persona.
-- Optional skill names and/or a skill reference path/objective/mode.
-- Optional comparison goal.
-- Optional response depth (`brief`, `standard`, or `deep`).
-
-If required context is missing, ask only the minimum clarification question needed to avoid a misleading recommendation. If the user does not answer, proceed with explicit assumptions.
 
 ## Selection Rules
 
@@ -112,16 +89,13 @@ Each routed invocation should include:
 
 ## Procedure
 
-1. Normalize the task into one canonical statement.
+1. Normalize the task into one canonical statement: restate as one declarative sentence in the imperative, resolve pronouns, remove conversational filler, and make the subject and scope explicit.
 2. Determine the decision the user is trying to make, even if it must be inferred.
 3. Read the predefined manifest and resolve the selected profiles.
 4. Build one invocation payload for the orchestrator containing task, decision, constraints, success metrics, preset/subset, overrides, optional skill inputs, comparison goal, and response depth.
-5. Delegate execution to `run-task-with-personas`.
-6. Let `run-task-with-personas` resolve model overrides and final runner agents.
-7. Let `run-task-with-personas` invoke selected persona routes in parallel and return normalized outputs.
-8. Compare proposals across risk, speed, maintainability, delivery confidence, and product impact when relevant.
-9. Recommend one path and clearly state what would change the recommendation.
-10. Explicitly explain how route outputs were processed into the final recommendation, including weighting, tie-breaks, and excluded outliers.
+5. Delegate the full invocation payload to `run-task-with-personas` and await its normalized outputs.
+6. Post-process the synthesis returned by `run-task-with-personas` by applying the Decision Rules: group convergent routes, explain sharp conflicts in terms of role incentives and hidden costs, and name the recommended path and what would change it.
+7. Load `./references/output-template.md` and render the final output, including a plain-language explanation of how route outputs were processed into the recommendation — covering weighting, tie-breaks, and excluded outliers — so the user can trace the decision logic.
 
 ## Decision Rules
 
@@ -134,76 +108,4 @@ Each routed invocation should include:
 
 ## Output Format
 
-Use this structure:
-
-### Decision Snapshot
-- Recommended route:
-- Why it wins:
-- Biggest risk to manage:
-- Strongest alternative:
-- Switch to the alternative when:
-- Next move:
-
-### Task
-- Canonical task text:
-- Decision to make:
-- Constraints:
-- Success metrics:
-- Comparison goal:
-- Response depth:
-- Personas selected:
-- Skills requested:
-- Shared skill context:
-
-### Execution Matrix
-- Persona name | Role | Default model | Final model | Runner agent | Route reason
-
-### Per-Route Outputs
-- Persona name:
-  - Model:
-  - Runner agent:
-  - Skill context used:
-  - Skill interactions:
-  - Recommendation:
-  - Best fit when:
-  - Main risks:
-  - Tradeoffs:
-  - Validation checks:
-  - First steps:
-  - Definition of done:
-  - Confidence:
-  - Key assumptions:
-
-### Synthesis
-- Areas of agreement:
-- Areas of disagreement:
-- Recommended path:
-- Strongest speed-first option:
-- Strongest risk-first option:
-- Strongest maintainability-first option:
-- Rationale:
-- Missing routes or failures:
-
-### Result Processing Notes
-- How results were grouped:
-- What was weighted most and why:
-- How conflicts were resolved:
-- Why any route was deprioritized or treated as an outlier:
-- How the final recommendation was selected from the returned persona outputs:
-
-### Assumptions
-- Assumption 1
-
-### Open Questions
-- Question 1
-
-## Authoring Guidance
-
-- Keep the task fixed once normalized.
-- Use the manifest as the only source of truth for predefined routes.
-- Do not fabricate model support or runner agent names.
-- Prefer focused persona selection unless broad coverage is explicitly valuable.
-- Make the synthesis decision-ready: name the winner, the main risk, and the reason to switch to the best alternative.
-- Always include a plain-language explanation of how multi-persona outputs were processed into the recommendation so the user can trace the decision logic.
-- Do not bypass `run-task-with-personas`; all runtime execution must be handed off to that agent.
-- Prefer resolving shared skill context once in the orchestrator instead of repeating the same skill work in every route.
+Load [./references/output-template.md](./references/output-template.md) before rendering.
