@@ -2,6 +2,16 @@
 
 Persona Switcher is a task-centric bundle for running the same request through curated persona and model routes, then returning a recommendation instead of an unsorted pile of opinions.
 
+## Required VS Code Setting
+
+To enable nested subagent invocation, your VS Code `settings.json` must include:
+
+```json
+{
+	"chat.subagents.allowInvocationsFromSubagents": true
+}
+```
+
 ## Included
 
 - [run-task-with-personas-and-models](./skills/run-task-with-personas-and-models/SKILL.md)
