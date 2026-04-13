@@ -14,10 +14,10 @@ To enable nested subagent invocation, your VS Code `settings.json` must include:
 
 ## Included
 
+- [plugin manifest](./plugin.json)
 - [run-task-with-personas-and-models](./skills/run-task-with-personas-and-models/SKILL.md)
 - [run-task-with-personas](./agents/run-task-with-personas.agent.md)
 - [run-persona-switcher](./prompts/run-persona-switcher.prompt.md)
-- [run-persona-switcher-quick](./prompts/run-persona-switcher-quick.prompt.md)
 
 ## What Changed In This Version
 
@@ -130,7 +130,7 @@ Response depth: standard
 ```md
 Task statement: Compare two approaches for documenting Persona Switcher presets in the repo README.
 Decision to make: Choose whether to organize the docs by preset type or by user workflow.
-Skill reference path: Persona Switcher/skills/run-task-with-personas-and-models/SKILL.md
+Skill reference path: persona-switcher/skills/run-task-with-personas-and-models/SKILL.md
 Skill objective: Reuse the orchestrator contract and output shape while evaluating the doc structure.
 Skill execution mode: required
 Constraints:
