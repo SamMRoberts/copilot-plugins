@@ -7,21 +7,23 @@
             "description": "Dispatch high-level work-item decomposition to the Work Item Orchestrator agent, producing one product backlog item and non-overlapping child tasks. Use for backlog refinement, sprint planning, story slicing, acceptance criteria, dependency analysis, and parallel persona-driven drafting.",
             "argumentHint": "Paste the high-level work item, constraints, and any known scope boundaries.",
             "userInvocable": true,
-            "skillPath": "./skills/backlog-item-decomposition/SKILL.md"
-        },
-        {
-            "name": "pbi-definition",
-            "description": "Draft one product backlog item from a high-level request or refined scope. Use for single-item backlog creation, scope definition, acceptance criteria, dependencies, and child-task candidate extraction. Intended for delegation by orchestration skills.",
-            "argumentHint": "Provide the high-level request, constraints, and scope boundary.",
-            "userInvocable": false,
-            "skillPath": "./skills/pbi-definition/SKILL.md"
-        },
-        {
-            "name": "child-task-definition",
-            "description": "Draft one child task from a product backlog item and a specific task candidate. Use for implementation-oriented task creation, task boundary definition, dependency capture, and done criteria. Intended for delegation in parallel by orchestration skills.",
-            "argumentHint": "Provide the parent backlog item context and one child-task candidate.",
-            "userInvocable": false,
-            "skillPath": "./skills/child-task-definition/SKILL.md"
+            "skillPath": "./skills/backlog-item-decomposition/SKILL.md",
+            "subSkills": [
+                {
+                    "name": "pbi-definition",
+                    "description": "Draft one product backlog item from a high-level request or refined scope. Use for single-item backlog creation, scope definition, acceptance criteria, dependencies, and child-task candidate extraction. Intended for delegation by orchestration skills.",
+                    "argumentHint": "Provide the high-level request, constraints, and scope boundary.",
+                    "userInvocable": false,
+                    "skillPath": "./skills/pbi-definition/SKILL.md"
+                },
+                {
+                    "name": "child-task-definition",
+                    "description": "Draft one child task from a product backlog item and a specific task candidate. Use for implementation-oriented task creation, task boundary definition, dependency capture, and done criteria. Intended for delegation in parallel by orchestration skills.",
+                    "argumentHint": "Provide the parent backlog item context and one child-task candidate.",
+                    "userInvocable": false,
+                    "skillPath": "./skills/child-task-definition/SKILL.md"
+                }
+            ]
         }
     ]
 }
