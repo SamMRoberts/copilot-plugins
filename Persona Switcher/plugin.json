@@ -1,0 +1,13 @@
+{
+    "version": "1.0",
+    "subject": "Persona Switcher skills for multi-persona and model-routed decision synthesis",
+    "skills": [
+        {
+            "name": "run-task-with-personas-and-models",
+            "description": "Run one specified task through predefined persona and model routes, then synthesize the outputs into a recommendation. Use for multi-persona comparison, model-aware task review, and selecting a recommended path from parallel proposals.",
+            "argumentHint": "Provide task, optional decision to make, optional preset/profile ids, optional model overrides, constraints, success metrics, optional skill names and/or a skill reference/objective/mode, optional comparison goal, and optional response depth.",
+            "userInvocable": true,
+            "skillPath": "./skills/run-task-with-personas-and-models/SKILL.md"
+        }
+    ]
+}
