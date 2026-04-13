@@ -8,6 +8,13 @@
             "argumentHint": "Provide task, optional decision to make, optional preset/profile ids, optional model overrides, constraints, success metrics, optional skill names and/or a skill reference/objective/mode, optional comparison goal, and optional response depth.",
             "userInvocable": true,
             "skillPath": "./skills/run-task-with-personas-and-models/SKILL.md"
+        },
+        {
+            "name": "run-task-with-personas-and-models-delegation",
+            "description": "Delegation-only Persona Switcher entry for internal orchestration flows that require the same routing and synthesis policy without direct user invocation.",
+            "argumentHint": "Provide the same inputs as run-task-with-personas-and-models when invoked by orchestration layers.",
+            "userInvocable": false,
+            "skillPath": "./skills/run-task-with-personas-and-models/SKILL.md"
         }
     ]
 }
