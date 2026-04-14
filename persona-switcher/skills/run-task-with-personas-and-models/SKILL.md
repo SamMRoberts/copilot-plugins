@@ -21,6 +21,8 @@ This skill runs the same task against a curated set of predefined persona and mo
 
 Predefined persona and model routes are stored in [Predefined Persona-Model Profiles](./references/personas/predefined-persona-models.json).
 
+For a quick role-to-model view, see [Persona To Model Mapping](./references/personas/persona-model-mapping.md).
+
 That manifest defines:
 
 - Available persona profiles.
