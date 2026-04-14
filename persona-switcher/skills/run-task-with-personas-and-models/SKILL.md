@@ -74,18 +74,7 @@ Do not change the canonical task text across routes.
 - Apply persona-specific framing only through the selected profile.
 - Continue if one route fails; synthesize successful outputs and list missing routes.
 
-Each routed invocation should include:
-
-- Canonical task statement.
-- Decision to make.
-- Constraints.
-- Success metrics.
-- Persona profile name, role, experience, and personality.
-- Resolved model and model-specific runner agent (derived by naming convention).
-- Comparison goal.
-- Response depth.
-- Skill names.
-- Shared skill context summary.
+When building the invocation payload in step 5, load [./references/invocation-contract.md](./references/invocation-contract.md) for the required fields.
 
 ## Procedure
 
