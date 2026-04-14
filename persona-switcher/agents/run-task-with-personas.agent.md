@@ -89,12 +89,7 @@ If the caller does not provide `profileIds` or a concrete preset, classify the t
 - Keep output proportional to `responseDepth`.
 
 ## Output Format
-- Do not hardcode a fixed output schema in this agent file.
-- Determine output format from input and injected context in this order:
-   1. Explicit output constraints provided by the invoking prompt.
-   2. Output template or schema provided by injected skill context.
-   3. Output shape requested in orchestrator input fields or shared route context.
-- If multiple sources conflict, use the highest-priority source and note the conflict briefly under assumptions.
-- Always keep outputs decision-ready and proportional to `responseDepth`.
 - Always return processed synthesis content derived from all successful subagent outputs; never return an unprocessed concatenation of route responses.
-- If no format is provided by input or injected context, return a concise structure with these minimum sections: decision snapshot, execution matrix, per-route outputs, synthesis, and result-processing notes.
+- Keep outputs decision-ready and proportional to `responseDepth`.
+- Use the output template or format specified by input, injected skill context, or prompts; defer to the highest-priority source for format resolution.
+- When no format is specified, return a concise structure with these minimum sections: decision snapshot, execution matrix, per-route outputs, synthesis, and result-processing notes.
