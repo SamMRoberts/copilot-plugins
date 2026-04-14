@@ -170,3 +170,21 @@ The predefined persona and model routes live in [predefined-persona-models.json]
 - Orchestrator: [run-task-with-personas](./agents/run-task-with-personas.agent.md)
 - Generic worker fallback: [persona-proposal-runner](./agents/persona-proposal-runner.agent.md)
 - Model-pinned workers: [agents](./agents)
+
+## Hooks
+
+A project-scoped Copilot CLI extension enhances the parallel dispatch workflow. The extension lives at [`.github/extensions/persona-switcher-hooks/extension.mjs`](../.github/extensions/persona-switcher-hooks/extension.mjs) and is declared in [`hooks.json`](./hooks.json).
+
+The extension is loaded automatically when you work in this repo. It wires 5 hooks into the parallel run lifecycle:
+
+| Hook | Purpose | Benefit |
+|------|---------|---------|
+| `onSessionStart` | Manifest pre-load | Reads `predefined-persona-models.json` once and injects a profile summary + routing rules as context — eliminates up to 9× redundant file reads per parallel run |
+| `onUserPromptSubmitted` | Route validation context | Detects persona-switcher invocation keywords and injects a namespace reminder before the orchestrator dispatches routes |
+| `onPreToolUse` | Dispatch guard + namespace auto-fix | Intercepts `task` calls targeting persona runners; silently prepends missing `persona-switcher:` prefix and logs an ephemeral dispatch message per route |
+| `onPostToolUse` | Completion tracker | Logs `✅ Route complete (n/total)` per completion; fires a persistent summary when the full batch finishes — eliminates manual polling |
+| `onErrorOccurred` | Auto-retry | Retries recoverable `model_call` errors (×2) and `tool_execution` errors (×1); aborts with a clear message on non-recoverable failures |
+
+### Why the namespace fix matters
+
+Without the `persona-switcher:` prefix, every runner agent call fails with a file-not-found error. The `onPreToolUse` hook catches this pattern (`agent_type` matching `persona-proposal-runner*` without the prefix) and corrects it transparently before the call executes.
