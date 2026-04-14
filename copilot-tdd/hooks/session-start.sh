@@ -15,7 +15,7 @@ LOG_DIR="${CWD}/.tdd-logs"
 mkdir -p "$LOG_DIR"
 
 # Initialize the session log with metadata
-SESSION_ID="tdd-$(date +%Y%m%d-%H%M%S)"
+SESSION_ID="tdd-$(date +%Y%m%d-%H%M%S)-$$"
 SESSION_FILE="${LOG_DIR}/session.jsonl"
 
 jq -n -c \

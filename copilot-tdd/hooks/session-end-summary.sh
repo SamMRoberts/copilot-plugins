@@ -39,9 +39,9 @@ FILE_MODIFICATIONS=0
 TEST_EXECUTIONS=0
 
 if [ -f "$SESSION_FILE" ]; then
-  TOOL_INVOCATIONS=$(grep -c '"event":"tool_invoked"' "$SESSION_FILE" 2>/dev/null || echo "0")
-  FILE_MODIFICATIONS=$(grep -c '"event":"file_modified"' "$SESSION_FILE" 2>/dev/null || echo "0")
-  TEST_EXECUTIONS=$(grep -c '"event":"test_execution"' "$SESSION_FILE" 2>/dev/null || echo "0")
+  TOOL_INVOCATIONS=$(grep -c '"event":"tool_invoked"' "$SESSION_FILE" || true)
+  FILE_MODIFICATIONS=$(grep -c '"event":"file_modified"' "$SESSION_FILE" || true)
+  TEST_EXECUTIONS=$(grep -c '"event":"test_execution"' "$SESSION_FILE" || true)
 fi
 
 # Write the session summary

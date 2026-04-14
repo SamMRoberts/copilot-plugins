@@ -25,7 +25,7 @@ fi
 
 # Skip formatting for non-source files
 case "$FILE_PATH" in
-  *.md|*.json|*.yaml|*.yml|*.toml|*.lock|*.log|*.csv|*.txt|*.sh)
+  *.md|*.json|*.yaml|*.yml|*.toml|*.lock|*.log|*.csv|*.txt)
     exit 0 ;;
 esac
 
@@ -71,6 +71,12 @@ fi
 # rubocop (Ruby)
 if command -v rubocop &>/dev/null && [[ "$FILE_PATH" == *.rb ]]; then
   rubocop --autocorrect --only Layout "$FILE_PATH" 2>/dev/null || true
+  exit 0
+fi
+
+# shfmt (Shell)
+if command -v shfmt &>/dev/null && [[ "$FILE_PATH" == *.sh ]]; then
+  shfmt -w "$FILE_PATH" 2>/dev/null || true
   exit 0
 fi
 

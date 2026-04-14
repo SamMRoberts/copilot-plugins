@@ -30,16 +30,20 @@ if [ "$TOOL_NAME" = "edit" ] || [ "$TOOL_NAME" = "create" ]; then
       '{event: "file_modified", timestamp: $ts, action: $tool, file: $file, result: $result}' \
       >> "$SESSION_FILE"
 
-    # Update cycle state with modified files
+    # Update cycle state with modified files (use a lock file to prevent races)
     if [ -f "$STATE_FILE" ]; then
+      LOCK_FILE="${STATE_FILE}.lock"
       FIELD="filesEdited"
       if [ "$TOOL_NAME" = "create" ]; then
         FIELD="filesCreated"
       fi
-      UPDATED=$(jq --arg file "$FILE_PATH" --arg field "$FIELD" \
-        'if (.[$field] | index($file)) == null then .[$field] += [$file] else . end' \
-        "$STATE_FILE")
-      echo "$UPDATED" > "$STATE_FILE"
+      (
+        flock -w 5 200 || exit 0
+        UPDATED=$(jq --arg file "$FILE_PATH" --arg field "$FIELD" \
+          'if (.[$field] | index($file)) == null then .[$field] += [$file] else . end' \
+          "$STATE_FILE")
+        echo "$UPDATED" > "$STATE_FILE"
+      ) 200>"$LOCK_FILE"
     fi
   fi
 fi
@@ -86,16 +90,20 @@ if [ "$TOOL_NAME" = "bash" ] || [ "$TOOL_NAME" = "execute" ]; then
       '{event: "test_execution", timestamp: $ts, command: $cmd, outcome: $outcome, resultType: $result}' \
       >> "$SESSION_FILE"
 
-    # Update cycle state counters
+    # Update cycle state counters (use a lock file to prevent races)
     if [ -f "$STATE_FILE" ]; then
-      if [ "$TEST_OUTCOME" = "pass" ]; then
-        UPDATED=$(jq '.testsRun += 1 | .testsPassed += 1' "$STATE_FILE")
-      elif [ "$TEST_OUTCOME" = "fail" ]; then
-        UPDATED=$(jq '.testsRun += 1 | .testsFailed += 1' "$STATE_FILE")
-      else
-        UPDATED=$(jq '.testsRun += 1' "$STATE_FILE")
-      fi
-      echo "$UPDATED" > "$STATE_FILE"
+      LOCK_FILE="${STATE_FILE}.lock"
+      (
+        flock -w 5 200 || exit 0
+        if [ "$TEST_OUTCOME" = "pass" ]; then
+          UPDATED=$(jq '.testsRun += 1 | .testsPassed += 1' "$STATE_FILE")
+        elif [ "$TEST_OUTCOME" = "fail" ]; then
+          UPDATED=$(jq '.testsRun += 1 | .testsFailed += 1' "$STATE_FILE")
+        else
+          UPDATED=$(jq '.testsRun += 1' "$STATE_FILE")
+        fi
+        echo "$UPDATED" > "$STATE_FILE"
+      ) 200>"$LOCK_FILE"
     fi
   fi
 fi
