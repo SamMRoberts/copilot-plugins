@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      {
+        "type": "command",
+        "bash": "./hooks/session-start.sh",
+        "cwd": "copilot-tdd",
+        "timeoutSec": 10,
+        "comment": "Initialize TDD audit log and cycle state tracking"
+      }
+    ],
+    "preToolUse": [
+      {
+        "type": "command",
+        "bash": "./hooks/pre-tool-guard.sh",
+        "cwd": "copilot-tdd",
+        "timeoutSec": 5,
+        "comment": "Protect TDD methodology files and lock files from accidental modification"
+      }
+    ],
+    "postToolUse": [
+      {
+        "type": "command",
+        "bash": "./hooks/post-tool-tracker.sh",
+        "cwd": "copilot-tdd",
+        "timeoutSec": 10,
+        "comment": "Track file edits and test executions for TDD cycle audit trail"
+      },
+      {
+        "type": "command",
+        "bash": "./hooks/post-tool-format.sh",
+        "cwd": "copilot-tdd",
+        "timeoutSec": 30,
+        "comment": "Auto-format code after edits using the project's formatter"
+      }
+    ],
+    "sessionEnd": [
+      {
+        "type": "command",
+        "bash": "./hooks/session-end-summary.sh",
+        "cwd": "copilot-tdd",
+        "timeoutSec": 10,
+        "comment": "Generate TDD session summary with cycle statistics"
+      }
+    ],
+    "errorOccurred": [
+      {
+        "type": "command",
+        "bash": "./hooks/error-logger.sh",
+        "cwd": "copilot-tdd",
+        "timeoutSec": 5,
+        "comment": "Log errors to the TDD audit trail for debugging"
+      }
+    ]
+  }
+}
