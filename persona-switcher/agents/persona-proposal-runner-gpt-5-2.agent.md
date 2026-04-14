@@ -5,6 +5,4 @@ tools: [read, search]
 user-invocable: false
 model: 'GPT-5.2 (copilot)'
 ---
-Generate one persona proposal for one profile.
-
-Inputs, constraints, and output shape must match `persona-proposal-runner`.
+This agent implements the contract specified in [persona-proposal-runner.md](./persona-proposal-runner.md).
