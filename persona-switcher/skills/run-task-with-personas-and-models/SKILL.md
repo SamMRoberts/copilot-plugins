@@ -91,13 +91,18 @@ Each routed invocation should include:
 
 ## Procedure
 
-1. Normalize the task into one canonical statement: restate as one declarative sentence in the imperative, resolve pronouns, remove conversational filler, and make the subject and scope explicit.
-2. Determine the decision the user is trying to make, even if it must be inferred.
-3. Read the predefined manifest and resolve the selected profiles.
-4. Build one invocation payload for the orchestrator containing task, decision, constraints, success metrics, preset/subset, overrides, optional skill inputs, comparison goal, and response depth.
-5. Delegate the full invocation payload to `run-task-with-personas` and await its normalized outputs.
-6. Post-process the synthesis returned by `run-task-with-personas` by applying the Decision Rules: group convergent routes, explain sharp conflicts in terms of role incentives and hidden costs, and name the recommended path and what would change it.
-7. Load `./references/output-template.md` and render the final output, including a plain-language explanation of how route outputs were processed into the recommendation — covering weighting, tie-breaks, and excluded outliers — so the user can trace the decision logic.
+1. **Discover skills from the prompt:** Before normalizing the task, scan the user's prompt for:
+   - Explicit skill names or references (e.g., "using the X skill").
+   - Implicit guidance requests (e.g., "follow best practices for...", "apply ...", "consider...").
+   - Phrases suggesting skill execution mode: "must incorporate", "strictly require", or "essential" signal `required` mode; "optionally consider" or "may reference" signal `advisory` mode.
+   - Skill objective hints from the prompt context.
+2. Normalize the task into one canonical statement: restate as one declarative sentence in the imperative, resolve pronouns, remove conversational filler, and make the subject and scope explicit.
+3. Determine the decision the user is trying to make, even if it must be inferred.
+4. Read the predefined manifest and resolve the selected profiles.
+5. Build one invocation payload for the orchestrator containing task, decision, constraints, success metrics, preset/subset, overrides, optional skill inputs, comparison goal, and response depth.
+6. Delegate the full invocation payload to `run-task-with-personas` and await its normalized outputs.
+7. Post-process the synthesis returned by `run-task-with-personas` by applying the Decision Rules: group convergent routes, explain sharp conflicts in terms of role incentives and hidden costs, and name the recommended path and what would change it.
+8. Load `./references/output-template.md` and render the final output, including a plain-language explanation of how route outputs were processed into the recommendation — covering weighting, tie-breaks, and excluded outliers — so the user can trace the decision logic.
 
 ## Decision Rules
 
