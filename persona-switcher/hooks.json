@@ -74,6 +74,14 @@
                 "retryCount",
                 "userNotification"
             ]
+        },
+        {
+            "name": "onSessionEnd",
+            "purpose": "Session completion status",
+            "description": "Writes a brief status message to the console when the session ends.",
+            "output": [
+                "console log"
+            ]
         }
     ]
 }
