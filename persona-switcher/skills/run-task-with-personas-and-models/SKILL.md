@@ -1,6 +1,6 @@
 ---
 name: run-task-with-personas-and-models
-description: "Use when you want the same task reviewed or answered by multiple predefined personas — each with a distinct role, experience level, and assigned model. Good for: comparing engineering vs product vs SRE perspectives on a decision; getting side-by-side proposals before choosing an implementation path; evaluating a tradeoff from junior, mid, and senior viewpoints; or any task where a single perspective isn't sufficient. Do not use to run a single-persona task or invoke one model directly — use the runner agents for that."
+description: "Use when you want the same task reviewed or answered by multiple predefined personas — each with a distinct role, experience level, and assigned model. Good for: comparing engineering vs product vs SRE perspectives on a decision; getting side-by-side proposals before choosing an implementation path; evaluating a tradeoff from junior, mid, and senior viewpoints; discovering and incorporating skills referenced in the task across all persona routes; or any task where a single perspective isn't sufficient. Do not use to run a single-persona task or invoke one model directly."
 argument-hint: "Provide the task, optional decision to make, optional preset or persona subset, optional model overrides, constraints, success metrics, optional skill names and/or a skill reference/objective/mode, and the decision you want from the comparison."
 user-invocable: true
 ---
@@ -27,7 +27,6 @@ That manifest defines:
 
 - Available persona profiles.
 - Default model per persona.
-- Runner agent per model.
 - Supported model override routes.
 - Ready-made profile selection presets.
 
@@ -56,11 +55,10 @@ If the user does not specify `profileIds` or a preset, resolve a focused preset 
 
 Resolve each selected persona route in this order:
 
-1. Explicit model override supplied by the user, if the model exists in `supportedModelRoutes`.
-2. The persona's `defaultModel` and `runnerAgent` from the manifest.
-3. Generic fallback route:
-   - Model: unspecified
-   - Runner agent: `persona-proposal-runner`
+1. Explicit model override supplied by the user, if the model exists in `supportedModelRoutes`. Resolve to `persona-proposal-runner-<model>` agent.
+2. The persona's `defaultModel` from the manifest. Resolve to `persona-proposal-runner-<model>` agent by naming convention.
+
+Every route must resolve to a concrete model. If a persona has no `defaultModel` and no override is supplied, report it as a manifest error.
 
 Do not change the canonical task text across routes.
 
@@ -83,7 +81,7 @@ Each routed invocation should include:
 - Constraints.
 - Success metrics.
 - Persona profile name, role, experience, and personality.
-- Resolved model and runner agent.
+- Resolved model and model-specific runner agent (derived by naming convention).
 - Comparison goal.
 - Response depth.
 - Skill names.
@@ -98,7 +96,7 @@ Each routed invocation should include:
    - Skill objective hints from the prompt context.
 2. Normalize the task into one canonical statement: restate as one declarative sentence in the imperative, resolve pronouns, remove conversational filler, and make the subject and scope explicit.
 3. Determine the decision the user is trying to make, even if it must be inferred.
-4. Read the predefined manifest and resolve the selected profiles.
+4. Read the predefined manifest and resolve the selected profiles. If any explicitly requested `profileIds` are not found in the manifest, report them as unsupported and exclude them from execution — do not invent or silently substitute profiles.
 5. Build one invocation payload for the orchestrator containing task, decision, constraints, success metrics, preset/subset, overrides, optional skill inputs, comparison goal, and response depth.
 6. Delegate the full invocation payload to `run-task-with-personas` and await its normalized outputs.
 7. Post-process the synthesis returned by `run-task-with-personas` by applying the Decision Rules: group convergent routes, explain sharp conflicts in terms of role incentives and hidden costs, and name the recommended path and what would change it.

@@ -1,0 +1,33 @@
+[
+    {
+        "prompt": "Compare approaches to migrating a legacy REST API to GraphQL from a junior engineer, mid-level engineer, and senior architect perspective. Also apply any best practices from the API design skill.",
+        "expected_output": "Auto-selects the technical-design preset. Discovers the API design skill reference from the prompt and passes shared skill context to all routes. Produces per-route outputs with persona-specific recommendations and a synthesis naming the recommended path and strongest alternative.",
+        "assertions": [
+            "Preset resolves to technical-design",
+            "Skill discovery identifies 'API design skill' from the prompt",
+            "Shared skill context is present in the invocation payload for every route",
+            "Synthesis names a recommended path and strongest alternative",
+            "Output includes a Decision Snapshot section"
+        ]
+    },
+    {
+        "prompt": "I want product-manager, engineering-manager, and program-manager input on whether to ship this feature now or wait. Use GPT-5.4 for the product manager if possible.",
+        "expected_output": "Uses exactly the three named personas. Applies GPT-5.4 model override for the product-manager route if it exists in supportedModelRoutes. Produces per-route outputs and a synthesis with a decision snapshot.",
+        "assertions": [
+            "Exactly three personas are selected: product-manager, engineering-manager, program-manager",
+            "Model override GPT-5.4 is applied to the product-manager route or noted as unsupported",
+            "Canonical task statement is identical across all three routes",
+            "Output includes per-route outputs for all three personas",
+            "Decision Snapshot names a recommended path"
+        ]
+    },
+    {
+        "prompt": "Tell me the best way to optimize database queries",
+        "expected_output": "Should NOT trigger this skill. This is a single-expert technical question with no multi-persona comparison intent.",
+        "assertions": [
+            "Preferred: skill does not trigger; a single-expert response handles the request",
+            "If triggered: output acknowledges that multi-persona comparison is unnecessary for this request"
+        ],
+        "type": "negative"
+    }
+]
