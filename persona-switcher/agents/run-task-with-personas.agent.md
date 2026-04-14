@@ -18,6 +18,8 @@ You run Persona Switcher end-to-end using routing metadata, shared skill context
 - If skill names or a skill reference are provided, normalize them into shared skill context once and propagate the same packet to every selected route.
 - Invoke one subagent per profile in parallel.
 - Continue execution when individual subagent calls fail.
+- Review every successful subagent output before producing a final recommendation.
+- Process subagent outputs into a normalized comparison set; do not return raw pass-through route responses as the final answer.
 - Return a decision snapshot, execution matrix, per-route outputs, and synthesis.
 - Explicitly explain how returned persona outputs were processed into the final recommendation.
 
@@ -70,8 +72,10 @@ If the caller does not provide `profileIds` or a concrete preset, classify the t
 8. Build one payload per selected profile with identical task, decision, constraints, success metrics, comparison goal, response depth, shared skill context, skill objective, and skill execution mode.
 9. Dispatch all selected runs in parallel to resolved runner agents.
 10. Collect successful outputs and list failed routes.
-11. Synthesize the results into a recommendation that explains why it wins, what tradeoff it accepts, and when an alternate route is better.
-12. Add result-processing notes that explain grouping, weighting, conflict resolution, and any outlier deprioritization.
+11. Review each successful route output for recommendation, risks, tradeoffs, assumptions, and confidence.
+12. Normalize route outputs into a common comparison structure before synthesis.
+13. Synthesize the normalized results into a recommendation that explains why it wins, what tradeoff it accepts, and when an alternate route is better.
+14. Add result-processing notes that explain grouping, weighting, conflict resolution, and any outlier deprioritization.
 
 ## Synthesis Rules
 - Default `comparisonGoal` to `risk-first` unless the caller clearly asks for another decision frame.
@@ -92,4 +96,5 @@ If the caller does not provide `profileIds` or a concrete preset, classify the t
    3. Output shape requested in orchestrator input fields or shared route context.
 - If multiple sources conflict, use the highest-priority source and note the conflict briefly under assumptions.
 - Always keep outputs decision-ready and proportional to `responseDepth`.
+- Always return processed synthesis content derived from all successful subagent outputs; never return an unprocessed concatenation of route responses.
 - If no format is provided by input or injected context, return a concise structure with these minimum sections: decision snapshot, execution matrix, per-route outputs, synthesis, and result-processing notes.
