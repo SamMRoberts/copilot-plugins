@@ -1,0 +1,79 @@
+{
+    "version": "1.0",
+    "extension": ".github/extensions/persona-switcher-hooks/extension.mjs",
+    "description": "Copilot CLI extension hooks for the Persona Switcher parallel dispatch workflow.",
+    "hooks": [
+        {
+            "name": "onSessionStart",
+            "purpose": "Manifest pre-load",
+            "description": "Reads predefined-persona-models.json once at session start and injects a compact profile summary plus routing rules as additionalContext. Eliminates redundant per-runner manifest reads (up to 9× per parallel run).",
+            "output": [
+                "additionalContext"
+            ]
+        },
+        {
+            "name": "onUserPromptSubmitted",
+            "purpose": "Route validation context injection",
+            "description": "Detects persona-switcher invocation patterns in the user prompt (keywords: persona-switcher, full-team, preset names, run-task-with-personas). When detected, injects a reminder that runner agent types require the 'persona-switcher:' namespace prefix before the orchestrator makes dispatch decisions.",
+            "triggerKeywords": [
+                "persona",
+                "persona-switcher",
+                "full-team",
+                "run-task-with-personas",
+                "persona-proposal-runner",
+                "engineering-core",
+                "technical-design",
+                "incident-response",
+                "launch-readiness",
+                "product-discovery",
+                "reliability-focus",
+                "delivery-triad"
+            ],
+            "output": [
+                "additionalContext"
+            ]
+        },
+        {
+            "name": "onPreToolUse",
+            "purpose": "Dispatch guard, namespace auto-fix, and dispatch logger",
+            "description": "Intercepts task tool calls targeting persona runner agents. If the agent_type is missing the 'persona-switcher:' prefix, silently prepends it and logs a warning. Logs an ephemeral dispatch message for each correctly-namespaced runner call. Increments the batch dispatch counter for completion tracking.",
+            "appliesTo": "tool: task, agent_type: persona-proposal-runner*",
+            "output": [
+                "modifiedArgs (namespace fix)",
+                "timeline log"
+            ]
+        },
+        {
+            "name": "onPostToolUse",
+            "purpose": "Completion tracker",
+            "description": "Tracks completion of persona runner task calls. Logs '✅ Route complete (n/total)' for each completed route. Fires a persistent '🎉 All N persona routes complete' summary log when the full parallel batch finishes. Resets batch counters when a new batch starts.",
+            "appliesTo": "tool: task, agent_type: persona-switcher:persona-proposal-runner*",
+            "output": [
+                "timeline log"
+            ]
+        },
+        {
+            "name": "onErrorOccurred",
+            "purpose": "Auto-retry for transient failures",
+            "description": "Handles recoverable errors with targeted retry strategies: model_call errors retry up to 2 times; tool_execution errors retry once with a user notification. Non-recoverable errors abort with a clear message.",
+            "retryPolicy": {
+                "model_call": {
+                    "errorHandling": "retry",
+                    "retryCount": 2
+                },
+                "tool_execution": {
+                    "errorHandling": "retry",
+                    "retryCount": 1
+                },
+                "non_recoverable": {
+                    "errorHandling": "abort"
+                }
+            },
+            "output": [
+                "errorHandling",
+                "retryCount",
+                "userNotification"
+            ]
+        }
+    ]
+}
