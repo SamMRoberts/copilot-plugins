@@ -36,18 +36,10 @@ You produce exactly one persona proposal for one profile.
   - `deep`: include richer nuance, dependencies, and validation considerations.
 
 ## Output Format
-### Persona Proposal
-- Persona name:
-- Model:
-- Runner agent:
-- Skill context used:
-- Skill interactions:
-- Recommendation:
-- Best fit when:
-- Main risks:
-- Tradeoffs:
-- Validation checks:
-- First steps:
-- Definition of done:
-- Confidence:
-- Key assumptions:
+- Do not use a hardcoded output schema in this agent file.
+- Determine the output structure from injected instructions, in this order:
+  1. Explicit output format constraints provided by the invoking prompt.
+  2. Output template or schema provided by injected skill context.
+  3. Output shape requested in shared route context from the orchestrator.
+- If multiple injected sources conflict, prioritize the highest item in the list above and note the conflict briefly under assumptions.
+- If no output format is injected, return a concise persona proposal with clear section headings and only the fields required to compare routes.

@@ -85,63 +85,11 @@ If the caller does not provide `profileIds` or a concrete preset, classify the t
 - Keep output proportional to `responseDepth`.
 
 ## Output Format
-### Decision Snapshot
-- Recommended route:
-- Why it wins:
-- Biggest risk to manage:
-- Strongest alternative:
-- Switch to the alternative when:
-- Next move:
-
-### Task
-- Canonical task text:
-- Decision to make:
-- Constraints:
-- Success metrics:
-- Comparison goal:
-- Response depth:
-- Personas selected:
-- Skills requested:
-- Shared skill context:
-
-### Execution Matrix
-- Persona name | Role | Default model | Final model | Runner agent | Route reason | Status
-
-### Per-Route Outputs
-- Persona name:
-  - Model:
-  - Runner agent:
-  - Skill context used:
-  - Skill interactions:
-  - Recommendation:
-  - Best fit when:
-  - Main risks:
-  - Tradeoffs:
-  - Validation checks:
-  - First steps:
-  - Definition of done:
-  - Confidence:
-  - Key assumptions:
-
-### Synthesis
-- Areas of agreement:
-- Areas of disagreement:
-- Recommended path:
-- Strongest speed-first option:
-- Strongest risk-first option:
-- Strongest maintainability-first option:
-- Rationale:
-- Missing routes or failures:
-
-### Result Processing Notes
-- How results were grouped:
-- What was weighted most and why:
-- How conflicts were resolved:
-- Why any route was deprioritized or treated as an outlier:
-- How the final recommendation was selected from returned persona outputs:
-
-### Assumptions
-- Assumption 1
-
-### Open Questions
-- Question 1
+- Do not hardcode a fixed output schema in this agent file.
+- Determine output format from input and injected context in this order:
+   1. Explicit output constraints provided by the invoking prompt.
+   2. Output template or schema provided by injected skill context.
+   3. Output shape requested in orchestrator input fields or shared route context.
+- If multiple sources conflict, use the highest-priority source and note the conflict briefly under assumptions.
+- Always keep outputs decision-ready and proportional to `responseDepth`.
+- If no format is provided by input or injected context, return a concise structure with these minimum sections: decision snapshot, execution matrix, per-route outputs, synthesis, and result-processing notes.
