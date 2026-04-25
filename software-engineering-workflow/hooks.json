@@ -1,18 +1,12 @@
 {
     "hooks": {
-        "SubagentStart": [
-            {
-                "type": "command",
-                "command": "node -e 'let input = \"\"; process.stdin.on(\"data\", chunk => input += chunk); process.stdin.on(\"end\", () => { let data = {}; try { data = JSON.parse(input || \"{}\"); } catch {} const agent = data.subagentName || data.agentName || data.name || data.subagent?.name || data.agent?.name || \"sub-agent\"; console.log(JSON.stringify({ systemMessage: `🚀 Sub-agent started: ${agent}` })); });'",
-                "timeout": 5
-            }
-        ],
-        "SubagentStop": [
-            {
-                "type": "command",
-                "command": "node -e 'let input = \"\"; process.stdin.on(\"data\", chunk => input += chunk); process.stdin.on(\"end\", () => { let data = {}; try { data = JSON.parse(input || \"{}\"); } catch {} const agent = data.subagentName || data.agentName || data.name || data.subagent?.name || data.agent?.name || \"sub-agent\"; console.log(JSON.stringify({ systemMessage: `✅ Sub-agent completed: ${agent}` })); });'",
-                "timeout": 5
-            }
-        ]
+        "session_start": "echo 'Session started at $(date)' >> session.log",
+        "session_end": "echo 'Session ended at $(date)' >> session.log",
+        "agent_action": "echo 'Agent performed action: {action}' >> agent_actions.log",
+        "agent_thought": "echo 'Agent thought: {thought}' >> agent_thoughts.log",
+        "agent_message": "echo 'Agent message: {message}' >> agent_messages.log",
+        "tool_use": "echo 'Tool used: {tool_name} with input: {tool_input}' >> tool_usage.log",
+        "tool_result": "echo 'Tool result: {tool_result}' >> tool_results.log",
+        "error": "echo 'Error occurred: {error_message}' >> errors.log"
     }
 }
