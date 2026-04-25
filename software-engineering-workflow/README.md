@@ -1,6 +1,6 @@
 # Software Engineering Workflow
 
-Software Engineering Workflow is a Copilot plugin for structured software work. It provides a standalone entry agent plus narrow phase agents that separate intake, resumption, discovery, requirements, data modeling, CI/CD planning, planning, review, documentation, implementation, and verification.
+Software Engineering Workflow is a Copilot plugin for structured software work. It provides a standalone entry agent plus narrow phase agents that separate intake, resumption, discovery, requirements, data modeling, CI/CD planning, Git workflow management, planning, review, documentation, implementation, and verification.
 
 Start with `software-workflow-entry` for every request. The entry agent decides whether the prompt is resumed work, new work, or ambiguous work that needs a short clarification.
 
@@ -13,6 +13,10 @@ For resumed work, the entry agent routes through `work-resumption` to reconstruc
 - `data-model-planning`
 - `ci-cd-pipeline-planning`
 - `ci-cd-pipeline-creation`
+- `git-workflow-planning`
+- `git-troubleshooting`
+- `git-conflict-resolution`
+- `git-advanced-operations`
 - `solution-planning`
 - `plan-review`
 - `documentation`
@@ -25,12 +29,16 @@ For new work, the entry agent hands off to `software-workflow-orchestrator`. The
 2. Requirements and acceptance criteria with `requirements-synthesis`
 3. Data model planning with `data-model-planning` when the work involves databases, structured files, API contracts, events, or configuration schemas
 4. CI/CD planning with `ci-cd-pipeline-planning` when the work involves GitHub Actions, Azure DevOps Pipelines, release automation, deployment gates, or pipeline templates
-5. Implementation planning with `solution-planning`
-6. Plan critique with `plan-review`
-7. Documentation preparation with `documentation`
-8. Pipeline creation with `ci-cd-pipeline-creation` when the approved scope is CI/CD automation
-9. Scoped code changes with `implementation`
-10. Validation and completion assessment with `verification`
+5. Git workflow planning with `git-workflow-planning` when the work involves branch strategy, commit structure, history policy, release branching, or advanced Git choices
+6. Git troubleshooting with `git-troubleshooting` when repository state or Git command failures block progress
+7. Implementation planning with `solution-planning`
+8. Plan critique with `plan-review`
+9. Documentation preparation with `documentation`
+10. Pipeline creation with `ci-cd-pipeline-creation` when the approved scope is CI/CD automation
+11. Git conflict resolution with `git-conflict-resolution` when merge, rebase, cherry-pick, or concurrent edit conflicts must be deconflicted
+12. Advanced Git operations with `git-advanced-operations` when an approved workflow requires rebase, cherry-pick, reflog recovery, bisect, worktree, stash, tag, submodule, sparse checkout, patch, or safe force-with-lease work
+13. Scoped code changes with `implementation`
+14. Validation and completion assessment with `verification`
 
 ## Subagent Policy
 
@@ -50,6 +58,10 @@ Each agent owns a narrow part of the software engineering workflow:
 - `data-model-planning` selects data representations and schemas.
 - `ci-cd-pipeline-planning` selects CI/CD platforms, triggers, stages, gates, artifacts, and security models.
 - `ci-cd-pipeline-creation` creates or updates workflow and pipeline files from an approved plan.
+- `git-workflow-planning` selects branch, commit, collaboration, history, and repository workflow strategies.
+- `git-troubleshooting` diagnoses Git failures and confusing repository states with non-destructive checks.
+- `git-conflict-resolution` resolves merge, rebase, cherry-pick, revert, and concurrent edit conflicts.
+- `git-advanced-operations` plans and executes advanced Git operations with explicit safety gates.
 - `solution-planning` creates the implementation approach.
 - `plan-review` finds risks before implementation.
 - `documentation` prepares and updates docs.

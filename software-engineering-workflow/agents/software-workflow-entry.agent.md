@@ -28,6 +28,10 @@ After state reconstruction, offer direct handoff choices:
 - `data-model-planning` for database, structured file, API contract, event, configuration, or schema decisions
 - `ci-cd-pipeline-planning` for GitHub Actions, Azure DevOps Pipelines, release automation, gates, artifacts, runner, or deployment strategy decisions
 - `ci-cd-pipeline-creation` for creating or updating workflow and pipeline files after a CI/CD plan exists
+- `git-workflow-planning` for branch strategy, commit structure, repository collaboration, history policy, or Git best practices
+- `git-troubleshooting` for failed Git commands, diverged branches, detached HEAD, remote issues, or confusing repository state
+- `git-conflict-resolution` for merge, rebase, cherry-pick, revert, or concurrent edit conflicts
+- `git-advanced-operations` for rebase, cherry-pick sequences, reflog recovery, bisect, worktree, stash, tags, submodules, sparse checkout, patches, or safe force-with-lease workflows
 - `solution-planning` for implementation planning
 - `plan-review` for risk review
 - `documentation` for documentation preparation or updates
