@@ -32,6 +32,8 @@ After state reconstruction, offer direct handoff choices:
 - `git-troubleshooting` for failed Git commands, diverged branches, detached HEAD, remote issues, or confusing repository state
 - `git-conflict-resolution` for merge, rebase, cherry-pick, revert, or concurrent edit conflicts
 - `git-advanced-operations` for rebase, cherry-pick sequences, reflog recovery, bisect, worktree, stash, tags, submodules, sparse checkout, patches, or safe force-with-lease workflows
+- `code-comment-audit` for identifying key code areas that need comments explaining what, why, how, pitfalls, assumptions, TODOs, or known problems
+- `code-comment-authoring` for adding, updating, or removing code comments after a comment audit or approved plan exists
 - `solution-planning` for implementation planning
 - `plan-review` for risk review
 - `documentation` for documentation preparation or updates

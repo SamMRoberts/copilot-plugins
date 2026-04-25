@@ -31,6 +31,8 @@ Recommend one of these handoff targets:
 - `git-troubleshooting` when Git state, command failures, remotes, divergence, or interrupted operations need diagnosis
 - `git-conflict-resolution` when merge, rebase, cherry-pick, revert, or concurrent edit conflicts need deconfliction
 - `git-advanced-operations` when the next step requires rebase, cherry-pick, reflog recovery, bisect, worktree, stash, tags, submodules, sparse checkout, patches, or safe force-with-lease work
+- `code-comment-audit` when the next decision is where comments should explain what, why, how, pitfalls, assumptions, TODOs, or known problems
+- `code-comment-authoring` when a comment audit or approved plan exists and comments need scoped edits
 - `solution-planning` when requirements are known but the approach is not settled
 - `plan-review` when a plan exists but needs critique before execution
 - `documentation` when the next step is documentation preparation or update

@@ -1,6 +1,6 @@
 # Software Engineering Workflow
 
-Software Engineering Workflow is a Copilot plugin for structured software work. It provides a standalone entry agent plus narrow phase agents that separate intake, resumption, discovery, requirements, data modeling, CI/CD planning, Git workflow management, planning, review, documentation, implementation, and verification.
+Software Engineering Workflow is a Copilot plugin for structured software work. It provides a standalone entry agent plus narrow phase agents that separate intake, resumption, discovery, requirements, data modeling, CI/CD planning, Git workflow management, code commenting, planning, review, documentation, implementation, and verification.
 
 Start with `software-workflow-entry` for every request. The entry agent decides whether the prompt is resumed work, new work, or ambiguous work that needs a short clarification.
 
@@ -17,6 +17,8 @@ For resumed work, the entry agent routes through `work-resumption` to reconstruc
 - `git-troubleshooting`
 - `git-conflict-resolution`
 - `git-advanced-operations`
+- `code-comment-audit`
+- `code-comment-authoring`
 - `solution-planning`
 - `plan-review`
 - `documentation`
@@ -31,14 +33,16 @@ For new work, the entry agent hands off to `software-workflow-orchestrator`. The
 4. CI/CD planning with `ci-cd-pipeline-planning` when the work involves GitHub Actions, Azure DevOps Pipelines, release automation, deployment gates, or pipeline templates
 5. Git workflow planning with `git-workflow-planning` when the work involves branch strategy, commit structure, history policy, release branching, or advanced Git choices
 6. Git troubleshooting with `git-troubleshooting` when repository state or Git command failures block progress
-7. Implementation planning with `solution-planning`
-8. Plan critique with `plan-review`
-9. Documentation preparation with `documentation`
-10. Pipeline creation with `ci-cd-pipeline-creation` when the approved scope is CI/CD automation
-11. Git conflict resolution with `git-conflict-resolution` when merge, rebase, cherry-pick, or concurrent edit conflicts must be deconflicted
-12. Advanced Git operations with `git-advanced-operations` when an approved workflow requires rebase, cherry-pick, reflog recovery, bisect, worktree, stash, tag, submodule, sparse checkout, patch, or safe force-with-lease work
-13. Scoped code changes with `implementation`
-14. Validation and completion assessment with `verification`
+7. Code comment audit with `code-comment-audit` when key code areas need comments explaining what, why, how, pitfalls, assumptions, TODOs, or known problems
+8. Implementation planning with `solution-planning`
+9. Plan critique with `plan-review`
+10. Documentation preparation with `documentation`
+11. Pipeline creation with `ci-cd-pipeline-creation` when the approved scope is CI/CD automation
+12. Code comment authoring with `code-comment-authoring` when the approved scope is adding, updating, or removing comments
+13. Git conflict resolution with `git-conflict-resolution` when merge, rebase, cherry-pick, or concurrent edit conflicts must be deconflicted
+14. Advanced Git operations with `git-advanced-operations` when an approved workflow requires rebase, cherry-pick, reflog recovery, bisect, worktree, stash, tag, submodule, sparse checkout, patch, or safe force-with-lease work
+15. Scoped code changes with `implementation`
+16. Validation and completion assessment with `verification`
 
 ## Subagent Policy
 
@@ -62,6 +66,8 @@ Each agent owns a narrow part of the software engineering workflow:
 - `git-troubleshooting` diagnoses Git failures and confusing repository states with non-destructive checks.
 - `git-conflict-resolution` resolves merge, rebase, cherry-pick, revert, and concurrent edit conflicts.
 - `git-advanced-operations` plans and executes advanced Git operations with explicit safety gates.
+- `code-comment-audit` identifies where comments should explain what, why, how, pitfalls, assumptions, TODOs, or known problems.
+- `code-comment-authoring` adds, updates, or removes comments from an approved commenting plan.
 - `solution-planning` creates the implementation approach.
 - `plan-review` finds risks before implementation.
 - `documentation` prepares and updates docs.
