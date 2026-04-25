@@ -16,6 +16,7 @@ Every plan should include:
 - Scope and explicit non-scope
 - Proposed approach and rationale
 - Data model planning inputs when the work touches databases, structured files, API contracts, events, or configuration schemas
+- CI/CD planning inputs when the work touches workflow files, pipeline files, release automation, deployment gates, artifacts, runners, secrets, or environments
 - Files or areas likely to change
 - Step-by-step implementation sequence
 - Validation strategy

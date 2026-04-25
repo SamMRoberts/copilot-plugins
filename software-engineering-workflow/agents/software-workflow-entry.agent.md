@@ -26,6 +26,8 @@ After state reconstruction, offer direct handoff choices:
 - `context-discovery` for more investigation
 - `requirements-synthesis` for scope and acceptance criteria
 - `data-model-planning` for database, structured file, API contract, event, configuration, or schema decisions
+- `ci-cd-pipeline-planning` for GitHub Actions, Azure DevOps Pipelines, release automation, gates, artifacts, runner, or deployment strategy decisions
+- `ci-cd-pipeline-creation` for creating or updating workflow and pipeline files after a CI/CD plan exists
 - `solution-planning` for implementation planning
 - `plan-review` for risk review
 - `documentation` for documentation preparation or updates
