@@ -27,6 +27,7 @@ After state reconstruction, offer direct handoff choices:
 - `requirements-synthesis` for scope and acceptance criteria
 - `strategy-evaluation` for comparing short-term and long-term ways forward, expediency tradeoffs, durable strategy, or over-engineering risk
 - `follow-up-work-items` for turning an expedited short-term strategy, workaround, TODO, known limitation, or deferred improvement into concrete future work
+- `scope-creep-review` for comparing the original ask against the current plan, changed files, or implementation direction to prevent overreach
 - `authentication-planning` for local, managed, cloud, Microsoft Entra ID, Azure, OAuth, OIDC, SAML, MFA, Conditional Access, service-to-service, API, or third-party authentication strategy
 - `authentication-review` for checking an authentication plan for security gaps, maintainability risk, and over-complexity before implementation
 - `data-model-planning` for database, structured file, API contract, event, configuration, or schema decisions

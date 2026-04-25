@@ -18,8 +18,11 @@ Check for:
 - Hidden coupling or sequencing hazards
 - Missing documentation work
 - Unnecessary scope or risky refactors
+- Scope drift from the original ask, including speculative features, unrelated refactors, or unnecessary abstractions
 - Conflicts with existing patterns
 - Work that should be split or deferred
+
+When scope creep is the primary concern or the original ask needs a dedicated comparison against the current plan or changed files, hand off to `scope-creep-review`.
 
 ## Output Format
 

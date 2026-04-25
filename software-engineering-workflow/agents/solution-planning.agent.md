@@ -17,6 +17,7 @@ Every plan should include:
 - Proposed approach and rationale
 - Strategy evaluation inputs when the work involves short-term versus long-term tradeoffs, expediency, durable design, technical debt, staged rollout, or over-engineering risk
 - Follow-up work item inputs when a short-term strategy defers cleanup, hardening, migration, documentation, tests, or long-term design work
+- Scope creep review inputs when the current plan, changed files, or proposed follow-up work must be checked against the original ask to prevent overreach
 - Authentication planning and review inputs when the work touches local, managed, cloud, Microsoft Entra ID, Azure, OAuth, OIDC, SAML, MFA, Conditional Access, service-to-service, API, session, token, secret, or third-party identity provider decisions
 - Data model planning inputs when the work touches databases, structured files, API contracts, events, or configuration schemas
 - CI/CD planning inputs when the work touches workflow files, pipeline files, release automation, deployment gates, artifacts, runners, secrets, or environments
