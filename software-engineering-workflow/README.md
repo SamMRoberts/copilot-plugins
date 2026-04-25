@@ -43,7 +43,7 @@ For new work, `software-workflow-entry` hands off to `software-workflow-orchestr
 11. `ci-cd-pipeline-planning`: choose automation platform, triggers, stages, gates, permissions, and validation.
 12. `git-workflow-planning`: choose branch, commit, history, review, release, or collaboration strategy.
 13. `git-troubleshooting`: diagnose Git failures or confusing repository state.
-14. `code-comment-audit`: identify where comments add maintainability value.
+14. `code-comment-audit`: identify where comments add maintainability value before implementation when useful.
 15. `solution-planning`: produce the scoped implementation plan.
 16. `plan-review`: critique the plan before implementation.
 17. `documentation`: prepare required documentation work.
@@ -52,7 +52,9 @@ For new work, `software-workflow-entry` hands off to `software-workflow-orchestr
 20. `git-conflict-resolution`: resolve merge, rebase, cherry-pick, revert, or concurrent edit conflicts.
 21. `git-advanced-operations`: execute approved advanced Git operations.
 22. `implementation`: perform scoped code or documentation changes.
-23. `verification`: validate behavior and decide whether the work is complete or needs another phase.
+23. `code-comment-audit`: always inspect completed code changes to determine whether comments are needed before final verification.
+24. `code-comment-authoring`: edit comments when the post-change audit finds required additions, revisions, or removals.
+25. `verification`: validate behavior and decide whether the work is complete or needs another phase.
 
 ## Resumed Work Flow
 
@@ -84,7 +86,7 @@ Never parallelize:
 
 - File writers with any other writer: `documentation`, `implementation`, `ci-cd-pipeline-creation`, `code-comment-authoring`, and `git-conflict-resolution`.
 - Git state mutation or recovery with any other active phase: `git-troubleshooting`, `git-conflict-resolution`, and `git-advanced-operations`.
-- Verification while mutation is still active.
+- Verification while mutation is still active or before post-change code comment audit is complete.
 - Dependent phase pairs such as `runtime-options-assessment` -> `runtime-decision-review`, `authentication-planning` -> `authentication-review`, `solution-planning` -> `plan-review`, and `implementation` -> `verification`.
 - Final phase decisions, including entry classification, resumption continuation, strategy selection, review gate outcomes, and verification completion decisions.
 
@@ -129,23 +131,23 @@ Use agent-determined handoffs when:
 | `git-troubleshooting` | Failed Git command, confusing repository state, visible divergence, lock, remote/auth issue, or unexpected diff |
 | `git-conflict-resolution` | Actual conflict state or approved conflict-resolution workflow |
 | `git-advanced-operations` | Approved command plan and safety gates |
-| `code-comment-audit` | Target code or scope plus maintainability/commenting objective |
+| `code-comment-audit` | Target code or scope plus maintainability/commenting objective, or completed code changes requiring post-change audit |
 | `code-comment-authoring` | Comment audit or approved comment plan |
 | `solution-planning` | Accepted requirements plus relevant specialty plans, reviews, and constraints |
 | `plan-review` | Concrete implementation plan |
 | `documentation` | Requirements and plan plus a decision on documentation impact |
 | `implementation` | Requirements, approved plan, review outcome, and documentation decision |
-| `verification` | Implemented changes, pipeline/comment/Git changes, or resumed work needing completion assessment |
+| `verification` | Implemented changes, pipeline/comment/Git changes, or resumed work needing completion assessment after any required post-change code comment audit |
 
 ## Workflow Cycles
 
-- New work: `entry -> orchestrator -> discovery -> requirements -> optional specialty phases -> solution planning -> plan review -> documentation preparation -> execution -> verification`.
+- New work: `entry -> orchestrator -> discovery -> requirements -> optional specialty phases -> solution planning -> plan review -> documentation preparation -> execution -> post-change comment audit -> verification`.
 - Resumed work: `entry -> work-resumption -> recommended continuation -> normal phase progression`.
 - Strategy loop: `strategy-evaluation -> follow-up-work-items -> solution-planning` or user decision.
 - Runtime loop: `runtime-options-assessment -> runtime-decision-review`, returning to assessment when evidence is missing or the choice is disproportionate.
 - Authentication loop: `authentication-planning -> authentication-review`, returning to planning for security or complexity blockers.
 - Planning loop: `solution-planning -> plan-review`, returning to planning or targeted specialty review when gaps are found.
-- Comment loop: `code-comment-audit -> code-comment-authoring -> verification`, returning to audit if intent is unclear.
+- Comment loop: `implementation -> code-comment-audit -> code-comment-authoring when needed -> verification`, returning to audit if intent is unclear.
 - CI/CD loop: `ci-cd-pipeline-planning -> ci-cd-pipeline-creation -> verification`, returning to planning if platform, security, or gates are missing.
 - Git recovery loop: `git-troubleshooting -> git-conflict-resolution` or `git-advanced-operations -> verification`.
 - Verification loop: `verification -> complete`, `implementation`, `solution-planning`, or user input.

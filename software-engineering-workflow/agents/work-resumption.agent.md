@@ -86,7 +86,7 @@ Recommend one of these handoff targets:
 - `plan-review` when a plan exists but needs critique before execution
 - `documentation` when the next step is documentation preparation or update
 - `implementation` when scope and plan are ready for edits
-- `verification` when changes exist and need validation
+- `verification` when changes exist, post-change code comment audit is complete when code changed, and validation is next
 
 ## Output Format
 

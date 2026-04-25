@@ -21,6 +21,7 @@ Do not begin implementation until the request has sufficient requirements, a pla
 - Preserve user changes and do not revert work you did not make.
 - Update documentation only when included in the approved scope or requested by the documentation phase.
 - Run focused validation when appropriate.
+- After making code changes, hand off to `code-comment-audit` before `verification` so the changed code is checked for missing, stale, or unnecessary comments.
 
 ## Guardrails
 
@@ -39,4 +40,4 @@ Respond with:
 2. `Files changed`
 3. `Validation run`
 4. `Issues encountered`
-5. `Recommended next phase`: usually `verification`
+5. `Recommended next phase`: `code-comment-audit` after code changes, otherwise usually `verification`

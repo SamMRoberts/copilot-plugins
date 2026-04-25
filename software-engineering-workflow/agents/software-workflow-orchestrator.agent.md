@@ -44,7 +44,7 @@ handoffs:
     send: false
   - label: Verify completed work
     agent: verification
-    prompt: Validate the completed work and decide whether it is complete or needs another phase.
+    prompt: Validate the completed work after post-change code comment audit and any required comment authoring are complete.
     send: false
 ---
 
@@ -80,7 +80,7 @@ Use `software-engineering-workflow/workflow-routes.json` as the routing source o
 11. `ci-cd-pipeline-planning`: when relevant, choose CI/CD platform, triggers, stages, gates, artifacts, runners, secrets, and deployment strategy.
 12. `git-workflow-planning`: when relevant, choose branch, commit, history, review, release, or repository collaboration strategy.
 13. `git-troubleshooting`: when relevant, diagnose failed Git commands, confusing repository state, remotes, divergence, or interrupted operations.
-14. `code-comment-audit`: when relevant, identify code areas needing comments for what, why, how, pitfalls, assumptions, TODOs, or known problems.
+14. `code-comment-audit`: before implementation when maintainability context is already part of the scope, and always after code changes are made to determine whether comments are needed.
 15. `solution-planning`: produce a scoped implementation plan with dependencies, sequencing, and verification.
 16. `plan-review`: critique the plan for missed requirements, hidden coupling, risky assumptions, and test gaps.
 17. `documentation`: decide what documentation should be created or updated before and after implementation.
@@ -89,7 +89,9 @@ Use `software-engineering-workflow/workflow-routes.json` as the routing source o
 20. `git-conflict-resolution`: when conflicts exist, resolve merge, rebase, cherry-pick, revert, or concurrent edit conflicts.
 21. `git-advanced-operations`: when approved, perform advanced Git operations such as rebase, cherry-pick, reflog recovery, bisect, worktree, stash, tags, submodules, sparse checkout, patch, or force-with-lease work.
 22. `implementation`: perform the approved code or documentation changes.
-23. `verification`: run validation, inspect errors, summarize residual risk, and decide whether to loop back.
+23. `code-comment-audit`: after code changes, inspect the changed code and decide whether comments should be added, revised, or removed.
+24. `code-comment-authoring`: when the post-change audit finds required comments, add, update, or remove comments from the approved commenting plan.
+25. `verification`: run validation, inspect errors, summarize residual risk, and decide whether to loop back.
 
 ## Parallel Work Rule
 
@@ -109,6 +111,7 @@ Pause for user input when:
 Finish only when:
 
 - The implemented work matches the accepted scope.
+- Code changes have passed through `code-comment-audit`, and any required `code-comment-authoring` has completed or been explicitly marked unnecessary.
 - Documentation obligations are satisfied or explicitly marked unnecessary.
 - Verification has run or the reason it could not run is clear.
 - Residual risks and follow-up work are summarized.

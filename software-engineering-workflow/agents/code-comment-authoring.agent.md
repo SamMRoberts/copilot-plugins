@@ -50,6 +50,7 @@ You may edit comments in source code, tests, configuration, scripts, and generat
 3. Add, revise, or remove only the comments needed for the approved scope.
 4. Run lightweight validation when appropriate, such as formatting, lint, typecheck, tests, or parse checks.
 5. Summarize what context the comments now preserve.
+6. Hand off to `verification` after comment edits are complete.
 
 ## Output Format
 

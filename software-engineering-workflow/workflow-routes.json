@@ -787,7 +787,8 @@
             "canRunCommands": false,
             "parallelPolicy": "read-only-parallel-eligible",
             "prerequisites": [
-                "Target code or scope plus maintainability/commenting objective"
+                "Target code or scope plus maintainability/commenting objective",
+                "Completed code changes requiring post-change audit before verification"
             ],
             "handoffs": [
                 {
@@ -804,11 +805,16 @@
                     "to": "documentation",
                     "type": "agent-determined",
                     "when": "The finding belongs in external docs rather than code comments."
+                },
+                {
+                    "to": "verification",
+                    "type": "agent-determined",
+                    "when": "The post-change audit finds no useful comment additions, revisions, or removals are needed."
                 }
             ],
             "approvalGates": [],
             "cycleGroup": "comments",
-            "notes": "Read-only audit of where comments add maintainability value. Parallel only when targets are independent."
+            "notes": "Read-only audit of where comments add maintainability value. It always runs after code changes before final verification. Parallel only when targets are independent."
         },
         {
             "agentId": "solution-planning",
@@ -1036,9 +1042,9 @@
             ],
             "handoffs": [
                 {
-                    "to": "verification",
+                    "to": "code-comment-audit",
                     "type": "agent-determined",
-                    "when": "Conflicts are resolved and the result needs validation."
+                    "when": "Conflicts changed code and the result needs post-change comment audit before validation."
                 },
                 {
                     "to": "git-troubleshooting",
@@ -1141,9 +1147,9 @@
                     "when": "Documentation decision is missing or docs are part of the approved scope."
                 },
                 {
-                    "to": "verification",
+                    "to": "code-comment-audit",
                     "type": "agent-determined",
-                    "when": "Scoped changes are complete and validation should run."
+                    "when": "Scoped code changes are complete and must be checked for comment needs before validation."
                 },
                 {
                     "to": "user",
@@ -1159,7 +1165,7 @@
                 "Tests failing outside approved scope"
             ],
             "cycleGroup": "implementation",
-            "notes": "General executor. It must not begin until the prerequisite bundle is present."
+            "notes": "General executor. It must not begin until the prerequisite bundle is present, and it routes code changes through code-comment-audit before verification."
         },
         {
             "agentId": "verification",
@@ -1177,7 +1183,8 @@
             "canRunCommands": true,
             "parallelPolicy": "verification-sequential",
             "prerequisites": [
-                "Implemented changes, pipeline/comment/Git changes, or resumed work needing completion assessment"
+                "Implemented changes, pipeline/comment/Git changes, or resumed work needing completion assessment",
+                "Post-change code comment audit completed when code changed"
             ],
             "handoffs": [
                 {
@@ -1198,7 +1205,7 @@
             ],
             "approvalGates": [],
             "cycleGroup": "verification",
-            "notes": "Terminal gate. It should validate after all mutations settle and decide complete, needs implementation, needs planning, or needs user input."
+            "notes": "Terminal gate. It should validate after all mutations settle and after post-change code comment audit has completed for code changes."
         }
     ]
 }
