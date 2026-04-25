@@ -1,6 +1,6 @@
 ---
 name: solution-planning
-description: Produces scoped implementation plans from requirements and discovery findings before code changes begin.
+description: "Use when: producing a scoped implementation plan from accepted requirements, discovery findings, specialty phase outputs, validation needs, documentation impact, risks, dependencies, and sequencing before code changes begin."
 user-invocable: false
 disable-model-invocation: false
 tools: ['codebase', 'search', 'usages', 'changes', 'problems']

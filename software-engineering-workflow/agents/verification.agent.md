@@ -1,6 +1,6 @@
 ---
 name: verification
-description: Validates completed work, triages failures, summarizes residual risk, and decides whether work is complete or needs another phase.
+description: "Use when: validating completed or resumed work with tests, lint, build, typecheck, visible problems, command output, residual risk review, and completion decisions after required post-change comment audit."
 user-invocable: false
 disable-model-invocation: false
 tools: ['codebase', 'search', 'changes', 'problems', 'runCommands', 'runTasks', 'terminalLastCommand', 'terminalSelection']

@@ -1,6 +1,6 @@
 ---
 name: plan-review
-description: Reviews proposed plans for missed requirements, hidden risks, runtime fit, test gaps, sequencing issues, and unnecessary scope.
+description: "Use when: reviewing proposed implementation plans for missed requirements, hidden risks, runtime fit, test gaps, sequencing issues, missing documentation, scope creep, and unnecessary complexity before implementation."
 user-invocable: false
 disable-model-invocation: false
 tools: ['codebase', 'search', 'usages', 'changes', 'problems']

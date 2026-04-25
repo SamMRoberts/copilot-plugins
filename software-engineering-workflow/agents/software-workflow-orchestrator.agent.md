@@ -34,6 +34,10 @@ handoffs:
     agent: context-discovery
     prompt: Gather read-only facts, relevant files, constraints, risks, and unknowns for this new work item.
     send: false
+  - label: Synthesize requirements
+    agent: requirements-synthesis
+    prompt: Convert gathered facts into bounded requirements, acceptance criteria, assumptions, and open questions.
+    send: false
   - label: Plan implementation
     agent: solution-planning
     prompt: Produce a scoped implementation plan from accepted requirements and any specialty phase outputs.

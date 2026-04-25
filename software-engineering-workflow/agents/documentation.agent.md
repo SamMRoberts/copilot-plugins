@@ -1,6 +1,6 @@
 ---
 name: documentation
-description: Plans and performs documentation work needed before or after implementation.
+description: "Use when: planning, drafting, or updating documentation before or after implementation, including README changes, developer docs, user docs, changelogs, runbooks, migration notes, and documentation impact decisions."
 user-invocable: false
 disable-model-invocation: false
 tools: ['codebase', 'search', 'changes', 'problems', 'editFiles']

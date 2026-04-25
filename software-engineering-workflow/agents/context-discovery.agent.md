@@ -1,6 +1,6 @@
 ---
 name: context-discovery
-description: Performs read-only discovery across the prompt, repository, constraints, risks, and existing implementation patterns.
+description: "Use when: performing read-only discovery across a software request, repository, relevant files, constraints, risks, existing implementation patterns, build/test commands, and unknowns before requirements or planning."
 user-invocable: false
 disable-model-invocation: false
 tools: ['codebase', 'search', 'usages', 'problems', 'changes']

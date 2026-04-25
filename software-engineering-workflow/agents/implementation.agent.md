@@ -1,6 +1,6 @@
 ---
 name: implementation
-description: Performs scoped code and documentation changes after requirements, planning, review, and documentation preparation are complete.
+description: "Use when: performing scoped code or documentation edits after requirements, approved planning, plan review, documentation decisions, and prerequisites are complete, while preserving user changes and running focused validation."
 user-invocable: false
 disable-model-invocation: false
 tools: ['codebase', 'search', 'usages', 'changes', 'problems', 'editFiles', 'runCommands', 'runTasks']
