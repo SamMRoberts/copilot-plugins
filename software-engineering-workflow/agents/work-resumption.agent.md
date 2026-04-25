@@ -26,6 +26,8 @@ Recommend one of these handoff targets:
 - `requirements-synthesis` when the goal exists but needs scope and acceptance criteria
 - `strategy-evaluation` when the next decision is comparing short-term and long-term ways forward, expediency, durable strategy, or over-engineering risk
 - `follow-up-work-items` when an expedited short-term strategy, workaround, TODO, known limitation, or deferred improvement needs concrete future work items
+- `authentication-planning` when the next decision is how to meet local, managed, cloud, Microsoft Entra ID, Azure, OAuth, OIDC, SAML, MFA, Conditional Access, service-to-service, API, or third-party authentication needs
+- `authentication-review` when an authentication plan exists and needs security, maintainability, or over-complexity review
 - `data-model-planning` when the next decision is how to structure, validate, persist, or evolve data
 - `ci-cd-pipeline-planning` when the next decision is how to structure CI/CD automation, triggers, gates, artifacts, runners, or deployment stages
 - `ci-cd-pipeline-creation` when a CI/CD plan exists and workflow or pipeline files need scoped edits
