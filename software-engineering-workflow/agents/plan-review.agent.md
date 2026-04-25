@@ -1,5 +1,5 @@
 ---
-description: Reviews proposed plans for missed requirements, hidden risks, test gaps, sequencing issues, and unnecessary scope.
+description: Reviews proposed plans for missed requirements, hidden risks, runtime fit, test gaps, sequencing issues, and unnecessary scope.
 tools: ['codebase', 'search', 'usages', 'changes', 'problems']
 ---
 
@@ -17,12 +17,15 @@ Check for:
 - Acceptance criteria without validation
 - Hidden coupling or sequencing hazards
 - Missing documentation work
+- Runtime, language, framework, platform, or execution model choices that are unsupported by the requirements
 - Unnecessary scope or risky refactors
 - Scope drift from the original ask, including speculative features, unrelated refactors, or unnecessary abstractions
 - Conflicts with existing patterns
 - Work that should be split or deferred
 
 When scope creep is the primary concern or the original ask needs a dedicated comparison against the current plan or changed files, hand off to `scope-creep-review`.
+
+When a programming language, runtime, framework, platform, or execution model decision needs focused review, hand off to `runtime-decision-review`.
 
 ## Output Format
 

@@ -27,6 +27,8 @@ Recommend one of these handoff targets:
 - `strategy-evaluation` when the next decision is comparing short-term and long-term ways forward, expediency, durable strategy, or over-engineering risk
 - `follow-up-work-items` when an expedited short-term strategy, workaround, TODO, known limitation, or deferred improvement needs concrete future work items
 - `scope-creep-review` when current work, changed files, or proposed next steps may have drifted beyond the original ask
+- `runtime-options-assessment` when the next decision is choosing a language, runtime, framework, platform, or execution model from options such as C#, Rust, Go, C++, TypeScript, JavaScript, .NET, Node.js, native, WebAssembly, serverless, containerized, browser, CLI, desktop, mobile, or embedded
+- `runtime-decision-review` when a runtime choice exists and needs requirement fit, complexity, operations, security, maintainability, or scope review
 - `authentication-planning` when the next decision is how to meet local, managed, cloud, Microsoft Entra ID, Azure, OAuth, OIDC, SAML, MFA, Conditional Access, service-to-service, API, or third-party authentication needs
 - `authentication-review` when an authentication plan exists and needs security, maintainability, or over-complexity review
 - `data-model-planning` when the next decision is how to structure, validate, persist, or evolve data
