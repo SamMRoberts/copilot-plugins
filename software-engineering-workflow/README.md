@@ -26,6 +26,18 @@ Default user-facing agents:
 
 All other agents are specialist phase agents. They are subagent-first and hidden from broad direct picker use, but they remain reachable through controller handoffs and explicit phase override requests.
 
+## Companion Skills
+
+The [`skills`](./skills) folder contains one companion `SKILL.md` for every workflow agent. These skills are discovery and routing wrappers: they describe when a phase should load, point back to the matching agent, and summarize the route contract from [`workflow-routes.json`](./workflow-routes.json).
+
+Only the three default controller skills are slash-invocable by default:
+
+- `software-workflow-entry`
+- `software-workflow-orchestrator`
+- `work-resumption`
+
+Specialist phase skills set `user-invocable: false` so they can support automatic model routing without crowding the slash-command picker. When agent roles, prerequisites, handoffs, or approval gates change, update [`workflow-routes.json`](./workflow-routes.json), the matching agent frontmatter, and the companion skill together.
+
 ## New Work Flow
 
 For new work, `software-workflow-entry` hands off to `software-workflow-orchestrator`. The orchestrator owns the user conversation and runs only the phases that are useful for the task:
