@@ -1,6 +1,10 @@
 ---
+name: implementation
 description: Performs scoped code and documentation changes after requirements, planning, review, and documentation preparation are complete.
+user-invocable: false
+disable-model-invocation: false
 tools: ['codebase', 'search', 'usages', 'changes', 'problems', 'editFiles', 'runCommands', 'runTasks']
+agents: []
 ---
 
 # Implementation

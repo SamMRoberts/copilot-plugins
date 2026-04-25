@@ -1,0 +1,210 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://example.local/software-engineering-workflow/workflow-routes.schema.json",
+    "title": "Software Engineering Workflow Routes",
+    "type": "object",
+    "required": [
+        "version",
+        "routingPolicy",
+        "agents"
+    ],
+    "additionalProperties": false,
+    "properties": {
+        "$schema": {
+            "type": "string"
+        },
+        "version": {
+            "type": "integer",
+            "minimum": 1
+        },
+        "routingPolicy": {
+            "type": "object",
+            "required": [
+                "defaultUserFacingAgents",
+                "specialistAccess",
+                "callerModel",
+                "parallelism",
+                "handoffOwnership"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "defaultUserFacingAgents": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "uniqueItems": true
+                },
+                "specialistAccess": {
+                    "type": "string"
+                },
+                "callerModel": {
+                    "type": "string"
+                },
+                "parallelism": {
+                    "type": "string"
+                },
+                "handoffOwnership": {
+                    "type": "string"
+                }
+            }
+        },
+        "parallelPolicies": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "object",
+                "required": [
+                    "summary",
+                    "mayRunInParallel"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                    "summary": {
+                        "type": "string"
+                    },
+                    "mayRunInParallel": {
+                        "type": "boolean"
+                    }
+                }
+            }
+        },
+        "handoffTypes": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "string"
+            }
+        },
+        "agents": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "$ref": "#/$defs/agentRoute"
+            }
+        }
+    },
+    "$defs": {
+        "agentRoute": {
+            "type": "object",
+            "required": [
+                "agentId",
+                "role",
+                "file",
+                "userFacing",
+                "allowedCallers",
+                "canInvoke",
+                "writesFiles",
+                "mutatesRepoState",
+                "canRunCommands",
+                "parallelPolicy",
+                "prerequisites",
+                "handoffs",
+                "approvalGates",
+                "cycleGroup",
+                "notes"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "agentId": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string",
+                    "enum": [
+                        "controller-entry",
+                        "controller-orchestrator",
+                        "controller-resumption",
+                        "read-only-phase",
+                        "execution-phase",
+                        "recovery-phase",
+                        "validation-phase"
+                    ]
+                },
+                "file": {
+                    "type": "string"
+                },
+                "userFacing": {
+                    "type": "string",
+                    "enum": [
+                        "default",
+                        "explicit-override-only"
+                    ]
+                },
+                "allowedCallers": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "uniqueItems": true
+                },
+                "canInvoke": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "uniqueItems": true
+                },
+                "writesFiles": {
+                    "type": "boolean"
+                },
+                "mutatesRepoState": {
+                    "type": "boolean"
+                },
+                "canRunCommands": {
+                    "type": "boolean"
+                },
+                "parallelPolicy": {
+                    "type": "string"
+                },
+                "prerequisites": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "handoffs": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/handoff"
+                    }
+                },
+                "approvalGates": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "cycleGroup": {
+                    "type": "string"
+                },
+                "notes": {
+                    "type": "string"
+                }
+            }
+        },
+        "handoff": {
+            "type": "object",
+            "required": [
+                "to",
+                "type",
+                "when"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "to": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string",
+                    "enum": [
+                        "user-choice",
+                        "agent-determined",
+                        "approval-gated"
+                    ]
+                },
+                "when": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

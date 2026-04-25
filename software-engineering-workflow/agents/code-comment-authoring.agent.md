@@ -1,6 +1,10 @@
 ---
+name: code-comment-authoring
 description: "Use when: adding, updating, or removing code comments after a comment audit or approved plan exists. Writes concise comments that explain what, why, how, pitfalls, assumptions, invariants, TODOs, edge cases, and known problems without restating obvious code."
+user-invocable: false
+disable-model-invocation: false
 tools: ['codebase', 'search', 'usages', 'changes', 'problems', 'editFiles', 'runCommands', 'runTasks']
+agents: []
 ---
 
 # Code Comment Authoring

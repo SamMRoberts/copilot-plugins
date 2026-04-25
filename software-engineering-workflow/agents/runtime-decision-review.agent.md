@@ -1,6 +1,10 @@
 ---
+name: runtime-decision-review
 description: "Use when: reviewing a proposed programming language, runtime, framework, platform, or execution model decision for fit, over-engineering, under-engineering, operational risk, team fit, security, maintainability, deployment impact, and whether it satisfies the original requirements."
+user-invocable: false
+disable-model-invocation: false
 tools: ['codebase', 'search', 'usages', 'changes', 'problems']
+agents: []
 ---
 
 # Runtime Decision Review

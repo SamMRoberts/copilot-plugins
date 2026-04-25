@@ -1,6 +1,10 @@
 ---
+name: plan-review
 description: Reviews proposed plans for missed requirements, hidden risks, runtime fit, test gaps, sequencing issues, and unnecessary scope.
+user-invocable: false
+disable-model-invocation: false
 tools: ['codebase', 'search', 'usages', 'changes', 'problems']
+agents: []
 ---
 
 # Plan Review

@@ -1,96 +1,155 @@
 # Software Engineering Workflow
 
-Software Engineering Workflow is a Copilot plugin for structured software work. It provides a standalone entry agent plus narrow phase agents that separate intake, resumption, discovery, requirements, strategy evaluation, scope control, runtime selection, authentication, data modeling, CI/CD planning, Git workflow management, code commenting, planning, review, documentation, implementation, and verification.
+Software Engineering Workflow is a Copilot plugin for structured software work. It uses a controller-first workflow with three user-facing controller agents and narrow specialist phase agents for discovery, requirements, strategy, scope control, runtime selection, authentication, data modeling, CI/CD, Git, code comments, planning, review, documentation, implementation, and verification.
 
-Start with `software-workflow-entry` for every request. The entry agent decides whether the prompt is resumed work, new work, or ambiguous work that needs a short clarification.
+The machine-readable routing source of truth is [`workflow-routes.json`](./workflow-routes.json), validated by [`workflow-routes.schema.json`](./workflow-routes.schema.json). Agent frontmatter mirrors only the controls that VS Code custom agents understand, such as `user-invocable`, `agents`, and `handoffs`.
 
-## Workflow
+## Required VS Code Setting
 
-For resumed work, the entry agent routes through `work-resumption` to reconstruct the current state and offer a continuation point. The user can continue with any phase agent:
+Controller agents can invoke phase agents as subagents. If nested subagent invocation is not already enabled, set:
 
-- `context-discovery`
-- `requirements-synthesis`
-- `strategy-evaluation`
-- `follow-up-work-items`
-- `scope-creep-review`
-- `runtime-options-assessment`
-- `runtime-decision-review`
-- `authentication-planning`
-- `authentication-review`
-- `data-model-planning`
-- `ci-cd-pipeline-planning`
-- `ci-cd-pipeline-creation`
-- `git-workflow-planning`
-- `git-troubleshooting`
-- `git-conflict-resolution`
-- `git-advanced-operations`
-- `code-comment-audit`
-- `code-comment-authoring`
-- `solution-planning`
-- `plan-review`
-- `documentation`
-- `implementation`
-- `verification`
+```json
+{
+	"chat.subagents.allowInvocationsFromSubagents": true
+}
+```
 
-For new work, the entry agent hands off to `software-workflow-orchestrator`. The orchestrator owns the user conversation and moves through these phases:
+## User-Facing Routes
 
-1. Information gathering with `context-discovery`
-2. Requirements and acceptance criteria with `requirements-synthesis`
-3. Strategy evaluation with `strategy-evaluation` when the work needs short-term versus long-term tradeoff analysis or multiple possible ways forward
-4. Follow-up work definition with `follow-up-work-items` when an expedited short-term strategy creates future obligations
-5. Scope creep review with `scope-creep-review` when the current plan or work needs comparison against the original ask to prevent overreach
-6. Runtime options assessment with `runtime-options-assessment` when objectives and requirements need evaluation against language, runtime, framework, or execution model choices
-7. Runtime decision review with `runtime-decision-review` when a proposed runtime choice needs fit, complexity, operational, or scope review before implementation
-8. Authentication planning with `authentication-planning` when the work involves local, managed, cloud, Microsoft Entra ID, Azure, OAuth, OIDC, SAML, MFA, Conditional Access, service-to-service, or API authentication choices
-9. Authentication review with `authentication-review` when an auth plan needs security, maintainability, or over-complexity review before implementation
-10. Data model planning with `data-model-planning` when the work involves databases, structured files, API contracts, events, or configuration schemas
-11. CI/CD planning with `ci-cd-pipeline-planning` when the work involves GitHub Actions, Azure DevOps Pipelines, release automation, deployment gates, or pipeline templates
-12. Git workflow planning with `git-workflow-planning` when the work involves branch strategy, commit structure, history policy, release branching, or advanced Git choices
-13. Git troubleshooting with `git-troubleshooting` when repository state or Git command failures block progress
-14. Code comment audit with `code-comment-audit` when key code areas need comments explaining what, why, how, pitfalls, assumptions, TODOs, or known problems
-15. Implementation planning with `solution-planning`
-16. Plan critique with `plan-review`
-17. Documentation preparation with `documentation`
-18. Pipeline creation with `ci-cd-pipeline-creation` when the approved scope is CI/CD automation
-19. Code comment authoring with `code-comment-authoring` when the approved scope is adding, updating, or removing comments
-20. Git conflict resolution with `git-conflict-resolution` when merge, rebase, cherry-pick, or concurrent edit conflicts must be deconflicted
-21. Advanced Git operations with `git-advanced-operations` when an approved workflow requires rebase, cherry-pick, reflog recovery, bisect, worktree, stash, tag, submodule, sparse checkout, patch, or safe force-with-lease work
-22. Scoped code changes with `implementation`
-23. Validation and completion assessment with `verification`
+Start with `software-workflow-entry` for every request. It classifies the prompt as new work, resumed work, or ambiguous work.
 
-## Subagent Policy
+Default user-facing agents:
 
-Use subagents when they improve focus or speed. Run subagents in parallel only for independent read-only work, such as inspecting separate areas of a codebase, comparing documentation, reviewing a plan, or checking test coverage assumptions. Do not parallelize file edits, commits, migrations, dependency changes, or decisions that must be sequenced.
+- `software-workflow-entry`: initial classifier for new, resumed, ambiguous, and explicit phase-targeted requests.
+- `software-workflow-orchestrator`: new-work conversation owner and fan-out/fan-in coordinator.
+- `work-resumption`: resumed-work state reconstructor and continuation recommender.
 
-The orchestrator remains the user-facing owner for new work. Phase agents return findings, plans, questions, or completion signals to the orchestrator unless the user explicitly resumes at that phase.
+All other agents are specialist phase agents. They are subagent-first and hidden from broad direct picker use, but they remain reachable through controller handoffs and explicit phase override requests.
+
+## New Work Flow
+
+For new work, `software-workflow-entry` hands off to `software-workflow-orchestrator`. The orchestrator owns the user conversation and runs only the phases that are useful for the task:
+
+1. `context-discovery`: gather facts about the request, repository, relevant files, constraints, and risks.
+2. `requirements-synthesis`: define goals, non-goals, assumptions, acceptance criteria, and unresolved questions.
+3. `strategy-evaluation`: compare short-term and long-term strategies when the task has meaningful tradeoffs.
+4. `follow-up-work-items`: record future obligations when a short-term strategy is accepted.
+5. `scope-creep-review`: check plans or changes against the original ask when drift is possible.
+6. `runtime-options-assessment`: evaluate language, runtime, framework, platform, or execution model choices.
+7. `runtime-decision-review`: review a proposed runtime choice before implementation.
+8. `authentication-planning`: choose authentication and identity strategy.
+9. `authentication-review`: review authentication plans for security, maintainability, and complexity.
+10. `data-model-planning`: choose data representations, schemas, validation boundaries, and evolution strategy.
+11. `ci-cd-pipeline-planning`: choose automation platform, triggers, stages, gates, permissions, and validation.
+12. `git-workflow-planning`: choose branch, commit, history, review, release, or collaboration strategy.
+13. `git-troubleshooting`: diagnose Git failures or confusing repository state.
+14. `code-comment-audit`: identify where comments add maintainability value.
+15. `solution-planning`: produce the scoped implementation plan.
+16. `plan-review`: critique the plan before implementation.
+17. `documentation`: prepare required documentation work.
+18. `ci-cd-pipeline-creation`: create or update pipeline files from an approved CI/CD plan.
+19. `code-comment-authoring`: edit comments from an approved comment plan.
+20. `git-conflict-resolution`: resolve merge, rebase, cherry-pick, revert, or concurrent edit conflicts.
+21. `git-advanced-operations`: execute approved advanced Git operations.
+22. `implementation`: perform scoped code or documentation changes.
+23. `verification`: validate behavior and decide whether the work is complete or needs another phase.
+
+## Resumed Work Flow
+
+For resumed work, `software-workflow-entry` routes through `work-resumption` unless the user explicitly names a phase. `work-resumption` reconstructs current state and recommends one best continuation point plus reasonable alternatives.
+
+After resumption, the user can accept the recommended continuation or choose any specialist phase that has enough context and prerequisites. The normal phase progression resumes from that point.
+
+## Caller Rules
+
+Only controller agents invoke other agents automatically:
+
+- `software-workflow-entry` may hand off to `software-workflow-orchestrator`, `work-resumption`, or a specialist phase when the user explicitly names that phase.
+- `software-workflow-orchestrator` may call any specialist phase needed for the approved new-work path, then gathers the results before making decisions.
+- `work-resumption` may recommend or hand off to the best continuation phase, but it does not perform downstream work itself.
+
+Specialists return artifacts, missing prerequisites, findings, questions, or recommended next phases to the controller. They should not invoke further specialists directly.
+
+## Parallel Work Policy
+
+Default to sequential execution. Parallel subagents are allowed only when every task is read-only, independent, and does not depend on another result.
+
+Good parallel candidates:
+
+- Multiple `context-discovery` runs scoped to independent code areas, docs, tests, or configuration.
+- Independent read-only specialty planning after requirements stabilize.
+- Independent read-only research supporting one phase, with the orchestrator making the final decision after fan-in.
+
+Never parallelize:
+
+- File writers with any other writer: `documentation`, `implementation`, `ci-cd-pipeline-creation`, `code-comment-authoring`, and `git-conflict-resolution`.
+- Git state mutation or recovery with any other active phase: `git-troubleshooting`, `git-conflict-resolution`, and `git-advanced-operations`.
+- Verification while mutation is still active.
+- Dependent phase pairs such as `runtime-options-assessment` -> `runtime-decision-review`, `authentication-planning` -> `authentication-review`, `solution-planning` -> `plan-review`, and `implementation` -> `verification`.
+- Final phase decisions, including entry classification, resumption continuation, strategy selection, review gate outcomes, and verification completion decisions.
+
+## Handoff Ownership
+
+Use user-choice handoffs when:
+
+- The prompt is ambiguous between new and resumed work.
+- The user explicitly names a phase or chooses a resumption continuation.
+- Strategy, runtime, authentication, data, CI/CD, cost, security, migration, or product behavior tradeoffs are material.
+- Plan review exposes risk the user may accept or reject.
+- Documentation obligations are unclear.
+- Git work requires destructive operations, history rewriting, branch or tag deletion, remote mutation, force-with-lease, or discard strategies.
+- Verification finds failures outside the approved scope.
+
+Use agent-determined handoffs when:
+
+- Entry clearly identifies new work or resumed work.
+- The orchestrator selects relevant optional specialty phases from accepted scope.
+- Resumption identifies a precise continuation point.
+- A specialist detects missing prerequisites and returns to the prerequisite phase.
+- A review gate returns to its planning phase or approves onward progress.
+- Verification decides complete, needs implementation, needs planning, or needs user input.
+
+## Prerequisite Map
+
+| Agent | Prerequisite |
+| --- | --- |
+| `context-discovery` | User prompt or resumed-work state |
+| `requirements-synthesis` | Prompt plus discovery findings or enough user-provided context |
+| `strategy-evaluation` | Requirements plus multiple viable paths or short-term/long-term tension |
+| `follow-up-work-items` | Selected short-term workaround, deferred improvement, TODO, known limitation, or accepted debt |
+| `scope-creep-review` | Original ask plus requirements, plan, changed files, or proposed next steps |
+| `runtime-options-assessment` | Objectives and requirements involving language, runtime, framework, platform, or execution model |
+| `runtime-decision-review` | Proposed runtime choice plus rationale and requirements |
+| `authentication-planning` | Authentication requirements, threat context, identity provider constraints, and environment constraints |
+| `authentication-review` | Authentication plan |
+| `data-model-planning` | Data, schema, API contract, event, file, or configuration requirements |
+| `ci-cd-pipeline-planning` | Build, test, release, or deploy automation requirements and repository constraints |
+| `ci-cd-pipeline-creation` | Approved CI/CD plan with platform, permissions, secrets model, triggers, stages, and validation gates |
+| `git-workflow-planning` | Repository collaboration, branch, commit, history, release, or review objective |
+| `git-troubleshooting` | Failed Git command, confusing repository state, visible divergence, lock, remote/auth issue, or unexpected diff |
+| `git-conflict-resolution` | Actual conflict state or approved conflict-resolution workflow |
+| `git-advanced-operations` | Approved command plan and safety gates |
+| `code-comment-audit` | Target code or scope plus maintainability/commenting objective |
+| `code-comment-authoring` | Comment audit or approved comment plan |
+| `solution-planning` | Accepted requirements plus relevant specialty plans, reviews, and constraints |
+| `plan-review` | Concrete implementation plan |
+| `documentation` | Requirements and plan plus a decision on documentation impact |
+| `implementation` | Requirements, approved plan, review outcome, and documentation decision |
+| `verification` | Implemented changes, pipeline/comment/Git changes, or resumed work needing completion assessment |
+
+## Workflow Cycles
+
+- New work: `entry -> orchestrator -> discovery -> requirements -> optional specialty phases -> solution planning -> plan review -> documentation preparation -> execution -> verification`.
+- Resumed work: `entry -> work-resumption -> recommended continuation -> normal phase progression`.
+- Strategy loop: `strategy-evaluation -> follow-up-work-items -> solution-planning` or user decision.
+- Runtime loop: `runtime-options-assessment -> runtime-decision-review`, returning to assessment when evidence is missing or the choice is disproportionate.
+- Authentication loop: `authentication-planning -> authentication-review`, returning to planning for security or complexity blockers.
+- Planning loop: `solution-planning -> plan-review`, returning to planning or targeted specialty review when gaps are found.
+- Comment loop: `code-comment-audit -> code-comment-authoring -> verification`, returning to audit if intent is unclear.
+- CI/CD loop: `ci-cd-pipeline-planning -> ci-cd-pipeline-creation -> verification`, returning to planning if platform, security, or gates are missing.
+- Git recovery loop: `git-troubleshooting -> git-conflict-resolution` or `git-advanced-operations -> verification`.
+- Verification loop: `verification -> complete`, `implementation`, `solution-planning`, or user input.
 
 ## Agent Boundaries
 
-Each agent owns a narrow part of the software engineering workflow:
-
-- `software-workflow-entry` classifies and routes work.
-- `work-resumption` reconstructs current state and recommends a continuation point.
-- `software-workflow-orchestrator` coordinates new work end to end.
-- `context-discovery` gathers facts without editing files.
-- `requirements-synthesis` turns facts into scoped requirements.
-- `strategy-evaluation` compares short-term and long-term ways forward and checks for over-engineering.
-- `follow-up-work-items` turns expedited short-term decisions into concrete future work items.
-- `scope-creep-review` compares current plans or changes against the original ask and flags overreach.
-- `runtime-options-assessment` compares language, runtime, framework, platform, and execution model choices against requirements.
-- `runtime-decision-review` reviews a proposed runtime choice for fit, complexity, operations, security, and scope risk.
-- `authentication-planning` selects local, managed, cloud, Microsoft Entra ID, Azure, and third-party authentication strategies.
-- `authentication-review` reviews authentication plans for security, maintainability, and over-complexity risk.
-- `data-model-planning` selects data representations and schemas.
-- `ci-cd-pipeline-planning` selects CI/CD platforms, triggers, stages, gates, artifacts, and security models.
-- `ci-cd-pipeline-creation` creates or updates workflow and pipeline files from an approved plan.
-- `git-workflow-planning` selects branch, commit, collaboration, history, and repository workflow strategies.
-- `git-troubleshooting` diagnoses Git failures and confusing repository states with non-destructive checks.
-- `git-conflict-resolution` resolves merge, rebase, cherry-pick, revert, and concurrent edit conflicts.
-- `git-advanced-operations` plans and executes advanced Git operations with explicit safety gates.
-- `code-comment-audit` identifies where comments should explain what, why, how, pitfalls, assumptions, TODOs, or known problems.
-- `code-comment-authoring` adds, updates, or removes comments from an approved commenting plan.
-- `solution-planning` creates the implementation approach.
-- `plan-review` finds risks before implementation.
-- `documentation` prepares and updates docs.
-- `implementation` performs scoped code changes.
-- `verification` validates behavior and decides whether the work is complete.
+Each agent owns one narrow part of the workflow. The boundaries and route metadata are maintained in [`workflow-routes.json`](./workflow-routes.json). When changing an agent role, update both the route table and the matching `.agent.md` frontmatter so picker visibility, allowed callers, and handoff behavior stay aligned.

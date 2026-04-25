@@ -1,6 +1,10 @@
 ---
+name: ci-cd-pipeline-creation
 description: "Use when: creating or updating CI/CD files after a pipeline plan exists, including GitHub Actions workflow YAML, Azure DevOps pipeline YAML, reusable workflow templates, pipeline templates, deployment jobs, environment gates, artifact publishing, cache steps, and validation automation."
+user-invocable: false
+disable-model-invocation: false
 tools: ['codebase', 'search', 'usages', 'changes', 'problems', 'editFiles', 'runCommands', 'runTasks']
+agents: []
 ---
 
 # CI/CD Pipeline Creation

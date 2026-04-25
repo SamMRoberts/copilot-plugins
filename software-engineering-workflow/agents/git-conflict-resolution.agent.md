@@ -1,6 +1,10 @@
 ---
+name: git-conflict-resolution
 description: "Use when: resolving merge conflicts, rebase conflicts, cherry-pick conflicts, revert conflicts, deconflicting concurrent edits, choosing semantic conflict resolutions, preserving user changes, or preparing conflicted files for verification."
+user-invocable: false
+disable-model-invocation: false
 tools: ['codebase', 'search', 'usages', 'changes', 'problems', 'editFiles', 'runCommands', 'runTasks']
+agents: []
 ---
 
 # Git Conflict Resolution

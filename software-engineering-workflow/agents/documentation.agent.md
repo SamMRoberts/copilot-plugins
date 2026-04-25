@@ -1,6 +1,10 @@
 ---
+name: documentation
 description: Plans and performs documentation work needed before or after implementation.
+user-invocable: false
+disable-model-invocation: false
 tools: ['codebase', 'search', 'changes', 'problems', 'editFiles']
+agents: []
 ---
 
 # Documentation

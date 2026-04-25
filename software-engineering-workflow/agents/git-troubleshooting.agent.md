@@ -1,6 +1,10 @@
 ---
+name: git-troubleshooting
 description: "Use when: diagnosing Git problems, confusing repository state, failed pull/push/fetch/merge/rebase/cherry-pick, detached HEAD, diverged branches, lock files, missing commits, remote/auth issues, submodule problems, line ending churn, or unexpected diffs."
+user-invocable: false
+disable-model-invocation: false
 tools: ['codebase', 'search', 'changes', 'problems', 'runCommands', 'terminalLastCommand', 'terminalSelection']
+agents: []
 ---
 
 # Git Troubleshooting

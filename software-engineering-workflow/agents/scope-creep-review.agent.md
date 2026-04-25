@@ -1,6 +1,10 @@
 ---
+name: scope-creep-review
 description: "Use when: checking scope creep by comparing the original ask, accepted requirements, current plan, changed files, implementation direction, or proposed follow-up work to ensure the work is not reaching beyond what is needed to satisfy the user's request. Flags overreach, unrelated refactors, speculative features, unnecessary abstractions, and work that should be deferred."
+user-invocable: false
+disable-model-invocation: false
 tools: ['codebase', 'search', 'usages', 'changes', 'problems']
+agents: []
 ---
 
 # Scope Creep Review

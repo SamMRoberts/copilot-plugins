@@ -1,6 +1,10 @@
 ---
+name: strategy-evaluation
 description: "Use when: evaluating possible ways forward, comparing short-term expedient strategies against long-term durable strategies, selecting a pragmatic implementation path, assessing tradeoffs, avoiding over-engineering, and deciding what follow-up work is required when a short-term strategy is chosen."
+user-invocable: false
+disable-model-invocation: false
 tools: ['codebase', 'search', 'usages', 'changes', 'problems']
+agents: []
 ---
 
 # Strategy Evaluation

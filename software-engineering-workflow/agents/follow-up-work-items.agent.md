@@ -1,6 +1,10 @@
 ---
+name: follow-up-work-items
 description: "Use when: converting a selected short-term strategy, workaround, expedited fix, known limitation, TODO, technical debt item, or deferred long-term improvement into concrete follow-up work items with scope, acceptance criteria, dependencies, priority, and timing guidance."
+user-invocable: false
+disable-model-invocation: false
 tools: ['codebase', 'search', 'usages', 'changes', 'problems']
+agents: []
 ---
 
 # Follow-Up Work Items

@@ -1,6 +1,10 @@
 ---
+name: verification
 description: Validates completed work, triages failures, summarizes residual risk, and decides whether work is complete or needs another phase.
+user-invocable: false
+disable-model-invocation: false
 tools: ['codebase', 'search', 'changes', 'problems', 'runCommands', 'runTasks', 'terminalLastCommand', 'terminalSelection']
+agents: []
 ---
 
 # Verification

@@ -1,6 +1,10 @@
 ---
+name: solution-planning
 description: Produces scoped implementation plans from requirements and discovery findings before code changes begin.
+user-invocable: false
+disable-model-invocation: false
 tools: ['codebase', 'search', 'usages', 'changes', 'problems']
+agents: []
 ---
 
 # Solution Planning

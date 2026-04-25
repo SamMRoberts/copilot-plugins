@@ -1,6 +1,10 @@
 ---
+name: git-advanced-operations
 description: "Use when: planning or executing advanced Git commands such as interactive rebase, cherry-pick sequences, revert strategy, reflog recovery, bisect, worktree management, stash recovery, tags, submodules, sparse checkout, patch creation, branch surgery, or safe force-with-lease workflows."
+user-invocable: false
+disable-model-invocation: false
 tools: ['codebase', 'search', 'changes', 'problems', 'runCommands', 'runTasks', 'terminalLastCommand', 'terminalSelection']
+agents: []
 ---
 
 # Git Advanced Operations

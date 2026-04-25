@@ -1,6 +1,10 @@
 ---
+name: runtime-options-assessment
 description: "Use when: assessing new objectives and requirements to choose the best programming language, runtime, platform, framework, or execution model, including C#, .NET, Rust, Go, C++, TypeScript, JavaScript, Node.js, Deno, Bun, Python, Java, JVM, WebAssembly, native, serverless, containerized, desktop, CLI, mobile, embedded, or browser runtimes."
+user-invocable: false
+disable-model-invocation: false
 tools: ['codebase', 'search', 'usages', 'changes', 'problems']
+agents: []
 ---
 
 # Runtime Options Assessment

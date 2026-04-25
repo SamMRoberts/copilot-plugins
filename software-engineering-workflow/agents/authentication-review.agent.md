@@ -1,6 +1,10 @@
 ---
+name: authentication-review
 description: "Use when: reviewing an authentication plan, app sign-in design, Microsoft Entra ID design, Azure authentication setup, managed identity plan, OAuth/OIDC/SAML flow, session model, token handling, MFA, Conditional Access, secrets, or identity provider choice for security gaps and over-complexity before implementation."
+user-invocable: false
+disable-model-invocation: false
 tools: ['codebase', 'search', 'usages', 'changes', 'problems']
+agents: []
 ---
 
 # Authentication Review

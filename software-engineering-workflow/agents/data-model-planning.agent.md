@@ -1,6 +1,10 @@
 ---
+name: data-model-planning
 description: "Use when: planning how to structure, organize, validate, analyze, or persist data across relational databases, NoSQL stores, Kusto/Azure Data Explorer tables, JSON, XML, YAML, APIs, configuration, documents, events, or file formats. Determines the optimal data representation, data type choices, schema boundaries, validation rules, query shape, ingestion shape, and evolution strategy before implementation."
+user-invocable: false
+disable-model-invocation: false
 tools: ['codebase', 'search', 'usages', 'changes', 'problems']
+agents: []
 ---
 
 # Data Model Planning

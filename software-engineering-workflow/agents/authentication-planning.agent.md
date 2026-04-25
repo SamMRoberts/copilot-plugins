@@ -1,6 +1,10 @@
 ---
+name: authentication-planning
 description: "Use when: planning authentication strategy, sign-in, identity provider selection, local authentication, managed identity, cloud authentication, Microsoft Entra ID, Azure authentication, OAuth, OpenID Connect, SAML, MFA, Conditional Access, service-to-service auth, API auth, session handling, token flow, secrets, or passwordless access before implementation."
+user-invocable: false
+disable-model-invocation: false
 tools: ['codebase', 'search', 'usages', 'changes', 'problems']
+agents: []
 ---
 
 # Authentication Planning

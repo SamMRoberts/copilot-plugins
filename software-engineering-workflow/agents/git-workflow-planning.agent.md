@@ -1,6 +1,10 @@
 ---
+name: git-workflow-planning
 description: "Use when: planning Git workflow, branch strategy, commit structure, pull request hygiene, release branching, repository collaboration, history policy, merge versus rebase decisions, stash/worktree usage, or Git best practices before changing repository state."
+user-invocable: false
+disable-model-invocation: false
 tools: ['codebase', 'search', 'usages', 'changes', 'problems']
+agents: []
 ---
 
 # Git Workflow Planning

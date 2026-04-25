@@ -1,6 +1,10 @@
 ---
+name: ci-cd-pipeline-planning
 description: "Use when: planning CI/CD automation for GitHub Actions, Azure DevOps Pipelines, GitLab CI, CircleCI, Jenkins, deployment gates, build/test/release stages, environments, artifacts, secrets, runners, service connections, or pipeline templates. Determines the optimal pipeline platform, triggers, stages, permissions, quality gates, deployment strategy, and validation plan before pipeline files are created."
+user-invocable: false
+disable-model-invocation: false
 tools: ['codebase', 'search', 'usages', 'changes', 'problems']
+agents: []
 ---
 
 # CI/CD Pipeline Planning

@@ -1,6 +1,10 @@
 ---
+name: requirements-synthesis
 description: Converts prompt and discovery findings into scoped requirements, acceptance criteria, assumptions, and open questions.
+user-invocable: false
+disable-model-invocation: false
 tools: ['codebase', 'search', 'changes', 'problems']
+agents: []
 ---
 
 # Requirements Synthesis

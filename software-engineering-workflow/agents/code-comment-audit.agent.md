@@ -1,6 +1,10 @@
 ---
+name: code-comment-audit
 description: "Use when: auditing code comments, identifying key areas that need explanation, deciding what should document what/why/how, finding missing warnings about pitfalls, assumptions, tradeoffs, TODOs, invariants, edge cases, or complex control flow before editing comments."
+user-invocable: false
+disable-model-invocation: false
 tools: ['codebase', 'search', 'usages', 'changes', 'problems']
+agents: []
 ---
 
 # Code Comment Audit
