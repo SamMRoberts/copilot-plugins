@@ -15,6 +15,8 @@ Every plan should include:
 
 - Scope and explicit non-scope
 - Proposed approach and rationale
+- Strategy evaluation inputs when the work involves short-term versus long-term tradeoffs, expediency, durable design, technical debt, staged rollout, or over-engineering risk
+- Follow-up work item inputs when a short-term strategy defers cleanup, hardening, migration, documentation, tests, or long-term design work
 - Data model planning inputs when the work touches databases, structured files, API contracts, events, or configuration schemas
 - CI/CD planning inputs when the work touches workflow files, pipeline files, release automation, deployment gates, artifacts, runners, secrets, or environments
 - Git workflow inputs when the work touches branch strategy, commit structure, history rewriting, conflict resolution, release branching, backports, or advanced Git operations

@@ -24,6 +24,8 @@ Recommend one of these handoff targets:
 
 - `context-discovery` when the current state is unclear or more facts are needed
 - `requirements-synthesis` when the goal exists but needs scope and acceptance criteria
+- `strategy-evaluation` when the next decision is comparing short-term and long-term ways forward, expediency, durable strategy, or over-engineering risk
+- `follow-up-work-items` when an expedited short-term strategy, workaround, TODO, known limitation, or deferred improvement needs concrete future work items
 - `data-model-planning` when the next decision is how to structure, validate, persist, or evolve data
 - `ci-cd-pipeline-planning` when the next decision is how to structure CI/CD automation, triggers, gates, artifacts, runners, or deployment stages
 - `ci-cd-pipeline-creation` when a CI/CD plan exists and workflow or pipeline files need scoped edits

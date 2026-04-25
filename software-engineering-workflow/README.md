@@ -1,6 +1,6 @@
 # Software Engineering Workflow
 
-Software Engineering Workflow is a Copilot plugin for structured software work. It provides a standalone entry agent plus narrow phase agents that separate intake, resumption, discovery, requirements, data modeling, CI/CD planning, Git workflow management, code commenting, planning, review, documentation, implementation, and verification.
+Software Engineering Workflow is a Copilot plugin for structured software work. It provides a standalone entry agent plus narrow phase agents that separate intake, resumption, discovery, requirements, strategy evaluation, data modeling, CI/CD planning, Git workflow management, code commenting, planning, review, documentation, implementation, and verification.
 
 Start with `software-workflow-entry` for every request. The entry agent decides whether the prompt is resumed work, new work, or ambiguous work that needs a short clarification.
 
@@ -10,6 +10,8 @@ For resumed work, the entry agent routes through `work-resumption` to reconstruc
 
 - `context-discovery`
 - `requirements-synthesis`
+- `strategy-evaluation`
+- `follow-up-work-items`
 - `data-model-planning`
 - `ci-cd-pipeline-planning`
 - `ci-cd-pipeline-creation`
@@ -29,20 +31,22 @@ For new work, the entry agent hands off to `software-workflow-orchestrator`. The
 
 1. Information gathering with `context-discovery`
 2. Requirements and acceptance criteria with `requirements-synthesis`
-3. Data model planning with `data-model-planning` when the work involves databases, structured files, API contracts, events, or configuration schemas
-4. CI/CD planning with `ci-cd-pipeline-planning` when the work involves GitHub Actions, Azure DevOps Pipelines, release automation, deployment gates, or pipeline templates
-5. Git workflow planning with `git-workflow-planning` when the work involves branch strategy, commit structure, history policy, release branching, or advanced Git choices
-6. Git troubleshooting with `git-troubleshooting` when repository state or Git command failures block progress
-7. Code comment audit with `code-comment-audit` when key code areas need comments explaining what, why, how, pitfalls, assumptions, TODOs, or known problems
-8. Implementation planning with `solution-planning`
-9. Plan critique with `plan-review`
-10. Documentation preparation with `documentation`
-11. Pipeline creation with `ci-cd-pipeline-creation` when the approved scope is CI/CD automation
-12. Code comment authoring with `code-comment-authoring` when the approved scope is adding, updating, or removing comments
-13. Git conflict resolution with `git-conflict-resolution` when merge, rebase, cherry-pick, or concurrent edit conflicts must be deconflicted
-14. Advanced Git operations with `git-advanced-operations` when an approved workflow requires rebase, cherry-pick, reflog recovery, bisect, worktree, stash, tag, submodule, sparse checkout, patch, or safe force-with-lease work
-15. Scoped code changes with `implementation`
-16. Validation and completion assessment with `verification`
+3. Strategy evaluation with `strategy-evaluation` when the work needs short-term versus long-term tradeoff analysis or multiple possible ways forward
+4. Follow-up work definition with `follow-up-work-items` when an expedited short-term strategy creates future obligations
+5. Data model planning with `data-model-planning` when the work involves databases, structured files, API contracts, events, or configuration schemas
+6. CI/CD planning with `ci-cd-pipeline-planning` when the work involves GitHub Actions, Azure DevOps Pipelines, release automation, deployment gates, or pipeline templates
+7. Git workflow planning with `git-workflow-planning` when the work involves branch strategy, commit structure, history policy, release branching, or advanced Git choices
+8. Git troubleshooting with `git-troubleshooting` when repository state or Git command failures block progress
+9. Code comment audit with `code-comment-audit` when key code areas need comments explaining what, why, how, pitfalls, assumptions, TODOs, or known problems
+10. Implementation planning with `solution-planning`
+11. Plan critique with `plan-review`
+12. Documentation preparation with `documentation`
+13. Pipeline creation with `ci-cd-pipeline-creation` when the approved scope is CI/CD automation
+14. Code comment authoring with `code-comment-authoring` when the approved scope is adding, updating, or removing comments
+15. Git conflict resolution with `git-conflict-resolution` when merge, rebase, cherry-pick, or concurrent edit conflicts must be deconflicted
+16. Advanced Git operations with `git-advanced-operations` when an approved workflow requires rebase, cherry-pick, reflog recovery, bisect, worktree, stash, tag, submodule, sparse checkout, patch, or safe force-with-lease work
+17. Scoped code changes with `implementation`
+18. Validation and completion assessment with `verification`
 
 ## Subagent Policy
 
@@ -59,6 +63,8 @@ Each agent owns a narrow part of the software engineering workflow:
 - `software-workflow-orchestrator` coordinates new work end to end.
 - `context-discovery` gathers facts without editing files.
 - `requirements-synthesis` turns facts into scoped requirements.
+- `strategy-evaluation` compares short-term and long-term ways forward and checks for over-engineering.
+- `follow-up-work-items` turns expedited short-term decisions into concrete future work items.
 - `data-model-planning` selects data representations and schemas.
 - `ci-cd-pipeline-planning` selects CI/CD platforms, triggers, stages, gates, artifacts, and security models.
 - `ci-cd-pipeline-creation` creates or updates workflow and pipeline files from an approved plan.
