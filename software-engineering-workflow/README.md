@@ -1,6 +1,6 @@
 # Software Engineering Workflow
 
-Software Engineering Workflow is a Copilot plugin for structured software work. It provides a standalone entry agent plus narrow phase agents that separate intake, resumption, discovery, requirements, planning, review, documentation, implementation, and verification.
+Software Engineering Workflow is a Copilot plugin for structured software work. It provides a standalone entry agent plus narrow phase agents that separate intake, resumption, discovery, requirements, data modeling, planning, review, documentation, implementation, and verification.
 
 Start with `software-workflow-entry` for every request. The entry agent decides whether the prompt is resumed work, new work, or ambiguous work that needs a short clarification.
 
@@ -10,6 +10,7 @@ For resumed work, the entry agent routes through `work-resumption` to reconstruc
 
 - `context-discovery`
 - `requirements-synthesis`
+- `data-model-planning`
 - `solution-planning`
 - `plan-review`
 - `documentation`
@@ -20,11 +21,12 @@ For new work, the entry agent hands off to `software-workflow-orchestrator`. The
 
 1. Information gathering with `context-discovery`
 2. Requirements and acceptance criteria with `requirements-synthesis`
-3. Implementation planning with `solution-planning`
-4. Plan critique with `plan-review`
-5. Documentation preparation with `documentation`
-6. Scoped code changes with `implementation`
-7. Validation and completion assessment with `verification`
+3. Data model planning with `data-model-planning` when the work involves databases, structured files, API contracts, events, or configuration schemas
+4. Implementation planning with `solution-planning`
+5. Plan critique with `plan-review`
+6. Documentation preparation with `documentation`
+7. Scoped code changes with `implementation`
+8. Validation and completion assessment with `verification`
 
 ## Subagent Policy
 
@@ -41,6 +43,7 @@ Each agent owns a narrow part of the software engineering workflow:
 - `software-workflow-orchestrator` coordinates new work end to end.
 - `context-discovery` gathers facts without editing files.
 - `requirements-synthesis` turns facts into scoped requirements.
+- `data-model-planning` selects data representations and schemas.
 - `solution-planning` creates the implementation approach.
 - `plan-review` finds risks before implementation.
 - `documentation` prepares and updates docs.

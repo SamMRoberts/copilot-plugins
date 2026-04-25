@@ -24,6 +24,7 @@ Recommend one of these handoff targets:
 
 - `context-discovery` when the current state is unclear or more facts are needed
 - `requirements-synthesis` when the goal exists but needs scope and acceptance criteria
+- `data-model-planning` when the next decision is how to structure, validate, persist, or evolve data
 - `solution-planning` when requirements are known but the approach is not settled
 - `plan-review` when a plan exists but needs critique before execution
 - `documentation` when the next step is documentation preparation or update

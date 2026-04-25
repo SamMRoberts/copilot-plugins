@@ -25,6 +25,7 @@ After state reconstruction, offer direct handoff choices:
 
 - `context-discovery` for more investigation
 - `requirements-synthesis` for scope and acceptance criteria
+- `data-model-planning` for database, structured file, API contract, event, configuration, or schema decisions
 - `solution-planning` for implementation planning
 - `plan-review` for risk review
 - `documentation` for documentation preparation or updates
