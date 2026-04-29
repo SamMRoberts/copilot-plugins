@@ -1,0 +1,8 @@
+interface:
+  display_name: "Agentic Coding Harness"
+  short_description: "Design coding-agent harnesses"
+  brand_color: "#2563EB"
+  default_prompt: "Use $create-agentic-coding-harness to walk me through creating a detailed coding harness for this repository."
+
+policy:
+  allow_implicit_invocation: true

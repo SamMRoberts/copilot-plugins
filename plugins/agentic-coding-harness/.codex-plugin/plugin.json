@@ -1,7 +1,7 @@
 {
   "name": "agentic-coding-harness",
   "version": "[TODO: 1.2.0]",
-  "description": "Guidance and scaffolding for creating repeatable harnesses around agentic coding workflows.",
+  "description": "Guided walkthroughs and templates for creating detailed harnesses around agentic coding workflows.",
   "author": {
     "name": "[TODO: Author Name]",
     "email": "[TODO: author@example.com]",
@@ -21,7 +21,7 @@
   "interface": {
     "displayName": "Agentic Coding Harness",
     "shortDescription": "Create repeatable harnesses for agentic coding workflows.",
-    "longDescription": "Guidance and scaffolding for defining setup checks, execution boundaries, verification gates, and handoff artifacts for agentic coding agents.",
+    "longDescription": "Guided walkthroughs, templates, examples, and section-level validation loops for defining repository-specific setup checks, discovery requirements, execution boundaries, verification gates, evidence capture, and handoff artifacts for agentic coding agents.",
     "developerName": "[TODO: OpenAI]",
     "category": "Productivity",
     "capabilities": [
@@ -32,11 +32,11 @@
     "privacyPolicyURL": "[TODO: https://openai.com/policies/row-privacy-policy/]",
     "termsOfServiceURL": "[TODO: https://openai.com/policies/row-terms-of-use/]",
     "defaultPrompt": [
-      "Create an agentic coding harness for this repository.",
-      "Review this agent workflow and propose harness verification gates.",
-      "Design a handoff contract for coding agents working in this repo."
+      "Walk me through creating a detailed agentic coding harness for this repository.",
+      "Draft a coding harness with discovery, implementation, verification, and handoff gates.",
+      "Validate this generated coding harness section by section until every part is complete."
     ],
-    "brandColor": "[TODO: #3B82F6]",
+    "brandColor": "#2563EB",
     "composerIcon": "[TODO: ./assets/icon.png]",
     "logo": "[TODO: ./assets/logo.png]",
     "screenshots": [
