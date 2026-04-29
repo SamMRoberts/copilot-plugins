@@ -1,0 +1,8 @@
+interface:
+  display_name: "Refine Harness"
+  short_description: "Iterate harness sections"
+  brand_color: "#2563EB"
+  default_prompt: "Use $refine-agentic-coding-harness to improve this reviewed coding harness until all sections are complete."
+
+policy:
+  allow_implicit_invocation: true

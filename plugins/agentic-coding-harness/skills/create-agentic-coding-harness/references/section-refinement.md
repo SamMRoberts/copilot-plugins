@@ -22,12 +22,16 @@ Default section names:
 - `supported_work`
 - `out_of_scope`
 - `required_context`
+- `knowledge_system`
 - `operating_phases`
 - `boundaries`
+- `agent_legibility`
+- `mechanical_enforcement`
 - `verification_gates`
 - `evidence_requirements`
 - `handoff_format`
 - `automation_plan`
+- `feedback_loops`
 - `open_questions`
 
 ## Section File Content
@@ -50,6 +54,7 @@ Mark a section `complete` when:
 - It is specific to the target repository or target workflow.
 - It uses concrete file paths, commands, phase gates, or decision points where applicable.
 - Another agent could follow it without hidden context.
+- It improves agent legibility by pointing to repository-local context, inspectable runtime evidence, or mechanical checks where relevant.
 - It does not conflict with other completed sections.
 - It has no meaningful TODOs except explicitly accepted future work.
 
@@ -58,6 +63,7 @@ Mark a section `needs_update` when:
 - It is mostly correct but too generic in places.
 - It is missing some paths, commands, examples, or edge cases.
 - It needs clearer wording, stronger boundaries, or better sequencing.
+- It relies too much on prose where mechanical enforcement would be appropriate.
 - It has minor inconsistencies with another section.
 
 Mark a section `failed` when:
@@ -66,6 +72,7 @@ Mark a section `failed` when:
 - It is mostly boilerplate and cannot guide real agent behavior.
 - It contradicts hard user requirements.
 - It omits the section's core purpose.
+- It depends on external, invisible context without moving that context into the repository or naming a discovery path.
 - It would be faster and safer to rewrite than repair.
 
 ## Refinement Loop

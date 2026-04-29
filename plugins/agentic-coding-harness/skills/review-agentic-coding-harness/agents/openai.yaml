@@ -1,0 +1,8 @@
+interface:
+  display_name: "Review Harness"
+  short_description: "Evaluate harness completeness"
+  brand_color: "#2563EB"
+  default_prompt: "Use $review-agentic-coding-harness to evaluate this generated coding harness section by section."
+
+policy:
+  allow_implicit_invocation: true

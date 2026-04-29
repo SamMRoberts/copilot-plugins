@@ -1,10 +1,91 @@
 # Coding Harness Walkthrough
 
-Use this walkthrough when the user wants help creating a detailed harness but has not supplied all required details.
+Use this walkthrough for first-pass harness creation. Do not draft the harness until the required interview categories are answered or the user explicitly asks to skip the interview.
 
 ## Interview Pattern
 
-Ask no more than three questions at a time. Prefer questions that change the resulting harness. If a reasonable default exists, state the assumption and keep moving.
+Ask questions in short rounds. Use no more than five questions per round.
+
+Do not silently infer goals, scope, boundaries, or validation requirements. If the user has not answered a required category, ask about it. If the user explicitly declines to answer a category, record the gap as an assumption or open question and continue.
+
+After each answer, briefly summarize what was learned and ask the next question set. Draft only after the interview gate is satisfied.
+
+## Interview Gate
+
+The harness is ready to draft only when these categories are known:
+
+- Goal and success criteria.
+- Target repository or repository family.
+- In-scope task classes.
+- Out-of-scope task classes and stop conditions.
+- Required context and discovery sources.
+- Repository knowledge system and map of deeper sources of truth.
+- Tool, file, command, network, dependency, permission, and git boundaries.
+- Agent legibility for runtime state, logs, metrics, traces, screenshots, and other evidence.
+- Mechanical enforcement for hard invariants.
+- Verification gates and evidence requirements.
+- Feedback loops for failures, review comments, drift, and stale docs.
+- Handoff artifact format.
+- Desired destination for the harness.
+
+## Question Rounds
+
+Use these rounds in order. Skip questions that the user has already answered.
+
+### Round 1: Goals And Target
+
+1. What is the main goal of this coding harness?
+2. What repository, repository type, or family of repositories should it apply to?
+3. What would make the harness successful in practice?
+4. Who is the harness for: a general coding agent, a specific agent, a team workflow, or a plugin/skill workflow?
+
+### Round 2: Scope
+
+1. What kinds of coding work are in scope?
+2. What kinds of work are explicitly out of scope?
+3. What situations should force the agent to stop and ask before continuing?
+4. Are there task classes that should be review-only rather than implementation-ready?
+
+### Round 3: Context And Discovery
+
+1. Which files must an agent read before planning or editing?
+2. Which repo signals should the agent inspect, such as manifests, schemas, CI workflows, tests, route tables, or existing guidance?
+3. Should the agent summarize discovered constraints before it starts implementation?
+4. Are there domain-specific docs or decisions that must override general agent behavior?
+5. Should the harness use a short `AGENTS.md` as a map to deeper docs instead of storing all guidance in one file?
+
+### Round 4: Knowledge System And Legibility
+
+1. What repository-local knowledge base should be the system of record, such as `docs/`, plans, product specs, architecture docs, or generated schema references?
+2. Which docs need indexes, ownership, freshness checks, or cross-link validation?
+3. What runtime evidence should the agent be able to inspect, such as app state, UI snapshots, logs, metrics, traces, videos, or screenshots?
+4. Should the app or service run in isolated worktrees, disposable environments, or task-specific sandboxes?
+5. What standard tools should agents use directly instead of asking humans to paste context?
+
+### Round 5: Boundaries
+
+1. Which files or directories may the agent edit?
+2. Which files, commands, or operations are forbidden without explicit approval?
+3. What are the dependency installation and network access rules?
+4. What are the git rules for branches, staging, commits, pushes, and dirty worktrees?
+5. Are there secrets, credentials, production systems, or destructive operations that need special handling?
+
+### Round 6: Mechanical Enforcement
+
+1. Which architecture, dependency, naming, logging, schema, file-size, or quality rules must be enforced mechanically?
+2. Should enforcement live in scripts, tests, linters, hooks, schemas, CI jobs, or another mechanism?
+3. What remediation instructions should enforcement errors give back to agents?
+4. Which guidance should remain flexible rather than mechanically enforced?
+
+### Round 7: Verification, Feedback, And Handoff
+
+1. Which commands or checks are required before the agent reports completion?
+2. What evidence should the agent capture, such as command output, logs, screenshots, test artifacts, or changed files?
+3. How should review comments, bugs, failed runs, or repeated mistakes become durable docs, tests, scripts, hooks, or cleanup tasks?
+4. Should the harness include recurring garbage collection for drift, stale docs, or inconsistent patterns?
+5. What should the final handoff include?
+6. Where should the harness live: `AGENTS.md`, plugin skill, workflow document, hook/script system, or another artifact?
+7. Should the generated harness be reviewed and refined using section-state files?
 
 ## Step 1: Mission
 
@@ -58,6 +139,19 @@ Common sources:
 
 Require the agent to summarize discovered constraints before implementation when the task has meaningful risk.
 
+## Step 3A: Knowledge System
+
+Define the repository-local system of record. Prefer a short agent entry point that links to deeper docs, plans, schemas, and references.
+
+Capture:
+
+- The entry-point map, usually `AGENTS.md`.
+- Deeper docs and indexes.
+- Active and completed plans.
+- Generated references such as schema docs.
+- Freshness, ownership, and cross-link checks.
+- What knowledge must be moved from external systems into the repo.
+
 ## Step 4: Operating Phases
 
 A strong harness usually has these phases:
@@ -85,6 +179,31 @@ Define hard rules:
 - Secrets and credentials policy.
 
 Make stop conditions explicit. Examples: ambiguous destructive operation, conflicting user changes, missing credentials, failing migration, or verification command that cannot run.
+
+## Step 5A: Agent Legibility
+
+Define how agents inspect the system while it runs.
+
+Capture:
+
+- Local app startup commands.
+- Worktree or task isolation model.
+- UI navigation, screenshots, videos, or DOM snapshots.
+- Logs, metrics, traces, and query tools.
+- Runtime artifacts the agent must collect before claiming success.
+
+## Step 5B: Mechanical Enforcement
+
+Define hard rules that should not rely on prose alone.
+
+Capture:
+
+- Architecture and dependency direction checks.
+- Schema and boundary validation.
+- Structured logging or observability rules.
+- Naming conventions and file-size limits.
+- Custom lint messages that tell agents how to remediate failures.
+- CI or hook jobs that keep knowledge docs current.
 
 ## Step 6: Verification
 
@@ -116,6 +235,18 @@ Recommended fields:
 - Follow-up work.
 
 The handoff should be short enough to read quickly but specific enough to audit.
+
+## Step 7A: Feedback Loops
+
+Define how the harness improves after agent runs.
+
+Capture:
+
+- How review comments become docs, tests, scripts, or hooks.
+- How bugs produce reproduction steps and validation gates.
+- How repeated mistakes become golden principles.
+- How stale docs and drift are detected.
+- Which recurring cleanup tasks should run.
 
 ## Step 8: Automation Decision
 

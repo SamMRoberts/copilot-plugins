@@ -16,12 +16,16 @@ DEFAULT_SECTIONS = (
     "supported_work",
     "out_of_scope",
     "required_context",
+    "knowledge_system",
     "operating_phases",
     "boundaries",
+    "agent_legibility",
+    "mechanical_enforcement",
     "verification_gates",
     "evidence_requirements",
     "handoff_format",
     "automation_plan",
+    "feedback_loops",
     "open_questions",
 )
 

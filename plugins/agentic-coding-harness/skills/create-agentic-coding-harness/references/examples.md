@@ -29,6 +29,11 @@ Required context:
 - Relevant `src/**` files
 - Relevant `tests/**` files
 
+Knowledge system:
+
+- `AGENTS.md` stays short and points to `docs/testing.md`, `docs/release.md`, and package-specific READMEs.
+- API shape decisions live in `docs/design/` and must be linked from the relevant package README.
+
 Operating phases:
 
 - Intake: restate requested behavior and likely module.
@@ -43,6 +48,17 @@ Boundaries:
 - Do not edit lockfiles unless dependency changes are explicitly required.
 - Do not run network installs without approval.
 - Do not overwrite dirty user changes.
+
+Mechanical enforcement:
+
+- `npm run typecheck` enforces exported type shape.
+- `npm test` enforces behavior.
+- A package-boundary lint prevents imports across internal modules that are not exported.
+
+Feedback loops:
+
+- Repeated test failures become targeted fixtures.
+- Review comments about public API clarity become README or design-doc updates.
 
 ## Example: iOS App Harness
 
@@ -69,6 +85,12 @@ Required context:
 - Relevant Swift source files.
 - Existing test targets.
 - Current simulator or destination requirements.
+
+Agent legibility:
+
+- The app must be buildable and launchable on a simulator.
+- UI changes require screenshots or a described simulator inspection.
+- Runtime issues should include console logs or captured failure output.
 
 Verification gates:
 
@@ -105,6 +127,19 @@ Required context:
 - Related skill descriptions.
 - Reference files under the target skill.
 
+Knowledge system:
+
+- Root `AGENTS.md` acts as the map for plugin conventions.
+- Skill bodies stay concise and link to `references/` for detailed rubrics or examples.
+- Plugin manifests and README files are the source of truth for discoverability and user experience.
+
+Mechanical enforcement:
+
+- JSON parsing validates manifests.
+- Skill frontmatter parsing validates `name` and `description`.
+- `git diff --check` catches whitespace defects.
+- Path checks confirm referenced skill and asset files exist.
+
 Verification gates:
 
 - `python3 -m json.tool <json-file>` for changed JSON.
@@ -123,6 +158,10 @@ Section validation:
 
 - `harness_purpose.complete.md`: purpose is specific to Codex plugin authoring.
 - `supported_work.complete.md`: task classes map to plugin, skill, agent, prompt, and manifest edits.
+- `knowledge_system.complete.md`: root `AGENTS.md`, plugin README, skill references, and manifests are mapped.
 - `boundaries.needs_update.md`: edit boundaries are correct but need explicit marketplace and MCP approval rules.
+- `agent_legibility.needs_update.md`: needs a clearer rule for validating skill trigger behavior.
+- `mechanical_enforcement.complete.md`: JSON, YAML, diff, and path checks are explicit.
 - `verification_gates.complete.md`: JSON parsing, diff check, trigger review, and path checks are explicit.
 - `automation_plan.failed.md`: regenerate because it proposes unrelated CI automation instead of harness-local scripts or hooks.
+- `feedback_loops.needs_update.md`: needs a rule for promoting repeated review findings into skill references or tests.

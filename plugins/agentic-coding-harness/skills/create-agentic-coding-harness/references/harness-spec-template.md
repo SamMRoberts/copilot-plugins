@@ -29,6 +29,27 @@ Before planning or editing, the agent must inspect:
 
 The agent must summarize constraints that affect implementation.
 
+## Knowledge System
+
+Agent entry point:
+
+- `[Short map file, usually AGENTS.md]`
+
+Repository-local sources of truth:
+
+- `[docs/index.md or equivalent]`
+- `[architecture or design docs]`
+- `[active and completed plans]`
+- `[generated references such as schemas or API docs]`
+
+Freshness and discoverability checks:
+
+- `[cross-link, ownership, freshness, or doc-gardening check]`
+
+External context policy:
+
+- `[What must be moved into the repo before agents can rely on it]`
+
 ## Operating Phases
 
 ### Intake
@@ -124,6 +145,43 @@ Secrets boundaries:
 
 - `[credential and secret handling rules]`
 
+## Agent Legibility
+
+Runtime inspection:
+
+- `[local startup command or environment]`
+- `[worktree, sandbox, or disposable environment rule]`
+
+UI and product evidence:
+
+- `[DOM snapshot, screenshot, video, navigation, or manual check]`
+
+Observability:
+
+- `[logs, metrics, traces, query tools, dashboards, or artifact paths]`
+
+Standard tools:
+
+- `[CLI tools and scripts agents should use directly]`
+
+## Mechanical Enforcement
+
+Hard invariants:
+
+- `[architecture, dependency, schema, logging, naming, file-size, security, or quality rule]`
+
+Enforcement mechanism:
+
+- `[script, test, linter, hook, schema, CI job, or MCP tool]`
+
+Remediation guidance:
+
+- `[What the check tells the agent to do when it fails]`
+
+Flexible areas:
+
+- `[Where agents have implementation freedom inside boundaries]`
+
 ## Verification Gates
 
 Fast checks:
@@ -177,6 +235,20 @@ Risk:
 - MCP: `[tools or persistent state]`
 - Companion skills: `[phase-specific skills]`
 
+## Feedback Loops
+
+Failure capture:
+
+- `[How failed runs, bugs, or review comments become durable repo updates]`
+
+Quality maintenance:
+
+- `[stale-doc scan, quality score, drift check, tech-debt tracker, or cleanup cadence]`
+
+Golden principles:
+
+- `[Opinionated mechanical rules that preserve future agent legibility]`
+
 ## Section Validation
 
 Validation directory:
@@ -189,12 +261,16 @@ Required section files:
 - `supported_work.<state>.md`
 - `out_of_scope.<state>.md`
 - `required_context.<state>.md`
+- `knowledge_system.<state>.md`
 - `operating_phases.<state>.md`
 - `boundaries.<state>.md`
+- `agent_legibility.<state>.md`
+- `mechanical_enforcement.<state>.md`
 - `verification_gates.<state>.md`
 - `evidence_requirements.<state>.md`
 - `handoff_format.<state>.md`
 - `automation_plan.<state>.md`
+- `feedback_loops.<state>.md`
 - `open_questions.<state>.md`
 
 Status command:

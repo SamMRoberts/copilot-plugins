@@ -1,48 +1,46 @@
 {
   "name": "agentic-coding-harness",
-  "version": "[TODO: 1.2.0]",
-  "description": "Guided walkthroughs and templates for creating detailed harnesses around agentic coding workflows.",
+  "version": "1.0.0",
+  "description": "Agent-first walkthroughs and templates for creating detailed harnesses around agentic coding workflows.",
   "author": {
-    "name": "[TODO: Author Name]",
-    "email": "[TODO: author@example.com]",
-    "url": "[TODO: https://github.com/author]"
+    "name": "",
+    "email": "",
+    "url": ""
   },
-  "homepage": "[TODO: https://docs.example.com/plugin]",
-  "repository": "[TODO: https://github.com/author/plugin]",
-  "license": "[TODO: MIT]",
+  "homepage": "",
+  "repository": "",
+  "license": "",
   "keywords": [
     "agentic-coding",
     "harness"
   ],
   "skills": "./skills/",
-  "hooks": "[TODO: ./hooks.json]",
+  "hooks": "./hooks.json",
   "mcpServers": "./.mcp.json",
-  "apps": "[TODO: ./.app.json]",
+  "apps": "./.app.json",
   "interface": {
     "displayName": "Agentic Coding Harness",
-    "shortDescription": "Create repeatable harnesses for agentic coding workflows.",
-    "longDescription": "Guided walkthroughs, templates, examples, and section-level validation loops for defining repository-specific setup checks, discovery requirements, execution boundaries, verification gates, evidence capture, and handoff artifacts for agentic coding agents.",
-    "developerName": "[TODO: OpenAI]",
-    "category": "Productivity",
+    "shortDescription": "Create, review, and refine agent-first coding harnesses.",
+    "longDescription": "Agent-first walkthroughs, templates, examples, and section-level validation loops for creating, reviewing, and refining repository-specific harnesses with concise agent entry maps, repo-local knowledge systems, inspectable runtime evidence, mechanical enforcement, verification gates, feedback loops, and handoff artifacts for coding agents.",
+    "developerName": "Sam Roberts",
+    "category": "General",
     "capabilities": [
       "Interactive",
       "Write"
     ],
-    "websiteURL": "[TODO: https://openai.com/]",
-    "privacyPolicyURL": "[TODO: https://openai.com/policies/row-privacy-policy/]",
-    "termsOfServiceURL": "[TODO: https://openai.com/policies/row-terms-of-use/]",
+    "websiteURL": "https://openai.com/",
+    "privacyPolicyURL": "https://openai.com/policies/row-privacy-policy/",
+    "termsOfServiceURL": "https://openai.com/policies/row-terms-of-use/",
     "defaultPrompt": [
-      "Walk me through creating a detailed agentic coding harness for this repository.",
-      "Draft a coding harness with discovery, implementation, verification, and handoff gates.",
-      "Validate this generated coding harness section by section until every part is complete."
+      "Interview me, then create a detailed agentic coding harness for this repository.",
+      "Ask me the required scope, boundary, verification, and handoff questions before drafting a coding harness.",
+      "Design an agent-first harness with a repo knowledge map, mechanical checks, and feedback loops.",
+      "Review this generated coding harness section by section.",
+      "Refine this reviewed coding harness until every section is complete."
     ],
     "brandColor": "#2563EB",
     "composerIcon": "./icon.png",
     "logo": "./icon.png",
-    "screenshots": [
-      "[TODO: ./assets/screenshot1.png]",
-      "[TODO: ./assets/screenshot2.png]",
-      "[TODO: ./assets/screenshot3.png]"
-    ]
+    "screenshots": []
   }
 }
