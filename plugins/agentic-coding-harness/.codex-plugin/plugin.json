@@ -37,8 +37,8 @@
       "Validate this generated coding harness section by section until every part is complete."
     ],
     "brandColor": "#2563EB",
-    "composerIcon": "[TODO: ./assets/icon.png]",
-    "logo": "[TODO: ./assets/logo.png]",
+    "composerIcon": "./icon.png",
+    "logo": "./icon.png",
     "screenshots": [
       "[TODO: ./assets/screenshot1.png]",
       "[TODO: ./assets/screenshot2.png]",
