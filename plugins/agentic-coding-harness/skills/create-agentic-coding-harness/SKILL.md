@@ -15,6 +15,7 @@ The harness is the operating contract around coding work: what the agent inspect
 - For first-pass harness creation, start with the guided interview in `references/walkthrough.md`.
 - Draft directly only when the user has already supplied all required input categories or explicitly says to skip the interview.
 - For agent-first harness design principles, load `references/agent-first-harness-principles.md`.
+- For the default repository documentation layout, load `references/repository-docs-structure.md`.
 - If the user asks to validate, refine, iterate, or prove completeness, use `references/section-refinement.md` and the script `../../scripts/harness_section_status.py`.
 - If the user asks what good output looks like, load `references/examples.md`.
 
@@ -123,7 +124,7 @@ Return a practical harness package:
 - **Supported Work**: task classes the harness covers.
 - **Out Of Scope**: work the harness should reject or escalate.
 - **Required Context**: files, commands, and repo signals to inspect.
-- **Knowledge System**: short entry-point map, deeper source-of-truth docs, indexes, plans, and freshness checks.
+- **Knowledge System**: `AGENTS.md`, `ARCHITECTURE.md`, the default `docs/` tree, source-of-truth docs, indexes, plans, and freshness checks.
 - **Operating Phases**: ordered phase gates with entry and exit criteria.
 - **Boundaries**: edit, tool, permission, dependency, network, and git constraints.
 - **Agent Legibility**: runtime state, logs, metrics, UI snapshots, traces, and artifacts the agent can inspect.

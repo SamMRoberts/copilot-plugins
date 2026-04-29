@@ -33,14 +33,30 @@ The agent must summarize constraints that affect implementation.
 
 Agent entry point:
 
-- `[Short map file, usually AGENTS.md]`
+- `AGENTS.md`: short map to deeper docs, not a long manual.
+
+Top-level architecture:
+
+- `ARCHITECTURE.md`: repository architecture, layer rules, dependency direction, and high-level invariants.
 
 Repository-local sources of truth:
 
-- `[docs/index.md or equivalent]`
-- `[architecture or design docs]`
-- `[active and completed plans]`
-- `[generated references such as schemas or API docs]`
+- `docs/design-docs/index.md`
+- `docs/design-docs/core-beliefs.md`
+- `docs/exec-plans/active/`
+- `docs/exec-plans/completed/`
+- `docs/exec-plans/tech-debt-tracker.md`
+- `docs/generated/db-schema.md`
+- `docs/product-specs/index.md`
+- `docs/product-specs/example-spec.md`
+- `docs/references/`
+- `docs/DESIGN.md`
+- `docs/FRONTEND.md`
+- `docs/PLANS.md`
+- `docs/PRODUCT_SENSE.md`
+- `docs/QUALITY_SCORE.md`
+- `docs/RELIABILITY.md`
+- `docs/SECURITY.md`
 
 Freshness and discoverability checks:
 

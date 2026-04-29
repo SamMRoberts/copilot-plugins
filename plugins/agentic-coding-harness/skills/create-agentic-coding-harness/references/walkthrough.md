@@ -62,6 +62,8 @@ Use these rounds in order. Skip questions that the user has already answered.
 4. Should the app or service run in isolated worktrees, disposable environments, or task-specific sandboxes?
 5. What standard tools should agents use directly instead of asking humans to paste context?
 
+Default to the structure in `repository-docs-structure.md` unless the user asks for a different docs layout. If the user wants to omit or rename a file, record the reason in the harness.
+
 ### Round 5: Boundaries
 
 1. Which files or directories may the agent edit?
@@ -146,6 +148,7 @@ Define the repository-local system of record. Prefer a short agent entry point t
 Capture:
 
 - The entry-point map, usually `AGENTS.md`.
+- `ARCHITECTURE.md` as the top-level architecture map.
 - Deeper docs and indexes.
 - Active and completed plans.
 - Generated references such as schema docs.

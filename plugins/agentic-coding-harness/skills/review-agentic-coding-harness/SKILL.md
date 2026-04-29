@@ -10,6 +10,7 @@ Use this skill to evaluate a coding harness section by section and create state 
 
 Read `../create-agentic-coding-harness/references/section-refinement.md` for the state rubric and file naming rules.
 Read `../create-agentic-coding-harness/references/agent-first-harness-principles.md` before evaluating whether the harness is agent-first enough.
+Read `../create-agentic-coding-harness/references/repository-docs-structure.md` before evaluating the `knowledge_system` section.
 
 ## Inputs
 
@@ -44,7 +45,8 @@ Flag gaps when the harness does not:
 
 - Treat repository-local, versioned artifacts as the system of record.
 - Keep the agent entry point concise and map-like.
-- Define deeper docs, plans, indexes, schemas, and freshness checks.
+- Define the default docs structure: `AGENTS.md`, `ARCHITECTURE.md`, `docs/design-docs/`, `docs/exec-plans/`, `docs/generated/`, `docs/product-specs/`, `docs/references/`, and the top-level docs files under `docs/`.
+- Justify any omitted or renamed docs from the default structure.
 - Make application state, UI evidence, logs, metrics, traces, or other runtime signals inspectable by agents where relevant.
 - Encode hard architecture, safety, quality, and taste rules mechanically.
 - Use standard development tools directly instead of requiring human copy-paste.

@@ -10,6 +10,7 @@ Use this skill to improve a reviewed coding harness until all required sections 
 
 Read `../create-agentic-coding-harness/references/section-refinement.md` before changing section content.
 Read `../create-agentic-coding-harness/references/agent-first-harness-principles.md` before deciding whether a refined section is complete.
+Read `../create-agentic-coding-harness/references/repository-docs-structure.md` when refining the `knowledge_system` section.
 
 ## Inputs
 
@@ -40,6 +41,7 @@ python3 plugins/agentic-coding-harness/scripts/harness_section_status.py --dir .
 ## Refinement Rules
 
 - Preserve user-approved requirements and completed sections unless a contradiction is discovered.
+- Use the default docs structure from `repository-docs-structure.md` for the knowledge system unless the user explicitly requested a different layout.
 - Make each update more concrete: paths, commands, phase gates, boundaries, stop conditions, or evidence requirements.
 - Prefer repository-local, versioned guidance over external context.
 - Turn hard rules into scripts, tests, linters, hooks, schemas, CI checks, or other mechanical enforcement when possible.

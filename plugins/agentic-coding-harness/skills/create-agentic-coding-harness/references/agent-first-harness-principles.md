@@ -25,7 +25,7 @@ Do not turn `AGENTS.md` into a giant encyclopedia. Use a short entry point that 
 The harness should define:
 
 - A short agent entry file, often `AGENTS.md`.
-- A structured knowledge base such as `docs/`.
+- The default structured knowledge base from `repository-docs-structure.md`, unless the user explicitly chooses another layout.
 - Index files and cross-links that tell agents where to look next.
 - Ownership, freshness, and verification rules for deeper docs.
 

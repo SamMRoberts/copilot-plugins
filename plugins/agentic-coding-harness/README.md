@@ -44,7 +44,7 @@ After drafting, the skill can run a section-by-section validation loop. Each har
 - `skills/create-agentic-coding-harness/SKILL.md` contains the main workflow.
 - `skills/review-agentic-coding-harness/SKILL.md` contains the section review workflow.
 - `skills/refine-agentic-coding-harness/SKILL.md` contains the iterative refinement workflow.
-- `skills/create-agentic-coding-harness/references/` contains the walkthrough, output template, and examples.
+- `skills/create-agentic-coding-harness/references/` contains the walkthrough, output template, default docs structure, agent-first principles, and examples.
 - `scripts/harness_section_status.py` reports the next section-level validation action.
 - `hooks/` and `assets/` are reserved for future enforcement and interface assets.
 - `.mcp.json` is present as a placeholder for future MCP server wiring.

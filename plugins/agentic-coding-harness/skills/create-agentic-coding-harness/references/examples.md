@@ -31,8 +31,9 @@ Required context:
 
 Knowledge system:
 
-- `AGENTS.md` stays short and points to `docs/testing.md`, `docs/release.md`, and package-specific READMEs.
-- API shape decisions live in `docs/design/` and must be linked from the relevant package README.
+- `AGENTS.md` stays short and points to `ARCHITECTURE.md`, `docs/PLANS.md`, `docs/QUALITY_SCORE.md`, and package-specific READMEs.
+- API shape decisions live under `docs/design-docs/` and must be linked from the relevant package README.
+- Generated API or schema references live under `docs/generated/`.
 
 Operating phases:
 
@@ -130,6 +131,10 @@ Required context:
 Knowledge system:
 
 - Root `AGENTS.md` acts as the map for plugin conventions.
+- `ARCHITECTURE.md` records plugin layout and dependency boundaries.
+- `docs/design-docs/core-beliefs.md` captures durable plugin authoring principles.
+- `docs/exec-plans/active/` and `docs/exec-plans/completed/` store complex plugin work plans.
+- `docs/QUALITY_SCORE.md` tracks plugin quality and drift.
 - Skill bodies stay concise and link to `references/` for detailed rubrics or examples.
 - Plugin manifests and README files are the source of truth for discoverability and user experience.
 
@@ -158,7 +163,7 @@ Section validation:
 
 - `harness_purpose.complete.md`: purpose is specific to Codex plugin authoring.
 - `supported_work.complete.md`: task classes map to plugin, skill, agent, prompt, and manifest edits.
-- `knowledge_system.complete.md`: root `AGENTS.md`, plugin README, skill references, and manifests are mapped.
+- `knowledge_system.complete.md`: root `AGENTS.md`, `ARCHITECTURE.md`, `docs/`, plugin README, skill references, and manifests are mapped.
 - `boundaries.needs_update.md`: edit boundaries are correct but need explicit marketplace and MCP approval rules.
 - `agent_legibility.needs_update.md`: needs a clearer rule for validating skill trigger behavior.
 - `mechanical_enforcement.complete.md`: JSON, YAML, diff, and path checks are explicit.

@@ -55,6 +55,7 @@ Mark a section `complete` when:
 - It uses concrete file paths, commands, phase gates, or decision points where applicable.
 - Another agent could follow it without hidden context.
 - It improves agent legibility by pointing to repository-local context, inspectable runtime evidence, or mechanical checks where relevant.
+- The `knowledge_system` section follows `repository-docs-structure.md` or explicitly justifies any deviations.
 - It does not conflict with other completed sections.
 - It has no meaningful TODOs except explicitly accepted future work.
 
