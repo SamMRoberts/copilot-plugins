@@ -1,14 +1,14 @@
 {
   "name": "agentic-coding-harness",
-  "version": "1.0.0",
-  "description": "Agent-first walkthroughs and templates for creating detailed harnesses around agentic coding workflows.",
+  "version": "0.1.0",
+  "description": "Agent-first workflows, templates, and validation scripts for creating, reviewing, refining, and maintaining repository coding harnesses.",
   "author": {
-    "name": "",
+    "name": "Sam Roberts",
     "email": "",
     "url": ""
   },
-  "homepage": "",
-  "repository": "",
+  "homepage": "https://github.com/SamMRoberts/agentic-coding-harness",
+  "repository": "https://github.com/SamMRoberts/agentic-coding-harness",
   "license": "",
   "keywords": [
     "agentic-coding",
@@ -20,8 +20,8 @@
   "apps": "./.app.json",
   "interface": {
     "displayName": "Agentic Coding Harness",
-    "shortDescription": "Create, review, and refine agent-first coding harnesses.",
-    "longDescription": "Agent-first walkthroughs, templates, examples, and section-level validation loops for creating, reviewing, and refining repository-specific harnesses with concise agent entry maps, repo-local knowledge systems, inspectable runtime evidence, mechanical enforcement, verification gates, feedback loops, and handoff artifacts for coding agents.",
+    "shortDescription": "Create, review, refine, and validate agent-first coding harnesses.",
+    "longDescription": "Agent-first workflows, templates, examples, and scripts for creating, reviewing, refining, and validating repository-specific harnesses with concise agent entry maps, repo-local knowledge systems, inspectable runtime evidence, mechanical enforcement, verification gates, feedback loops, and handoff artifacts for coding agents.",
     "developerName": "Sam Roberts",
     "category": "General",
     "capabilities": [
@@ -36,7 +36,8 @@
       "Ask me the required scope, boundary, verification, and handoff questions before drafting a coding harness.",
       "Design an agent-first harness with a repo knowledge map, mechanical checks, and feedback loops.",
       "Review this generated coding harness section by section.",
-      "Refine this reviewed coding harness until every section is complete."
+      "Refine this reviewed coding harness until every section is complete.",
+      "Validate this repository's agentic coding harness."
     ],
     "brandColor": "#2563EB",
     "composerIcon": "./icon.png",

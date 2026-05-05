@@ -1,50 +1,51 @@
 # Agentic Coding Harness
 
-This plugin helps agents design a detailed, repository-specific harness for agentic coding work.
+This Codex plugin initializes, reviews, refines, and validates repository-local agentic coding harnesses.
 
-A coding harness is the operating contract around an agent: what it must inspect before changing code, which phases it should follow, what it may or may not edit, how it verifies work, and what evidence it must hand back to the user.
+## Install locally as a plugin
 
-This plugin is grounded in agent-first harness engineering: keep human intent explicit, make repository knowledge the system of record, give agents a map instead of a giant manual, expose runtime evidence to agents, encode hard rules mechanically, and feed failures back into durable guidance or tooling.
+Copy this folder to:
 
-## User Experience
+```text
+<repo>/.agents/plugins/agentic-coding-harness/
+```
 
-The plugin exposes three skills:
+Then invoke it from Codex by asking to initialize, review, refine, or validate the agentic coding harness.
 
-- `create-agentic-coding-harness`: walks the user through a concrete harness design rather than returning a generic checklist.
-- `review-agentic-coding-harness`: evaluates a generated harness section by section and writes `<section_name>.<state>.md` files.
-- `refine-agentic-coding-harness`: uses those section-state files to regenerate, improve, or skip sections until the harness is complete.
+## Initialize a repository harness
 
-The creation skill is interview-first:
+From the repository root:
 
-- **Guided interview**: the default first-pass flow. It asks the user about goals, in scope, out of scope, context, boundaries, verification, and handoff before drafting.
-- **Draft directly**: only when the user has already supplied all required answers or explicitly asks to skip the interview.
+```bash
+python .agents/plugins/agentic-coding-harness/scripts/init_harness.py
+```
 
-The skill produces a harness specification that can become an `AGENTS.md`, plugin skill, workflow document, hook plan, or script-backed validation flow.
+For defaults without prompts:
 
-After drafting, the skill can run a section-by-section validation loop. Each harness section gets its own markdown file named `<section_name>.<state>.md`, where `state` is `complete`, `needs_update`, or `failed`. The status script selects the next section to regenerate, improve, or skip until every section is complete.
+```bash
+python .agents/plugins/agentic-coding-harness/scripts/init_harness.py --non-interactive
+```
 
-## Harness Areas
+To use a JSON answers file:
 
-- Purpose and target workflow.
-- Repository context and required discovery.
-- Repository knowledge system and agent entry-point map.
-- Agent operating modes and phase gates.
-- Tool, file, and permission boundaries.
-- Agent legibility for runtime state, UI evidence, logs, metrics, traces, and generated artifacts.
-- Mechanical enforcement for architecture, quality, safety, and taste invariants.
-- Verification commands, evidence, and fallback behavior.
-- Handoff format and quality bar.
-- Optional automation through hooks, scripts, MCP servers, or companion skills.
-- Feedback loops for failures, review comments, drift, and stale docs.
-- Section-level validation and refinement.
+```bash
+python .agents/plugins/agentic-coding-harness/scripts/init_harness.py --answers harness-answers.json
+```
 
-## Plugin Shape
+## Validate a repository harness
 
-- `.codex-plugin/plugin.json` defines plugin metadata and points to the skill directory.
-- `skills/create-agentic-coding-harness/SKILL.md` contains the main workflow.
-- `skills/review-agentic-coding-harness/SKILL.md` contains the section review workflow.
-- `skills/refine-agentic-coding-harness/SKILL.md` contains the iterative refinement workflow.
-- `skills/create-agentic-coding-harness/references/` contains the walkthrough, output template, default docs structure, agent-first principles, and examples.
-- `scripts/harness_section_status.py` reports the next section-level validation action.
-- `hooks/` and `assets/` are reserved for future enforcement and interface assets.
-- `.mcp.json` is present as a placeholder for future MCP server wiring.
+From the repository root:
+
+```bash
+python .agents/plugins/agentic-coding-harness/scripts/validate_harness.py
+```
+
+## What it creates
+
+- `AGENTS.md`, kept close to 100 lines and used as a routing table.
+- `docs/`, containing harness scope, design docs, execution plans, app specs, references, architecture, tooling, quality, security, reliability, observability, and review docs.
+- `.harness-validation/`, when reviewing or refining a harness section by section.
+
+## Guardrail behavior
+
+Before code changes, agents must classify the task against the harness. If a requested change conflicts with the harness, is explicitly out of scope, or is not included in scope, the agent must not edit code and must ask whether to update the harness, stop, or create a new in-scope plan.

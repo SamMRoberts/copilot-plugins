@@ -4,14 +4,13 @@
 from __future__ import annotations
 
 import argparse
-import json
-import re
 from dataclasses import dataclass
+import json
 from pathlib import Path
+import re
+import sys
 
-
-STATES = ("complete", "needs_update", "failed")
-DEFAULT_SECTIONS = (
+DEFAULT_SECTIONS = [
     "harness_purpose",
     "supported_work",
     "out_of_scope",
@@ -27,10 +26,20 @@ DEFAULT_SECTIONS = (
     "automation_plan",
     "feedback_loops",
     "open_questions",
-)
+]
+
+STATES = {"complete", "needs_update", "failed"}
+PATTERN = re.compile(r"^(?P<section>[a-z0-9_]+)\.(?P<state>complete|needs_update|failed)\.md$")
 
 
-@dataclass
+@dataclass(frozen=True)
+class SectionFile:
+    section: str
+    state: str
+    path: Path
+
+
+@dataclass(frozen=True)
 class SectionStatus:
     section: str
     state: str
@@ -49,72 +58,84 @@ def normalize_section(value: str) -> str:
     return normalized
 
 
-def parse_sections(raw_sections: str | None) -> tuple[str, ...]:
-    if not raw_sections:
+def parse_sections(raw: str | None) -> list[str]:
+    if not raw:
         return DEFAULT_SECTIONS
-    sections = tuple(normalize_section(section) for section in raw_sections.split(","))
+    sections = [normalize_section(item) for item in raw.split(",") if item.strip()]
     if len(set(sections)) != len(sections):
         raise ValueError("Section list contains duplicates after normalization.")
-    return sections
+    return sections or DEFAULT_SECTIONS
 
 
-def find_state_files(validation_dir: Path, section: str) -> list[tuple[str, Path]]:
-    matches: list[tuple[str, Path]] = []
-    for state in STATES:
-        path = validation_dir / f"{section}.{state}.md"
-        if path.exists():
-            matches.append((state, path))
-    return matches
+def collect_files(directory: Path) -> tuple[list[SectionFile], list[Path]]:
+    section_files: list[SectionFile] = []
+    ignored: list[Path] = []
+    if not directory.exists():
+        return section_files, ignored
+    for path in sorted(directory.glob("*.md")):
+        match = PATTERN.match(path.name)
+        if not match:
+            ignored.append(path)
+            continue
+        section_files.append(SectionFile(match.group("section"), match.group("state"), path))
+    return section_files, ignored
 
 
-def classify_section(validation_dir: Path, section: str) -> SectionStatus:
-    matches = find_state_files(validation_dir, section)
+def classify_sections(directory: Path, required: list[str]) -> list[SectionStatus]:
+    files, _ = collect_files(directory)
+    by_section: dict[str, list[SectionFile]] = {}
+    for item in files:
+        by_section.setdefault(item.section, []).append(item)
 
-    if not matches:
-        return SectionStatus(
-            section=section,
-            state="failed",
-            path=None,
-            action="create_from_scratch",
-            note="No state file exists for this section.",
-        )
+    statuses: list[SectionStatus] = []
+    for section in required:
+        matches = by_section.get(section, [])
+        if not matches:
+            statuses.append(
+                SectionStatus(
+                    section=section,
+                    state="failed",
+                    path=None,
+                    action="create_from_scratch",
+                    note="No state file exists for this section.",
+                )
+            )
+            continue
 
-    if len(matches) > 1:
-        paths = ", ".join(str(path) for _, path in matches)
-        return SectionStatus(
-            section=section,
-            state="failed",
-            path=None,
-            action="resolve_state_conflict",
-            note=f"Multiple state files exist for this section: {paths}",
-        )
+        if len(matches) > 1:
+            paths = ", ".join(str(item.path) for item in matches)
+            statuses.append(
+                SectionStatus(
+                    section=section,
+                    state="failed",
+                    path=None,
+                    action="resolve_state_conflict",
+                    note=f"Multiple state files exist for this section: {paths}",
+                )
+            )
+            continue
 
-    state, path = matches[0]
-    if state == "complete":
-        action = "skip"
-        note = "Section is complete."
-    elif state == "needs_update":
-        action = "improve_existing"
-        note = "Use the current content as the starting point and improve it."
-    else:
-        action = "regenerate_from_scratch"
-        note = "Discard this section's content and create a new version."
+        item = matches[0]
+        if item.state == "complete":
+            action = "skip"
+            note = "Section is complete."
+        elif item.state == "needs_update":
+            action = "improve_existing"
+            note = "Use the current content as the starting point and improve it."
+        else:
+            action = "regenerate_from_scratch"
+            note = "Discard this section's content and create a new version."
+        statuses.append(SectionStatus(item.section, item.state, str(item.path), action, note))
 
-    return SectionStatus(
-        section=section,
-        state=state,
-        path=str(path),
-        action=action,
-        note=note,
-    )
+    return statuses
 
 
-def init_missing_files(validation_dir: Path, statuses: list[SectionStatus]) -> None:
-    validation_dir.mkdir(parents=True, exist_ok=True)
+def init_missing_files(directory: Path, statuses: list[SectionStatus]) -> None:
+    directory.mkdir(parents=True, exist_ok=True)
     for status in statuses:
         if status.path is not None:
             continue
-        path = validation_dir / f"{status.section}.failed.md"
+        path = directory / f"{status.section}.failed.md"
         path.write_text(
             "\n".join(
                 [
@@ -132,7 +153,7 @@ def init_missing_files(validation_dir: Path, statuses: list[SectionStatus]) -> N
 
 def choose_next(statuses: list[SectionStatus]) -> SectionStatus | None:
     for status in statuses:
-        if status.action in {"regenerate_from_scratch", "create_from_scratch", "resolve_state_conflict"}:
+        if status.action in {"resolve_state_conflict", "regenerate_from_scratch", "create_from_scratch"}:
             return status
     for status in statuses:
         if status.action == "improve_existing":
@@ -140,85 +161,66 @@ def choose_next(statuses: list[SectionStatus]) -> SectionStatus | None:
     return None
 
 
-def to_payload(statuses: list[SectionStatus]) -> dict:
+def to_payload(directory: Path, required: list[str], statuses: list[SectionStatus], ignored: list[Path]) -> dict:
     next_status = choose_next(statuses)
+    counts = {state: 0 for state in sorted(STATES)}
+    for status in statuses:
+        counts[status.state] += 1
     return {
+        "directory": str(directory),
+        "required_sections": len(required),
+        "complete": counts["complete"],
+        "needs_update": counts["needs_update"],
+        "failed": counts["failed"],
+        "ignored_files": [str(path) for path in ignored],
         "all_complete": next_status is None,
         "next": None if next_status is None else next_status.__dict__,
         "sections": [status.__dict__ for status in statuses],
     }
 
 
-def print_markdown(payload: dict) -> None:
-    if payload["all_complete"]:
-        print("# Harness Section Status")
-        print()
-        print("All sections are complete.")
-        return
-
-    next_status = payload["next"]
-    print("# Harness Section Status")
-    print()
-    print("## Next Action")
-    print()
-    print(f"- Section: `{next_status['section']}`")
-    print(f"- State: `{next_status['state']}`")
-    print(f"- Action: `{next_status['action']}`")
-    if next_status["path"]:
-        print(f"- File: `{next_status['path']}`")
-    print(f"- Note: {next_status['note']}")
-    print()
-    print("## Sections")
-    print()
-    for status in payload["sections"]:
-        path = status["path"] or "[missing]"
-        print(f"- `{status['section']}`: `{status['state']}` -> `{status['action']}` ({path})")
+def print_text(payload: dict) -> None:
+    print(f"directory: {payload['directory']}")
+    print(f"required_sections: {payload['required_sections']}")
+    print(f"complete: {payload['complete']}")
+    print(f"needs_update: {payload['needs_update']}")
+    print(f"failed: {payload['failed']}")
+    print(f"ignored_files: {len(payload['ignored_files'])}")
+    if payload["next"]:
+        print(f"next_action: {payload['next']['action']}")
+        print(f"section: {payload['next']['section']}")
+        if payload["next"]["path"]:
+            print(f"file: {payload['next']['path']}")
+        print(f"note: {payload['next']['note']}")
+    else:
+        print("next_action: skip")
+        print("status: all required sections complete")
 
 
-def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(
-        description="Inspect <section>.<state>.md files and report the next harness refinement action."
-    )
-    parser.add_argument(
-        "--dir",
-        default=".harness-validation",
-        help="Directory containing section-state markdown files.",
-    )
-    parser.add_argument(
-        "--sections",
-        help="Comma-separated section names. Defaults to the standard harness sections.",
-    )
-    parser.add_argument(
-        "--init-missing",
-        action="store_true",
-        help="Create missing section files as <section>.failed.md.",
-    )
-    parser.add_argument(
-        "--json",
-        action="store_true",
-        help="Emit JSON instead of markdown.",
-    )
-    return parser.parse_args()
+def main(argv: list[str]) -> int:
+    parser = argparse.ArgumentParser(description="Report next harness section validation action.")
+    parser.add_argument("--dir", default=".harness-validation", help="validation directory")
+    parser.add_argument("--sections", help="comma-separated required section list")
+    parser.add_argument("--init-missing", action="store_true", help="create missing section files as <section>.failed.md")
+    parser.add_argument("--json", action="store_true", help="emit JSON instead of text")
+    args = parser.parse_args(argv)
 
-
-def main() -> int:
-    args = parse_args()
-    validation_dir = Path(args.dir)
-    sections = parse_sections(args.sections)
-    statuses = [classify_section(validation_dir, section) for section in sections]
-
+    directory = Path(args.dir)
+    required = parse_sections(args.sections)
+    statuses = classify_sections(directory, required)
     if args.init_missing:
-        init_missing_files(validation_dir, statuses)
-        statuses = [classify_section(validation_dir, section) for section in sections]
+        init_missing_files(directory, statuses)
+        statuses = classify_sections(directory, required)
+    _, ignored = collect_files(directory)
+    payload = to_payload(directory, required, statuses, ignored)
 
-    payload = to_payload(statuses)
     if args.json:
         print(json.dumps(payload, indent=2))
     else:
-        print_markdown(payload)
+        print_text(payload)
 
     return 0 if payload["all_complete"] else 2
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(main(sys.argv[1:]))

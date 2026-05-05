@@ -1,8 +1,6 @@
 interface:
-  display_name: "Review Harness"
-  short_description: "Evaluate harness completeness"
-  brand_color: "#2563EB"
-  default_prompt: "Use $review-agentic-coding-harness to evaluate this generated coding harness section by section."
-
+  display_name: "Review Agentic Coding Harness"
+  short_description: "Review a coding harness section by section."
+  default_prompt: "Review this repository's agentic coding harness and create section-state artifacts."
 policy:
   allow_implicit_invocation: true
