@@ -1,0 +1,6 @@
+interface:
+  display_name: "Refine Agentic Coding Harness"
+  short_description: "Improve reviewed harness sections until complete."
+  default_prompt: "Refine this reviewed coding harness until every section is complete."
+policy:
+  allow_implicit_invocation: true

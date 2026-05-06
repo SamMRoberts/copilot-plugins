@@ -1,0 +1,32 @@
+{
+    "hooks": {
+        "SessionStart": [
+            {
+                "type": "command",
+                "command": "node /Users/samroberts/Repo/SamMRoberts/copilot-plugins/software-engineering-workflow/scripts/software-workflow-hook.js context session-start",
+                "timeout": 5
+            }
+        ],
+        "UserPromptSubmit": [
+            {
+                "type": "command",
+                "command": "node /Users/samroberts/Repo/SamMRoberts/copilot-plugins/software-engineering-workflow/scripts/software-workflow-hook.js context user-prompt-submit",
+                "timeout": 5
+            }
+        ],
+        "SubagentStart": [
+            {
+                "type": "command",
+                "command": "node /Users/samroberts/Repo/SamMRoberts/copilot-plugins/software-engineering-workflow/scripts/software-workflow-hook.js context subagent-start",
+                "timeout": 5
+            }
+        ],
+        "PreToolUse": [
+            {
+                "type": "command",
+                "command": "node /Users/samroberts/Repo/SamMRoberts/copilot-plugins/software-engineering-workflow/scripts/software-workflow-hook.js pre-tool-use",
+                "timeout": 5
+            }
+        ]
+    }
+}

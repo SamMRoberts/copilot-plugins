@@ -1,0 +1,6 @@
+interface:
+  display_name: "Review Agentic Coding Harness"
+  short_description: "Review a coding harness section by section."
+  default_prompt: "Review this repository's agentic coding harness and create section-state artifacts."
+policy:
+  allow_implicit_invocation: true

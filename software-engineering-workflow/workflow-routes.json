@@ -1,0 +1,1211 @@
+{
+    "$schema": "./workflow-routes.schema.json",
+    "version": 1,
+    "routingPolicy": {
+        "defaultUserFacingAgents": [
+            "software-workflow-entry",
+            "software-workflow-orchestrator",
+            "work-resumption"
+        ],
+        "specialistAccess": "Specialist phase agents are subagent-first and hidden from broad direct picker use. They remain reachable through controller handoffs and explicit phase override requests.",
+        "callerModel": "Only controller agents invoke other agents automatically. Specialist agents return artifacts, missing prerequisites, questions, or recommended next phases to the controller.",
+        "parallelism": "Sequential by default. Parallel work is allowed only for independent read-only investigations whose outputs fan back into a controller before decisions or file mutations.",
+        "handoffOwnership": "Use user-choice handoffs for material tradeoffs or explicit phase selection; use agent-determined handoffs for clear routing and missing-prerequisite returns; use approval-gated handoffs for destructive or history-changing Git work."
+    },
+    "parallelPolicies": {
+        "controller-sequential": {
+            "summary": "Owns conversation or phase routing and should make decisions sequentially after any fan-in.",
+            "mayRunInParallel": false
+        },
+        "read-only-parallel-eligible": {
+            "summary": "May run in parallel only when scoped to independent read-only evidence gathering or planning surfaces.",
+            "mayRunInParallel": true
+        },
+        "sequential-decision": {
+            "summary": "Read-only, but depends on a stable artifact or makes a readiness decision, so it should not run in parallel on the same task.",
+            "mayRunInParallel": false
+        },
+        "writer-sequential": {
+            "summary": "Writes files and must not overlap with any other file writer, formatter, migration, dependency change, or Git mutation.",
+            "mayRunInParallel": false
+        },
+        "git-sequential": {
+            "summary": "Inspects or mutates Git state and must run against a stable repository state with explicit approval for risky operations.",
+            "mayRunInParallel": false
+        },
+        "verification-sequential": {
+            "summary": "Validates settled changes after mutation stops and decides whether work is complete or loops back.",
+            "mayRunInParallel": false
+        }
+    },
+    "handoffTypes": {
+        "user-choice": "The user chooses the next route because ambiguity, scope, tradeoff, cost, security, migration, or acceptance risk remains.",
+        "agent-determined": "The current agent can choose the next route from available evidence and prerequisites.",
+        "approval-gated": "The next route or operation requires explicit user approval before mutation or risk acceptance."
+    },
+    "agents": [
+        {
+            "agentId": "software-workflow-entry",
+            "role": "controller-entry",
+            "file": "agents/software-workflow-entry.agent.md",
+            "userFacing": "default",
+            "allowedCallers": [
+                "user"
+            ],
+            "canInvoke": [
+                "software-workflow-orchestrator",
+                "work-resumption",
+                "context-discovery",
+                "requirements-synthesis",
+                "strategy-evaluation",
+                "follow-up-work-items",
+                "scope-creep-review",
+                "runtime-options-assessment",
+                "runtime-decision-review",
+                "authentication-planning",
+                "authentication-review",
+                "data-model-planning",
+                "ci-cd-pipeline-planning",
+                "ci-cd-pipeline-creation",
+                "git-workflow-planning",
+                "git-troubleshooting",
+                "git-conflict-resolution",
+                "git-advanced-operations",
+                "code-comment-audit",
+                "code-comment-authoring",
+                "solution-planning",
+                "plan-review",
+                "documentation",
+                "implementation",
+                "verification"
+            ],
+            "writesFiles": false,
+            "mutatesRepoState": false,
+            "canRunCommands": false,
+            "parallelPolicy": "controller-sequential",
+            "prerequisites": [
+                "User prompt"
+            ],
+            "handoffs": [
+                {
+                    "to": "software-workflow-orchestrator",
+                    "type": "agent-determined",
+                    "when": "The prompt is clearly new work."
+                },
+                {
+                    "to": "work-resumption",
+                    "type": "agent-determined",
+                    "when": "The prompt refers to existing or interrupted work and no explicit phase was named."
+                },
+                {
+                    "to": "phase-specialist",
+                    "type": "user-choice",
+                    "when": "The user explicitly names a phase or chooses a continuation after resumption."
+                }
+            ],
+            "approvalGates": [],
+            "cycleGroup": "entry",
+            "notes": "Initial classifier. It does not implement code changes or build full plans except when asked only for routing advice."
+        },
+        {
+            "agentId": "software-workflow-orchestrator",
+            "role": "controller-orchestrator",
+            "file": "agents/software-workflow-orchestrator.agent.md",
+            "userFacing": "default",
+            "allowedCallers": [
+                "user",
+                "software-workflow-entry"
+            ],
+            "canInvoke": [
+                "context-discovery",
+                "requirements-synthesis",
+                "strategy-evaluation",
+                "follow-up-work-items",
+                "scope-creep-review",
+                "runtime-options-assessment",
+                "runtime-decision-review",
+                "authentication-planning",
+                "authentication-review",
+                "data-model-planning",
+                "ci-cd-pipeline-planning",
+                "ci-cd-pipeline-creation",
+                "git-workflow-planning",
+                "git-troubleshooting",
+                "git-conflict-resolution",
+                "git-advanced-operations",
+                "code-comment-audit",
+                "code-comment-authoring",
+                "solution-planning",
+                "plan-review",
+                "documentation",
+                "implementation",
+                "verification",
+                "work-resumption"
+            ],
+            "writesFiles": false,
+            "mutatesRepoState": false,
+            "canRunCommands": true,
+            "parallelPolicy": "controller-sequential",
+            "prerequisites": [
+                "New-work classification or direct user invocation for new work"
+            ],
+            "handoffs": [
+                {
+                    "to": "context-discovery",
+                    "type": "agent-determined",
+                    "when": "Facts, relevant files, constraints, or risks are unknown."
+                },
+                {
+                    "to": "requirements-synthesis",
+                    "type": "agent-determined",
+                    "when": "Enough facts exist to define scope and acceptance criteria."
+                },
+                {
+                    "to": "specialty-phase",
+                    "type": "agent-determined",
+                    "when": "The accepted scope involves strategy, runtime, authentication, data, CI/CD, Git, or comment decisions."
+                },
+                {
+                    "to": "solution-planning",
+                    "type": "agent-determined",
+                    "when": "Requirements and needed specialty decisions are ready for implementation planning."
+                },
+                {
+                    "to": "implementation",
+                    "type": "agent-determined",
+                    "when": "Requirements, plan, review outcome, and documentation decision are complete."
+                },
+                {
+                    "to": "user",
+                    "type": "user-choice",
+                    "when": "Material tradeoffs affect behavior, cost, security, data migration, destructive operations, or accepted risk."
+                }
+            ],
+            "approvalGates": [
+                "Destructive operations",
+                "Reverting user changes",
+                "Dependency changes outside the approved plan",
+                "Verification failures outside the approved scope"
+            ],
+            "cycleGroup": "new-work-spine",
+            "notes": "Main conversation owner for new work. It coordinates fan-out and fan-in and keeps specialists from competing for the user thread."
+        },
+        {
+            "agentId": "work-resumption",
+            "role": "controller-resumption",
+            "file": "agents/work-resumption.agent.md",
+            "userFacing": "default",
+            "allowedCallers": [
+                "user",
+                "software-workflow-entry",
+                "software-workflow-orchestrator"
+            ],
+            "canInvoke": [
+                "context-discovery",
+                "requirements-synthesis",
+                "strategy-evaluation",
+                "follow-up-work-items",
+                "scope-creep-review",
+                "runtime-options-assessment",
+                "runtime-decision-review",
+                "authentication-planning",
+                "authentication-review",
+                "data-model-planning",
+                "ci-cd-pipeline-planning",
+                "ci-cd-pipeline-creation",
+                "git-workflow-planning",
+                "git-troubleshooting",
+                "git-conflict-resolution",
+                "git-advanced-operations",
+                "code-comment-audit",
+                "code-comment-authoring",
+                "solution-planning",
+                "plan-review",
+                "documentation",
+                "implementation",
+                "verification"
+            ],
+            "writesFiles": false,
+            "mutatesRepoState": false,
+            "canRunCommands": false,
+            "parallelPolicy": "controller-sequential",
+            "prerequisites": [
+                "Resumed-work prompt or existing workspace state to reconstruct"
+            ],
+            "handoffs": [
+                {
+                    "to": "best-continuation-phase",
+                    "type": "agent-determined",
+                    "when": "Evidence clearly shows the next phase."
+                },
+                {
+                    "to": "alternative-continuation-phase",
+                    "type": "user-choice",
+                    "when": "Multiple reasonable continuation points exist."
+                }
+            ],
+            "approvalGates": [],
+            "cycleGroup": "resumed-work-spine",
+            "notes": "State reconstructor and continuation recommender. It does not perform implementation."
+        },
+        {
+            "agentId": "context-discovery",
+            "role": "read-only-phase",
+            "file": "agents/context-discovery.agent.md",
+            "userFacing": "explicit-override-only",
+            "allowedCallers": [
+                "software-workflow-entry",
+                "software-workflow-orchestrator",
+                "work-resumption"
+            ],
+            "canInvoke": [],
+            "writesFiles": false,
+            "mutatesRepoState": false,
+            "canRunCommands": false,
+            "parallelPolicy": "read-only-parallel-eligible",
+            "prerequisites": [
+                "User prompt or resumed-work state"
+            ],
+            "handoffs": [
+                {
+                    "to": "requirements-synthesis",
+                    "type": "agent-determined",
+                    "when": "Facts are sufficient to define scope."
+                },
+                {
+                    "to": "solution-planning",
+                    "type": "agent-determined",
+                    "when": "The request is already scoped and needs an implementation plan."
+                }
+            ],
+            "approvalGates": [],
+            "cycleGroup": "discovery",
+            "notes": "Only this phase is broadly parallel-eligible, and only across independent read-only surfaces."
+        },
+        {
+            "agentId": "requirements-synthesis",
+            "role": "read-only-phase",
+            "file": "agents/requirements-synthesis.agent.md",
+            "userFacing": "explicit-override-only",
+            "allowedCallers": [
+                "software-workflow-entry",
+                "software-workflow-orchestrator",
+                "work-resumption"
+            ],
+            "canInvoke": [],
+            "writesFiles": false,
+            "mutatesRepoState": false,
+            "canRunCommands": false,
+            "parallelPolicy": "sequential-decision",
+            "prerequisites": [
+                "Prompt plus discovery findings or enough user-provided context"
+            ],
+            "handoffs": [
+                {
+                    "to": "strategy-evaluation",
+                    "type": "agent-determined",
+                    "when": "Multiple approaches or short-term versus long-term tradeoffs exist."
+                },
+                {
+                    "to": "solution-planning",
+                    "type": "agent-determined",
+                    "when": "Requirements and acceptance criteria are ready."
+                },
+                {
+                    "to": "user",
+                    "type": "user-choice",
+                    "when": "Required scope or acceptance criteria remain ambiguous."
+                }
+            ],
+            "approvalGates": [],
+            "cycleGroup": "requirements",
+            "notes": "Requirements decisions should be made once per stable scope before downstream planning."
+        },
+        {
+            "agentId": "strategy-evaluation",
+            "role": "read-only-phase",
+            "file": "agents/strategy-evaluation.agent.md",
+            "userFacing": "explicit-override-only",
+            "allowedCallers": [
+                "software-workflow-entry",
+                "software-workflow-orchestrator",
+                "work-resumption"
+            ],
+            "canInvoke": [],
+            "writesFiles": false,
+            "mutatesRepoState": false,
+            "canRunCommands": false,
+            "parallelPolicy": "sequential-decision",
+            "prerequisites": [
+                "Requirements plus multiple viable paths or short-term/long-term tension"
+            ],
+            "handoffs": [
+                {
+                    "to": "follow-up-work-items",
+                    "type": "agent-determined",
+                    "when": "A tactical or short-term path creates deferred obligations."
+                },
+                {
+                    "to": "solution-planning",
+                    "type": "agent-determined",
+                    "when": "A strategy is selected and ready to plan."
+                },
+                {
+                    "to": "user",
+                    "type": "user-choice",
+                    "when": "Strategy tradeoffs materially affect product behavior, risk, cost, or delivery."
+                }
+            ],
+            "approvalGates": [],
+            "cycleGroup": "strategy",
+            "notes": "Keeps tactical choices explicit and prevents over-engineering."
+        },
+        {
+            "agentId": "follow-up-work-items",
+            "role": "read-only-phase",
+            "file": "agents/follow-up-work-items.agent.md",
+            "userFacing": "explicit-override-only",
+            "allowedCallers": [
+                "software-workflow-entry",
+                "software-workflow-orchestrator",
+                "work-resumption"
+            ],
+            "canInvoke": [],
+            "writesFiles": false,
+            "mutatesRepoState": false,
+            "canRunCommands": false,
+            "parallelPolicy": "sequential-decision",
+            "prerequisites": [
+                "Selected short-term workaround, deferred improvement, TODO, known limitation, or accepted debt"
+            ],
+            "handoffs": [
+                {
+                    "to": "solution-planning",
+                    "type": "agent-determined",
+                    "when": "Deferred work is documented and the current scope can be planned."
+                },
+                {
+                    "to": "documentation",
+                    "type": "agent-determined",
+                    "when": "Follow-up work must be recorded in docs or release notes."
+                }
+            ],
+            "approvalGates": [],
+            "cycleGroup": "strategy",
+            "notes": "Makes deferred work explicit so a short-term strategy does not silently become unmanaged debt."
+        },
+        {
+            "agentId": "scope-creep-review",
+            "role": "read-only-phase",
+            "file": "agents/scope-creep-review.agent.md",
+            "userFacing": "explicit-override-only",
+            "allowedCallers": [
+                "software-workflow-entry",
+                "software-workflow-orchestrator",
+                "work-resumption"
+            ],
+            "canInvoke": [],
+            "writesFiles": false,
+            "mutatesRepoState": false,
+            "canRunCommands": false,
+            "parallelPolicy": "sequential-decision",
+            "prerequisites": [
+                "Original ask plus requirements, plan, changed files, or proposed next steps"
+            ],
+            "handoffs": [
+                {
+                    "to": "solution-planning",
+                    "type": "agent-determined",
+                    "when": "Scope findings should reshape the plan."
+                },
+                {
+                    "to": "follow-up-work-items",
+                    "type": "agent-determined",
+                    "when": "Useful but out-of-scope work should be deferred."
+                },
+                {
+                    "to": "user",
+                    "type": "user-choice",
+                    "when": "The user must accept or reject broader scope."
+                }
+            ],
+            "approvalGates": [],
+            "cycleGroup": "scope-control",
+            "notes": "Dedicated off-ramp for overreach, broad refactors, speculative features, and unnecessary abstractions."
+        },
+        {
+            "agentId": "runtime-options-assessment",
+            "role": "read-only-phase",
+            "file": "agents/runtime-options-assessment.agent.md",
+            "userFacing": "explicit-override-only",
+            "allowedCallers": [
+                "software-workflow-entry",
+                "software-workflow-orchestrator",
+                "work-resumption"
+            ],
+            "canInvoke": [],
+            "writesFiles": false,
+            "mutatesRepoState": false,
+            "canRunCommands": false,
+            "parallelPolicy": "sequential-decision",
+            "prerequisites": [
+                "Objectives and requirements involving language, runtime, framework, platform, or execution model"
+            ],
+            "handoffs": [
+                {
+                    "to": "runtime-decision-review",
+                    "type": "agent-determined",
+                    "when": "A runtime recommendation is ready for focused review."
+                },
+                {
+                    "to": "solution-planning",
+                    "type": "agent-determined",
+                    "when": "The runtime choice is straightforward or already accepted."
+                },
+                {
+                    "to": "user",
+                    "type": "user-choice",
+                    "when": "Runtime options affect operations, cost, migration, or team support."
+                }
+            ],
+            "approvalGates": [],
+            "cycleGroup": "runtime",
+            "notes": "Produces the runtime recommendation but does not create scaffolding or implementation code."
+        },
+        {
+            "agentId": "runtime-decision-review",
+            "role": "read-only-phase",
+            "file": "agents/runtime-decision-review.agent.md",
+            "userFacing": "explicit-override-only",
+            "allowedCallers": [
+                "software-workflow-entry",
+                "software-workflow-orchestrator",
+                "work-resumption"
+            ],
+            "canInvoke": [],
+            "writesFiles": false,
+            "mutatesRepoState": false,
+            "canRunCommands": false,
+            "parallelPolicy": "sequential-decision",
+            "prerequisites": [
+                "Proposed runtime choice plus rationale and requirements"
+            ],
+            "handoffs": [
+                {
+                    "to": "runtime-options-assessment",
+                    "type": "agent-determined",
+                    "when": "The choice lacks evidence or is disproportionate."
+                },
+                {
+                    "to": "solution-planning",
+                    "type": "agent-determined",
+                    "when": "The runtime choice is approved or acceptable with noted risk."
+                },
+                {
+                    "to": "user",
+                    "type": "user-choice",
+                    "when": "The review exposes a material runtime tradeoff."
+                }
+            ],
+            "approvalGates": [],
+            "cycleGroup": "runtime",
+            "notes": "Review gate for runtime fit, operational risk, security, maintainability, and scope control."
+        },
+        {
+            "agentId": "authentication-planning",
+            "role": "read-only-phase",
+            "file": "agents/authentication-planning.agent.md",
+            "userFacing": "explicit-override-only",
+            "allowedCallers": [
+                "software-workflow-entry",
+                "software-workflow-orchestrator",
+                "work-resumption"
+            ],
+            "canInvoke": [],
+            "writesFiles": false,
+            "mutatesRepoState": false,
+            "canRunCommands": false,
+            "parallelPolicy": "sequential-decision",
+            "prerequisites": [
+                "Authentication requirements, threat context, identity provider constraints, and environment constraints"
+            ],
+            "handoffs": [
+                {
+                    "to": "authentication-review",
+                    "type": "agent-determined",
+                    "when": "An auth plan is ready for security and complexity review."
+                },
+                {
+                    "to": "solution-planning",
+                    "type": "agent-determined",
+                    "when": "The auth approach is accepted enough to plan implementation."
+                },
+                {
+                    "to": "ci-cd-pipeline-planning",
+                    "type": "agent-determined",
+                    "when": "The auth plan affects secrets, identities, service connections, or deployment automation."
+                },
+                {
+                    "to": "user",
+                    "type": "user-choice",
+                    "when": "Provider, consent, security posture, or operational ownership choices remain material."
+                }
+            ],
+            "approvalGates": [],
+            "cycleGroup": "authentication",
+            "notes": "Plans authentication but does not create app registrations, secrets, credentials, service connections, or identity resources."
+        },
+        {
+            "agentId": "authentication-review",
+            "role": "read-only-phase",
+            "file": "agents/authentication-review.agent.md",
+            "userFacing": "explicit-override-only",
+            "allowedCallers": [
+                "software-workflow-entry",
+                "software-workflow-orchestrator",
+                "work-resumption"
+            ],
+            "canInvoke": [],
+            "writesFiles": false,
+            "mutatesRepoState": false,
+            "canRunCommands": false,
+            "parallelPolicy": "sequential-decision",
+            "prerequisites": [
+                "Authentication plan"
+            ],
+            "handoffs": [
+                {
+                    "to": "authentication-planning",
+                    "type": "agent-determined",
+                    "when": "Security gaps, maintainability risks, or over-complexity require rework."
+                },
+                {
+                    "to": "solution-planning",
+                    "type": "agent-determined",
+                    "when": "The auth plan is ready for implementation planning."
+                },
+                {
+                    "to": "user",
+                    "type": "user-choice",
+                    "when": "The user must accept residual auth risk or select between secure options."
+                }
+            ],
+            "approvalGates": [],
+            "cycleGroup": "authentication",
+            "notes": "Catches auth security and complexity issues before implementation begins."
+        },
+        {
+            "agentId": "data-model-planning",
+            "role": "read-only-phase",
+            "file": "agents/data-model-planning.agent.md",
+            "userFacing": "explicit-override-only",
+            "allowedCallers": [
+                "software-workflow-entry",
+                "software-workflow-orchestrator",
+                "work-resumption"
+            ],
+            "canInvoke": [],
+            "writesFiles": false,
+            "mutatesRepoState": false,
+            "canRunCommands": false,
+            "parallelPolicy": "sequential-decision",
+            "prerequisites": [
+                "Data, schema, API contract, event, file, or configuration requirements"
+            ],
+            "handoffs": [
+                {
+                    "to": "solution-planning",
+                    "type": "agent-determined",
+                    "when": "The data model is ready to integrate into the implementation plan."
+                },
+                {
+                    "to": "documentation",
+                    "type": "agent-determined",
+                    "when": "Schema, contract, or migration behavior must be documented."
+                },
+                {
+                    "to": "user",
+                    "type": "user-choice",
+                    "when": "Data shape, migration, compatibility, or persistence tradeoffs remain material."
+                }
+            ],
+            "approvalGates": [],
+            "cycleGroup": "data-model",
+            "notes": "Plans data representation and schema decisions but does not create migrations or implementation code."
+        },
+        {
+            "agentId": "ci-cd-pipeline-planning",
+            "role": "read-only-phase",
+            "file": "agents/ci-cd-pipeline-planning.agent.md",
+            "userFacing": "explicit-override-only",
+            "allowedCallers": [
+                "software-workflow-entry",
+                "software-workflow-orchestrator",
+                "work-resumption"
+            ],
+            "canInvoke": [],
+            "writesFiles": false,
+            "mutatesRepoState": false,
+            "canRunCommands": false,
+            "parallelPolicy": "sequential-decision",
+            "prerequisites": [
+                "Build, test, release, or deploy automation requirements and repository constraints"
+            ],
+            "handoffs": [
+                {
+                    "to": "ci-cd-pipeline-creation",
+                    "type": "agent-determined",
+                    "when": "A pipeline plan includes platform, permissions, secrets model, triggers, stages, and gates."
+                },
+                {
+                    "to": "solution-planning",
+                    "type": "agent-determined",
+                    "when": "Pipeline decisions must be integrated into broader implementation planning."
+                },
+                {
+                    "to": "user",
+                    "type": "user-choice",
+                    "when": "Pipeline platform, deployment target, permissions, or approval gates require a decision."
+                }
+            ],
+            "approvalGates": [],
+            "cycleGroup": "ci-cd",
+            "notes": "Plans automation but does not create workflow or pipeline YAML."
+        },
+        {
+            "agentId": "git-workflow-planning",
+            "role": "read-only-phase",
+            "file": "agents/git-workflow-planning.agent.md",
+            "userFacing": "explicit-override-only",
+            "allowedCallers": [
+                "software-workflow-entry",
+                "software-workflow-orchestrator",
+                "work-resumption"
+            ],
+            "canInvoke": [],
+            "writesFiles": false,
+            "mutatesRepoState": false,
+            "canRunCommands": false,
+            "parallelPolicy": "git-sequential",
+            "prerequisites": [
+                "Repository collaboration, branch, commit, history, release, or review objective"
+            ],
+            "handoffs": [
+                {
+                    "to": "implementation",
+                    "type": "agent-determined",
+                    "when": "The workflow plan affects how edits should be organized."
+                },
+                {
+                    "to": "git-conflict-resolution",
+                    "type": "agent-determined",
+                    "when": "The workflow plan encounters or anticipates semantic conflicts."
+                },
+                {
+                    "to": "git-advanced-operations",
+                    "type": "approval-gated",
+                    "when": "The workflow plan requires history rewriting, force-with-lease, or other advanced Git operations."
+                },
+                {
+                    "to": "user",
+                    "type": "user-choice",
+                    "when": "Branch policy, history shape, collaboration risk, or publication timing requires user choice."
+                }
+            ],
+            "approvalGates": [
+                "Rewriting published history",
+                "Force-with-lease",
+                "Branch or tag deletion",
+                "Remote changes"
+            ],
+            "cycleGroup": "git",
+            "notes": "Plans Git workflow but does not run mutating Git commands or edit files."
+        },
+        {
+            "agentId": "git-troubleshooting",
+            "role": "recovery-phase",
+            "file": "agents/git-troubleshooting.agent.md",
+            "userFacing": "explicit-override-only",
+            "allowedCallers": [
+                "software-workflow-entry",
+                "software-workflow-orchestrator",
+                "work-resumption"
+            ],
+            "canInvoke": [],
+            "writesFiles": false,
+            "mutatesRepoState": true,
+            "canRunCommands": true,
+            "parallelPolicy": "git-sequential",
+            "prerequisites": [
+                "Failed Git command, confusing repository state, visible divergence, lock, remote/auth issue, or unexpected diff"
+            ],
+            "handoffs": [
+                {
+                    "to": "git-conflict-resolution",
+                    "type": "agent-determined",
+                    "when": "Unmerged files or semantic conflicts are the blocker."
+                },
+                {
+                    "to": "git-advanced-operations",
+                    "type": "approval-gated",
+                    "when": "Recovery requires advanced or history-affecting Git operations."
+                },
+                {
+                    "to": "verification",
+                    "type": "agent-determined",
+                    "when": "Repository state is repaired and needs validation."
+                },
+                {
+                    "to": "user",
+                    "type": "user-choice",
+                    "when": "Multiple recovery paths have different risk profiles."
+                }
+            ],
+            "approvalGates": [
+                "Mutating Git commands",
+                "Destructive cleanup",
+                "History rewrite",
+                "Force push",
+                "Discarding changes"
+            ],
+            "cycleGroup": "git",
+            "notes": "Defaults to read-only diagnosis, but is considered Git-sequential because it may be asked to fix state."
+        },
+        {
+            "agentId": "code-comment-audit",
+            "role": "read-only-phase",
+            "file": "agents/code-comment-audit.agent.md",
+            "userFacing": "explicit-override-only",
+            "allowedCallers": [
+                "software-workflow-entry",
+                "software-workflow-orchestrator",
+                "work-resumption"
+            ],
+            "canInvoke": [],
+            "writesFiles": false,
+            "mutatesRepoState": false,
+            "canRunCommands": false,
+            "parallelPolicy": "read-only-parallel-eligible",
+            "prerequisites": [
+                "Target code or scope plus maintainability/commenting objective",
+                "Completed code changes requiring post-change audit before verification"
+            ],
+            "handoffs": [
+                {
+                    "to": "code-comment-authoring",
+                    "type": "agent-determined",
+                    "when": "A comment plan is ready for scoped edits."
+                },
+                {
+                    "to": "solution-planning",
+                    "type": "agent-determined",
+                    "when": "Commenting needs should be included in broader implementation planning."
+                },
+                {
+                    "to": "documentation",
+                    "type": "agent-determined",
+                    "when": "The finding belongs in external docs rather than code comments."
+                },
+                {
+                    "to": "verification",
+                    "type": "agent-determined",
+                    "when": "The post-change audit finds no useful comment additions, revisions, or removals are needed."
+                }
+            ],
+            "approvalGates": [],
+            "cycleGroup": "comments",
+            "notes": "Read-only audit of where comments add maintainability value. It always runs after code changes before final verification. Parallel only when targets are independent."
+        },
+        {
+            "agentId": "solution-planning",
+            "role": "read-only-phase",
+            "file": "agents/solution-planning.agent.md",
+            "userFacing": "explicit-override-only",
+            "allowedCallers": [
+                "software-workflow-entry",
+                "software-workflow-orchestrator",
+                "work-resumption"
+            ],
+            "canInvoke": [],
+            "writesFiles": false,
+            "mutatesRepoState": false,
+            "canRunCommands": false,
+            "parallelPolicy": "sequential-decision",
+            "prerequisites": [
+                "Accepted requirements plus relevant specialty plans, reviews, and constraints"
+            ],
+            "handoffs": [
+                {
+                    "to": "plan-review",
+                    "type": "agent-determined",
+                    "when": "A concrete implementation plan is ready for critique."
+                },
+                {
+                    "to": "documentation",
+                    "type": "agent-determined",
+                    "when": "The plan needs documentation preparation before implementation."
+                },
+                {
+                    "to": "user",
+                    "type": "user-choice",
+                    "when": "The plan has material sequencing, risk, or scope tradeoffs."
+                }
+            ],
+            "approvalGates": [],
+            "cycleGroup": "planning",
+            "notes": "Fan-in point for requirements and specialty phase outputs before implementation."
+        },
+        {
+            "agentId": "plan-review",
+            "role": "read-only-phase",
+            "file": "agents/plan-review.agent.md",
+            "userFacing": "explicit-override-only",
+            "allowedCallers": [
+                "software-workflow-entry",
+                "software-workflow-orchestrator",
+                "work-resumption"
+            ],
+            "canInvoke": [],
+            "writesFiles": false,
+            "mutatesRepoState": false,
+            "canRunCommands": false,
+            "parallelPolicy": "sequential-decision",
+            "prerequisites": [
+                "Concrete implementation plan"
+            ],
+            "handoffs": [
+                {
+                    "to": "solution-planning",
+                    "type": "agent-determined",
+                    "when": "Plan findings require revision before implementation."
+                },
+                {
+                    "to": "scope-creep-review",
+                    "type": "agent-determined",
+                    "when": "The main concern is drift from the original ask."
+                },
+                {
+                    "to": "runtime-decision-review",
+                    "type": "agent-determined",
+                    "when": "The main concern is runtime, platform, framework, or execution model fit."
+                },
+                {
+                    "to": "documentation",
+                    "type": "agent-determined",
+                    "when": "The plan is ready and documentation preparation should happen before implementation."
+                },
+                {
+                    "to": "user",
+                    "type": "user-choice",
+                    "when": "The user must accept residual risk or choose between plan changes."
+                }
+            ],
+            "approvalGates": [],
+            "cycleGroup": "planning",
+            "notes": "Pre-implementation review gate for bugs, behavioral regressions, sequencing risks, and test gaps."
+        },
+        {
+            "agentId": "documentation",
+            "role": "execution-phase",
+            "file": "agents/documentation.agent.md",
+            "userFacing": "explicit-override-only",
+            "allowedCallers": [
+                "software-workflow-entry",
+                "software-workflow-orchestrator",
+                "work-resumption"
+            ],
+            "canInvoke": [],
+            "writesFiles": true,
+            "mutatesRepoState": false,
+            "canRunCommands": false,
+            "parallelPolicy": "writer-sequential",
+            "prerequisites": [
+                "Requirements and plan plus a decision on user-facing or developer-facing documentation impact"
+            ],
+            "handoffs": [
+                {
+                    "to": "implementation",
+                    "type": "agent-determined",
+                    "when": "Documentation preparation is complete and code changes are next."
+                },
+                {
+                    "to": "verification",
+                    "type": "agent-determined",
+                    "when": "The approved scope was documentation-only or docs were updated after implementation."
+                },
+                {
+                    "to": "user",
+                    "type": "user-choice",
+                    "when": "Documentation obligations are unclear or optional."
+                }
+            ],
+            "approvalGates": [],
+            "cycleGroup": "documentation",
+            "notes": "Writes docs only when documentation preparation or update is part of the phase. It must not overlap with other writers."
+        },
+        {
+            "agentId": "ci-cd-pipeline-creation",
+            "role": "execution-phase",
+            "file": "agents/ci-cd-pipeline-creation.agent.md",
+            "userFacing": "explicit-override-only",
+            "allowedCallers": [
+                "software-workflow-entry",
+                "software-workflow-orchestrator",
+                "work-resumption"
+            ],
+            "canInvoke": [],
+            "writesFiles": true,
+            "mutatesRepoState": false,
+            "canRunCommands": true,
+            "parallelPolicy": "writer-sequential",
+            "prerequisites": [
+                "Approved CI/CD plan including platform, permissions, secrets model, triggers, stages, and validation gates"
+            ],
+            "handoffs": [
+                {
+                    "to": "ci-cd-pipeline-planning",
+                    "type": "agent-determined",
+                    "when": "Platform, deployment target, permissions, security model, or gates are missing."
+                },
+                {
+                    "to": "verification",
+                    "type": "agent-determined",
+                    "when": "Pipeline files are updated and need validation."
+                },
+                {
+                    "to": "user",
+                    "type": "approval-gated",
+                    "when": "The requested work would create secrets, grant permissions, change branch protection, or provision resources."
+                }
+            ],
+            "approvalGates": [
+                "Creating secrets",
+                "Granting permissions",
+                "Changing branch protection",
+                "Provisioning cloud resources",
+                "Configuring service connections"
+            ],
+            "cycleGroup": "ci-cd",
+            "notes": "Creates or updates workflow and pipeline files only after a plan exists."
+        },
+        {
+            "agentId": "code-comment-authoring",
+            "role": "execution-phase",
+            "file": "agents/code-comment-authoring.agent.md",
+            "userFacing": "explicit-override-only",
+            "allowedCallers": [
+                "software-workflow-entry",
+                "software-workflow-orchestrator",
+                "work-resumption"
+            ],
+            "canInvoke": [],
+            "writesFiles": true,
+            "mutatesRepoState": false,
+            "canRunCommands": true,
+            "parallelPolicy": "writer-sequential",
+            "prerequisites": [
+                "Comment audit or approved comment plan"
+            ],
+            "handoffs": [
+                {
+                    "to": "code-comment-audit",
+                    "type": "agent-determined",
+                    "when": "Comment intent is unclear or the target set is not justified."
+                },
+                {
+                    "to": "verification",
+                    "type": "agent-determined",
+                    "when": "Comment edits are complete and need validation."
+                }
+            ],
+            "approvalGates": [],
+            "cycleGroup": "comments",
+            "notes": "Edits comments only and must not overlap with implementation or other file writers."
+        },
+        {
+            "agentId": "git-conflict-resolution",
+            "role": "recovery-phase",
+            "file": "agents/git-conflict-resolution.agent.md",
+            "userFacing": "explicit-override-only",
+            "allowedCallers": [
+                "software-workflow-entry",
+                "software-workflow-orchestrator",
+                "work-resumption"
+            ],
+            "canInvoke": [],
+            "writesFiles": true,
+            "mutatesRepoState": true,
+            "canRunCommands": true,
+            "parallelPolicy": "git-sequential",
+            "prerequisites": [
+                "Actual conflict state or approved conflict-resolution workflow"
+            ],
+            "handoffs": [
+                {
+                    "to": "code-comment-audit",
+                    "type": "agent-determined",
+                    "when": "Conflicts changed code and the result needs post-change comment audit before validation."
+                },
+                {
+                    "to": "git-troubleshooting",
+                    "type": "agent-determined",
+                    "when": "Repository state remains confusing or blocked after resolution."
+                },
+                {
+                    "to": "user",
+                    "type": "approval-gated",
+                    "when": "A resolution would discard one side, run destructive cleanup, reset, restore, checkout, or force-push."
+                }
+            ],
+            "approvalGates": [
+                "Discarding either side of a conflict",
+                "Whole-file ours/theirs",
+                "Reset",
+                "Restore",
+                "Checkout cleanup",
+                "Force push"
+            ],
+            "cycleGroup": "git",
+            "notes": "Semantic conflict resolver. It can edit conflicted files but must preserve user work and avoid destructive shortcuts."
+        },
+        {
+            "agentId": "git-advanced-operations",
+            "role": "recovery-phase",
+            "file": "agents/git-advanced-operations.agent.md",
+            "userFacing": "explicit-override-only",
+            "allowedCallers": [
+                "software-workflow-entry",
+                "software-workflow-orchestrator",
+                "work-resumption"
+            ],
+            "canInvoke": [],
+            "writesFiles": false,
+            "mutatesRepoState": true,
+            "canRunCommands": true,
+            "parallelPolicy": "git-sequential",
+            "prerequisites": [
+                "Approved command plan and safety gates"
+            ],
+            "handoffs": [
+                {
+                    "to": "verification",
+                    "type": "agent-determined",
+                    "when": "Advanced operation completes and the repository state should be validated."
+                },
+                {
+                    "to": "git-troubleshooting",
+                    "type": "agent-determined",
+                    "when": "The operation fails or reveals unexpected repository state."
+                },
+                {
+                    "to": "user",
+                    "type": "approval-gated",
+                    "when": "Commands rewrite history, delete data, discard changes, alter remotes, or publish rewritten history."
+                }
+            ],
+            "approvalGates": [
+                "History rewrite",
+                "Data deletion",
+                "Discarding changes",
+                "Remote mutation",
+                "Publishing rewritten history",
+                "Branch or tag deletion"
+            ],
+            "cycleGroup": "git",
+            "notes": "Advanced Git executor with explicit command planning and safety gates."
+        },
+        {
+            "agentId": "implementation",
+            "role": "execution-phase",
+            "file": "agents/implementation.agent.md",
+            "userFacing": "explicit-override-only",
+            "allowedCallers": [
+                "software-workflow-entry",
+                "software-workflow-orchestrator",
+                "work-resumption"
+            ],
+            "canInvoke": [],
+            "writesFiles": true,
+            "mutatesRepoState": false,
+            "canRunCommands": true,
+            "parallelPolicy": "writer-sequential",
+            "prerequisites": [
+                "Requirements",
+                "Approved plan",
+                "Review outcome",
+                "Documentation decision"
+            ],
+            "handoffs": [
+                {
+                    "to": "solution-planning",
+                    "type": "agent-determined",
+                    "when": "The plan is missing, stale, or conflicts with repository state."
+                },
+                {
+                    "to": "documentation",
+                    "type": "agent-determined",
+                    "when": "Documentation decision is missing or docs are part of the approved scope."
+                },
+                {
+                    "to": "code-comment-audit",
+                    "type": "agent-determined",
+                    "when": "Scoped code changes are complete and must be checked for comment needs before validation."
+                },
+                {
+                    "to": "user",
+                    "type": "approval-gated",
+                    "when": "The implementation requires destructive commands, broad rewrites, dependency changes, or reverting user changes outside the approved plan."
+                }
+            ],
+            "approvalGates": [
+                "Destructive commands",
+                "Broad rewrites",
+                "Dependency changes outside approved scope",
+                "Reverting user changes",
+                "Tests failing outside approved scope"
+            ],
+            "cycleGroup": "implementation",
+            "notes": "General executor. It must not begin until the prerequisite bundle is present, and it routes code changes through code-comment-audit before verification."
+        },
+        {
+            "agentId": "verification",
+            "role": "validation-phase",
+            "file": "agents/verification.agent.md",
+            "userFacing": "explicit-override-only",
+            "allowedCallers": [
+                "software-workflow-entry",
+                "software-workflow-orchestrator",
+                "work-resumption"
+            ],
+            "canInvoke": [],
+            "writesFiles": false,
+            "mutatesRepoState": false,
+            "canRunCommands": true,
+            "parallelPolicy": "verification-sequential",
+            "prerequisites": [
+                "Implemented changes, pipeline/comment/Git changes, or resumed work needing completion assessment",
+                "Post-change code comment audit completed when code changed"
+            ],
+            "handoffs": [
+                {
+                    "to": "implementation",
+                    "type": "agent-determined",
+                    "when": "In-scope validation failures require fixes."
+                },
+                {
+                    "to": "solution-planning",
+                    "type": "agent-determined",
+                    "when": "Failures show the plan or requirements were incomplete."
+                },
+                {
+                    "to": "user",
+                    "type": "user-choice",
+                    "when": "Failures are outside scope, validation cannot run, or residual risk must be accepted."
+                }
+            ],
+            "approvalGates": [],
+            "cycleGroup": "verification",
+            "notes": "Terminal gate. It should validate after all mutations settle and after post-change code comment audit has completed for code changes."
+        }
+    ]
+}
